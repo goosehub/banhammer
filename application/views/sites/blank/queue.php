@@ -1,5 +1,3 @@
-4shame queue
-
 <!-- homepage link -->
 
 <!-- post -->
