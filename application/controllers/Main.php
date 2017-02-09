@@ -16,6 +16,7 @@ class Main extends CI_Controller {
         $data['page_title'] = site_name();
         $this->load->view('templates/header', $data);
         $this->load->view('landing', $data);
+        $this->load->view('templates/scripts', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -27,7 +28,10 @@ class Main extends CI_Controller {
         $data['slug'] = $slug;
         $data['offset'] = $offset;
         $this->load->view('templates/header', $data);
+        $this->load->view('sites/' . $slug . '/style', $data);
         $this->load->view('sites/' . $slug . '/homepage', $data);
+        $this->load->view('templates/scripts', $data);
+        $this->load->view('sites/' . $slug . '/script', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -40,7 +44,10 @@ class Main extends CI_Controller {
         $data['page_title'] = $slug . ' Moderator Queue';
         $data['slug'] = $slug;
         $this->load->view('templates/header', $data);
+        $this->load->view('sites/' . $slug . '/style', $data);
         $this->load->view('sites/' . $slug . '/queue', $data);
+        $this->load->view('templates/scripts', $data);
+        $this->load->view('sites/' . $slug . '/script', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -70,6 +77,7 @@ class Main extends CI_Controller {
         $data['page_title'] = 'more info';
         $this->load->view('templates/header', $data);
         $this->load->view('pages/about', $data);
+        $this->load->view('templates/scripts', $data);
         $this->load->view('templates/footer', $data);
     }
 

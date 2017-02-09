@@ -18,7 +18,7 @@
     <!-- Bootstrap -->
     <link href="<?=base_url()?>resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Local Style -->
+    <!-- Global Style -->
     <link href="<?=base_url()?>resources/style.css?<?php echo time(); ?>" rel="stylesheet" type="text/css">
 
   </head>
