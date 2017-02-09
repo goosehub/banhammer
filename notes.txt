@@ -20,45 +20,14 @@ Considerations
     this session?
     admin?
 
-pages
+Pages
     homepage
     about
+    new user (gmail theme)
     site list
     site homepage
     site queue
     site post
-
-sites
-    4shame boards
-    saidit
-    facebag
-    rumblr
-    bitter
-    slackovertime
-    wetube
-    amason
-
-offence
-    none
-    spam
-    off topic
-    rude
-    low quality
-    opinion based
-    controversial
-    copyright violation
-    fake news
-    pornographic
-    illegal content
-
-actions
-    pass
-    edit
-    migrate
-    warning
-    delete
-    temp ban
-    perm ban
 
 confidence logic
     post submitted by users
