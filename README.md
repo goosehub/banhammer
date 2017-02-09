@@ -1,3 +1,3 @@
-<h1>goose_start</h1>
+<h1>Moderator</h1>
 
-<p>This is to be used as starting point for projects.</p>
+<p>A web game about the exciting life of a web forum moderator!</p>

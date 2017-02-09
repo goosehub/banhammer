@@ -13,15 +13,8 @@ Considerations
     current streak?
     this session?
     admin?
-
-Pages
-    homepage
-    about
-    new user (gmail theme)
-    site list
-    site homepage
-    site queue
-    site post
+    recent posts on homepage?
+    view review history?
 
 confidence logic
     post submitted by users
