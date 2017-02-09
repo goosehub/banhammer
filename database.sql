@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2017 at 02:11 AM
+-- Generation Time: Feb 09, 2017 at 02:53 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -41,11 +41,9 @@ CREATE TABLE IF NOT EXISTS `action` (
 INSERT INTO `action` (`id`, `slug`, `sort`, `created`) VALUES
 (1, 'none', 0, '2017-02-09 00:59:55'),
 (2, 'edit', 0, '2017-02-09 00:59:55'),
-(3, 'migrate', 0, '2017-02-09 00:59:55'),
-(4, 'warning', 0, '2017-02-09 00:59:55'),
-(5, 'delete', 0, '2017-02-09 00:59:55'),
-(6, 'temp_ban', 0, '2017-02-09 00:59:55'),
-(7, 'perm_ban', 0, '2017-02-09 00:59:55');
+(3, 'delete', 0, '2017-02-09 00:59:55'),
+(4, 'temp_ban', 0, '2017-02-09 00:59:55'),
+(5, 'perm_ban', 0, '2017-02-09 00:59:55');
 
 -- --------------------------------------------------------
 
@@ -59,7 +57,16 @@ CREATE TABLE IF NOT EXISTS `enforcement` (
   `offence_key` int(10) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `enforcement`
+--
+
+INSERT INTO `enforcement` (`id`, `site_key`, `offence_key`, `created`) VALUES
+(1, 1, 1, '2017-02-09 01:53:35'),
+(2, 1, 2, '2017-02-09 01:53:35'),
+(3, 1, 11, '2017-02-09 01:53:35');
 
 -- --------------------------------------------------------
 
@@ -142,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `site` (
   `slug` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `active` int(1) unsigned NOT NULL,
-  `reputation_minimum` int(11) NOT NULL,
+  `reputation_minimum` int(10) unsigned NOT NULL,
   `sort` int(10) unsigned NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -171,7 +178,7 @@ INSERT INTO `site` (`id`, `slug`, `name`, `active`, `reputation_minimum`, `sort`
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
-  `reputation` int(11) NOT NULL,
+  `reputation` int(10) unsigned NOT NULL,
   `review_tally` int(10) unsigned NOT NULL,
   `image` varchar(100) NOT NULL,
   `ip` varchar(100) NOT NULL,
