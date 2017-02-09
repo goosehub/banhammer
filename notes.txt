@@ -2,19 +2,32 @@
     Notes
 ==========================================================================================
 
-Todo
-    Functionality
+Thinking about
+    how should actions be meaningful
 
-Considerations
-    actions meaning?
-    weigh reputation in confidence?
-    real moderation?
-    browser toolbar as menu?
-    current streak?
-    this session?
-    admin?
-    recent posts on homepage?
-    view review history?
+High Priority
+    session
+    current streak
+    current session results
+    register
+    login
+    create post
+    review form
+    review submit
+    landing
+    homepage recent posts
+    pagination
+    browser toolbar as menu
+
+Low Priority
+    real moderation
+    admin for managing site and enforcement tables
+    recent posts on homepage
+    view review history
+    favicon for each site
+    weigh reputation in confidence
+
+No Priority
 
 confidence logic
     post submitted by users

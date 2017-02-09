@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2017 at 02:53 AM
+-- Generation Time: Feb 09, 2017 at 04:07 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -153,21 +153,22 @@ CREATE TABLE IF NOT EXISTS `site` (
   `sort` int(10) unsigned NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `site`
 --
 
 INSERT INTO `site` (`id`, `slug`, `name`, `active`, `reputation_minimum`, `sort`, `created`) VALUES
-(1, '4shame_b', '4shame /b/', 0, 0, 0, '2017-02-09 00:44:49'),
-(2, 'saidit', 'Saidit', 0, 0, 0, '2017-02-09 00:44:49'),
+(1, 'blank', 'Blank', 1, 0, 0, '2017-02-09 00:44:49'),
+(2, '4shame', '4shame', 0, 0, 0, '2017-02-09 00:44:49'),
 (3, 'facepage', 'Facepage', 0, 0, 0, '2017-02-09 00:45:20'),
 (4, 'rumblr', 'Rumblr', 0, 0, 0, '2017-02-09 00:45:20'),
 (5, 'bitter', 'Bitter', 0, 0, 0, '2017-02-09 00:45:54'),
 (6, 'slackovertime', 'SlackOvertime', 0, 0, 0, '2017-02-09 00:45:54'),
 (7, 'wetube', 'WeTube', 0, 0, 0, '2017-02-09 00:46:18'),
-(8, 'Amason', 'Amason', 0, 0, 0, '2017-02-09 00:46:18');
+(8, 'Amason', 'Amason', 0, 0, 0, '2017-02-09 00:46:18'),
+(9, 'saidit', 'Saidit', 0, 0, 0, '2017-02-09 02:33:46');
 
 -- --------------------------------------------------------
 

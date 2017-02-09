@@ -1,4 +1,6 @@
-<!-- queue link -->
+<a href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
+    Queue
+</a>
 
 <!-- new post -->
 
