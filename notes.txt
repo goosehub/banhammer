@@ -1,0 +1,91 @@
+==========================================================================================
+    Notes
+==========================================================================================
+
+Todo
+    Favicon
+    DB Tables
+    Data
+    Routes
+    Controllers
+    Models
+    Views
+
+Considerations
+    actions meaning?
+    weigh reputation in confidence?
+
+pages
+    homepage
+    about
+    site list
+    site homepage
+    site queue
+    site post
+
+level settings
+    name
+        4shame boards
+        saidit
+        facebag
+        rumblr
+        bitter
+        slackovertime
+        wetube
+        amason
+    slug
+
+level offence
+    level_key
+    offence_key
+    use_flag
+    severity
+
+offence
+    none
+    spam
+    off topic
+    rude
+    low quality
+    opinion based
+    controversial
+    copyright violation
+    fake news
+    pornographic
+    illegal content
+
+actions
+    pass
+    edit
+    migrate
+    warning
+    delete
+    temp ban
+    perm ban
+
+posts
+    level_key
+    username
+    content
+    image
+    confidence
+    review_tally
+    offense_key
+
+mod_user
+    username
+    reputation
+    positive
+    negative
+
+confidence logic
+    post submitted by users
+    defaults to none offence
+    first review gives confidence of 1 with those settings
+    if 1 confidence, next review will overwrite
+    if review is same as current config confidence goes up
+    penalty/rewards when confidence is 3 or higher
+
+==========================================================================================
+    Documentation
+==========================================================================================
