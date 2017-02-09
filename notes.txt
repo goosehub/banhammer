@@ -6,19 +6,18 @@ Thinking about
     how should actions be meaningful
 
 High Priority
-    session
-    current streak
-    current session results
-    register
-    login
-    create post
     review form
     review submit
-    landing
-    homepage recent posts
-    pagination
-    browser toolbar as menu
+    session
+    current session results
+    css
 
+Moderate Priority
+    current streak
+    pagination
+    register
+    login
+    
 Low Priority
     real moderation
     admin for managing site and enforcement tables

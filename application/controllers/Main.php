@@ -5,7 +5,6 @@ class Main extends CI_Controller {
 
     function __construct()
     {
-
         parent::__construct();
         $this->load->model('main_model', '', TRUE);
 
@@ -28,12 +27,18 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
+        $data['validation_errors'] = $this->session->flashdata('validation_errors');
 
         // Get recent posts
+        $input['site_key'] = $data['current_site']['id'];
+        $input['offset'] = $offset;
+        $input['limit'] = 10;
+        $data['posts'] = $this->main_model->get_posts($input);
 
         $data['page_title'] = $slug;
         $data['slug'] = $slug;
         $data['offset'] = $offset;
+        $data['limit'] = $input['limit'];
         $this->load->view('templates/header', $data);
         $this->load->view('templates/toolbar', $data);
         $this->load->view('sites/' . $slug . '/style', $data);
@@ -63,13 +68,32 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
-    public function new_post()
+    public function new_post($slug)
     {
         $data = $this->data;
+        $data['current_site'] = $this->main_model->get_current_site($slug);
 
-        // Handle post request
+        // Validation
+        $this->form_validation->set_rules('username', 'username', 'trim|required|max_length[100]');
+        $this->form_validation->set_rules('content', 'content', 'trim|required|max_length[10000]');
+        
+        // Fail
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('validation_errors', validation_errors());
+        }
+        // Pass
+        else {
+            // Input
+            $input['site_key'] = $data['current_site']['id'];
+            $input['username'] = $this->input->post('username');
+            $input['content'] = $this->input->post('content');
+            $input['image'] = '';
 
-        echo '<pre>'; print_r($_POST); echo '</pre>';
+            // Create post
+            $this->main_model->create_post($input);
+        }
+
+        header('Location: ' . base_url() . 'site/' . $slug);
     }
 
     public function login()
