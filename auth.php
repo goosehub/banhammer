@@ -2,6 +2,6 @@
     "hostname" : "localhost",
     "username" : "root",
     "password" : "root",
-    "database" : "goose_start",
+    "database" : "moderator",
     "token" : "1234"
 }

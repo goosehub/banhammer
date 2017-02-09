@@ -3,13 +3,7 @@
 ==========================================================================================
 
 Todo
-    Favicon
-    DB Tables
-    Data
-    Routes
-    Controllers
-    Models
-    Views
+    Functionality
 
 Considerations
     actions meaning?

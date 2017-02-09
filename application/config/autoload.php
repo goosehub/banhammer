@@ -19,7 +19,7 @@ date_default_timezone_set('America/New_York');
 
 // Return if this is dev
 function site_name() {
-    return 'Goose Start';
+    return 'Moderator';
 }
 
 // Return if this is dev
