@@ -37,6 +37,17 @@ Class main_model extends CI_Model
         return $result;
     }
 
+    function get_random_post($input)
+    {
+        $this->db->select('*');
+        $this->db->from('post');
+        $this->db->where('site_key', $input['site_key']);
+        $this->db->order_by('id', 'random');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]) ? $result[0] : false;
+    }
+
     function create_post($input)
     {
         $data = array(

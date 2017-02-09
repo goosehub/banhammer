@@ -56,6 +56,8 @@ class Main extends CI_Controller {
         // If post request, handle post request
 
         // Get a random post
+        $input['site_key'] = $data['current_site']['id'];
+        $data['post'] = $this->main_model->get_random_post($input);
 
         $data['page_title'] = $slug . ' Moderator Queue';
         $data['slug'] = $slug;
