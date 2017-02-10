@@ -37,6 +37,16 @@ Class main_model extends CI_Model
         return $result;
     }
 
+    function get_post_by_id($input)
+    {
+        $this->db->select('*');
+        $this->db->from('post');
+        $this->db->where('id', $input['post_key']);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]) ? $result[0] : false;
+    }
+
     function get_random_post($input)
     {
         $this->db->select('*');
@@ -60,6 +70,19 @@ Class main_model extends CI_Model
             'last_reviewed' => date('Y-m-d H:i:s'),
         );
         $this->db->insert('post', $data);
+        return $this->db->insert_id();
+    }
+
+    function create_review($input)
+    {
+        $data = array(
+            'user_key' => $input['user_key'],
+            'site_key' => $input['site_key'],
+            'post_key' => $input['post_key'],
+            'offence_key' => $input['offence_key'],
+            'action_key' => $input['action_key'],
+        );
+        $this->db->insert('review', $data);
         return $this->db->insert_id();
     }
 
@@ -91,14 +114,24 @@ Class main_model extends CI_Model
         return $result;
     }
 
-    function update_row($table, $id, $column)
+    function update_post_offence($input)
     {
         $data = array(
-            'column' => $column,
-            'modified' => date('Y-m-d H:i:s', time())
+            'offence' => $input['offence_key'],
+            'last_reviewed' => date('Y-m-d H:i:s', time())
         );
-        $this->db->where('id', $id);
-        $this->db->update($table, $data);
+        $this->db->where('id', $input['post_key']);
+        $this->db->update('post', $data);
+    }
+
+    function update_post_confidence($input)
+    {
+        $data = array(
+            'confidence' => $input['confidence'],
+            'last_reviewed' => date('Y-m-d H:i:s', time())
+        );
+        $this->db->where('id', $input['post_key']);
+        $this->db->update('post', $data);
     }
 }
 ?>

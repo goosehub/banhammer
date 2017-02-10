@@ -3,6 +3,12 @@
     <a href="<?=base_url()?>site/<?php echo $slug; ?>">
         Back to <?php echo $current_site['name']; ?>
     </a>
+    
+    <hr>
+
+    <strong>Last Result: <?php echo $review_result; ?></strong>
+
+    <hr>
 
     <div class="post_parent">
         <div class="post_username">

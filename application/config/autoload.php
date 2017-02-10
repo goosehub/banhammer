@@ -40,6 +40,20 @@ function deslug($string) {
     return ucwords(str_replace('_', ' ', $string));
 }
 
+function is_whole_int($val) {
+    $val = strval($val);
+    $val = str_replace('-', '', $val);
+    if (ctype_digit($val)) {
+        if ($val === (string)0) {
+            return true;
+        }
+        else if (ltrim($val, '0') === $val) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // For human readable spans of time
 // http://stackoverflow.com/questions/2915864/php-how-to-find-the-time-elapsed-since-a-date-time
 function get_time_ago($time_stamp) {

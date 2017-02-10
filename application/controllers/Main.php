@@ -10,6 +10,8 @@ class Main extends CI_Controller {
 
         // Get list of active sites
         $this->data['active_sites'] = $this->main_model->get_active_sites();
+
+        $this->confidence_minimum = 3;
     }
 
     public function landing()
@@ -52,23 +54,49 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
+        $input['site_key'] = $data['current_site']['id'];
 
         // If post request, handle post request
-        if ($this->input->method() === 'post') {
-            echo '<pre>'; print_r($_POST); echo '</pre>';
-            $this->input->post('post_id');
-            $this->input->post('offence');
-            $this->input->post('action');
+        $data['review_result'] = false;
+        if (is_whole_int($this->input->post('post_id')) && is_whole_int($this->input->post('offence')) && is_whole_int($this->input->post('action'))) {
+            $input['user_key'] = 0;
+            $input['post_key'] = $this->input->post('post_id');
+            $input['offence_key'] = $this->input->post('offence');
+            $input['action_key'] = $this->input->post('action');
 
             // Insert as new review
+            $this->main_model->create_review($input);
 
-            // Update post confidence, etc
+            // Update post offence if no confidence
+            $reviewed_post = $this->main_model->get_post_by_id($input);
+            if ($reviewed_post['offence_key'] != $input['offence_key'] && $reviewed_post['confidence'] === 1) {
+                $this->main_model->update_post_offence($input);
+            }
+            // Else increase post confidence on agree
+            else if ($reviewed_post['offence_key'] === $input['offence_key']) {
+                $input['confidence'] = $reviewed_post['confidence'] + 1;
+                $this->main_model->update_post_confidence($input);
+            }
+            // Else decrease post confidence on disagree
+            else {
+                $input['confidence'] = $reviewed_post['confidence'] - 1;
+                $this->main_model->update_post_confidence($input);
+            }
 
-            // Give user feedback on successs or failure
+            // Tell client result
+            if ($reviewed_post['confidence'] < $this->confidence_minimum) {
+                $data['review_result'] = 'neutral';
+            }
+            else if ($reviewed_post['offence_key'] === $input['offence_key']) {
+                $data['review_result'] = 'success';
+            }
+            else {
+                $data['review_result'] = 'fail';
+            }
+
         }
 
         // Get a random post
-        $input['site_key'] = $data['current_site']['id'];
         $data['post'] = $this->main_model->get_random_post($input);
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();

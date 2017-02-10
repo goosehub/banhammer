@@ -6,19 +6,20 @@ Thinking about
     how should actions be meaningful
 
 High Priority
-    review form
-    review submit
     session
     current session results
-    css
+    site not found
 
 Moderate Priority
+    sites
+    prevent spam posting from skewing system
     current streak
     pagination
     register
     login
     
 Low Priority
+    better validation and feedback
     real moderation
     admin for managing site and enforcement tables
     recent posts on homepage
