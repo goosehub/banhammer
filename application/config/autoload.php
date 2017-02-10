@@ -36,6 +36,10 @@ function auth() {
     return $auth;
 }
 
+function deslug($string) {
+    return ucwords(str_replace('_', ' ', $string));
+}
+
 // For human readable spans of time
 // http://stackoverflow.com/questions/2915864/php-how-to-find-the-time-elapsed-since-a-date-time
 function get_time_ago($time_stamp) {

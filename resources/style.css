@@ -5,9 +5,28 @@ body {
 }
 .toolbar {
     background-color: #f0f0f0;
+    height: 2.6em;
+    border-bottom: 1px solid #555;
 }
 .toolbar_site_icon {
     height: 1em;
+}
+.toolbar_site_name {
+    color: #000;
+}
+.toolbar_site_parent {
+    display: inline-block;
+    padding: 0.3em;
+    margin: 0.2em;
+    transition: background-color 0.5s;
+    border-radius: 0.2em;
+}
+.toolbar_site_parent:hover {
+    background-color: #d0d0d0;
+}
+.toolbar_link:hover {
+    text-decoration: none;
+    cursor: default;
 }
 
 /* Orange Action Bootstrap-Styled Button */

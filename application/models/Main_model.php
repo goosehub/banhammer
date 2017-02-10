@@ -55,10 +55,40 @@ Class main_model extends CI_Model
             'username' => $input['username'],
             'content' => $input['content'],
             'image' => $input['image'],
+            'offence_key' => 1,
+            'confidence' => 1,
             'last_reviewed' => date('Y-m-d H:i:s'),
         );
         $this->db->insert('post', $data);
         return $this->db->insert_id();
+    }
+
+    function get_offences_by_site($site_key)
+    {
+        $this->db->select('*');
+        $this->db->from('enforcement');
+        $this->db->where('site_key', $site_key);
+        $query = $this->db->get();
+        $sub_results = $query->result_array();
+        $result = array();
+        foreach ($sub_results as $sub_result) {
+            $this->db->select('*');
+            $this->db->from('offence');
+            $this->db->where('id', $sub_result['offence_key']);
+            $query = $this->db->get();
+            $offence = $query->result_array();
+            $result[] = $offence[0];
+        }
+        return $result;
+    }
+
+    function get_actions()
+    {
+        $this->db->select('*');
+        $this->db->from('action');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
     }
 
     function update_row($table, $id, $column)

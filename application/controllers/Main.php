@@ -54,10 +54,24 @@ class Main extends CI_Controller {
         $data['current_site'] = $this->main_model->get_current_site($slug);
 
         // If post request, handle post request
+        if ($this->input->method() === 'post') {
+            echo '<pre>'; print_r($_POST); echo '</pre>';
+            $this->input->post('post_id');
+            $this->input->post('offence');
+            $this->input->post('action');
+
+            // Insert as new review
+
+            // Update post confidence, etc
+
+            // Give user feedback on successs or failure
+        }
 
         // Get a random post
         $input['site_key'] = $data['current_site']['id'];
         $data['post'] = $this->main_model->get_random_post($input);
+        $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
+        $data['actions'] = $this->main_model->get_actions();
 
         $data['page_title'] = $slug . ' Moderator Queue';
         $data['slug'] = $slug;
