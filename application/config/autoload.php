@@ -41,7 +41,18 @@ function deslug($string) {
 }
 
 function accuracy_calculator($pass, $fail) {
-    $result = 100 - (100 / ( ($pass + $fail) / $fail) );
+    if (!is_whole_int($pass) || !is_whole_int($fail)) {
+        $result = 0;
+    }
+    else if ($pass === 0) {
+        $result = 0;
+    }
+    else if ($fail === 0) {
+        $result = 100;
+    }
+    else {
+        $result = 100 - (100 / ( ($pass + $fail) / $fail) );
+    }
     return sprintf('%0.2f', $result);
 }
 

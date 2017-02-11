@@ -14,6 +14,7 @@
                 <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
 
                 <div id="offence_parent">
+                    <h2>Offence</h2>
                     <input type="hidden" id="offence_input" name="offence"/>
                     <?php foreach ($offences as $offence) { ?>
                         <?php $style = $offence['slug'] === 'none' ? 'primary' : 'danger'; ?>
@@ -26,6 +27,7 @@
                 <hr>
 
                 <div id="action_parent" style="display: none;">
+                    <h2>Action</h2>
                     <input type="hidden" id="action_input" name="action"/>
                     <?php foreach ($actions as $action) { ?>
                         <?php $style = $action['slug'] === 'none' ? 'primary' : 'danger'; ?>

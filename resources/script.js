@@ -4,7 +4,13 @@ $(document).ready(function(){
         $(event.target).addClass('active');
         var offence = $(event.target).attr('offence');
         $('#offence_input').val(offence);
-        if (offence != 'none') {
+        // No offence, assume no action
+        console.log(offence);
+        if (offence == parseInt(1)) {
+            $('#action_input').val(1);
+            $('#queue_form').submit();
+        }
+        else {
             $('#action_parent').show();
         }
     });
@@ -17,6 +23,7 @@ $(document).ready(function(){
     });
 
     $('#show_login').click(function(){
+        $('#show_login').hide();
         $('#new_user_parent').hide();
         $('#login_parent').show();
     });

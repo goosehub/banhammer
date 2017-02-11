@@ -14,7 +14,6 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
-
     function get_current_site($slug)
     {
         $this->db->select('*');
@@ -24,7 +23,6 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-
     function get_posts($input)
     {
         $this->db->select('*');
@@ -36,7 +34,6 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
-
     function get_post_by_id($input)
     {
         $this->db->select('*');
@@ -46,7 +43,6 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-
     function get_random_post($input)
     {
         $this->db->select('*');
@@ -57,7 +53,6 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-
     function create_post($input)
     {
         $data = array(
@@ -72,7 +67,6 @@ Class main_model extends CI_Model
         $this->db->insert('post', $data);
         return $this->db->insert_id();
     }
-
     function create_review($input)
     {
         $data = array(
@@ -85,7 +79,6 @@ Class main_model extends CI_Model
         $this->db->insert('review', $data);
         return $this->db->insert_id();
     }
-
     function get_offences_by_site($site_key)
     {
         $this->db->select('*');
@@ -104,7 +97,6 @@ Class main_model extends CI_Model
         }
         return $result;
     }
-
     function get_actions()
     {
         $this->db->select('*');
@@ -113,17 +105,28 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
-
     function update_post($input)
     {
         $data = array(
             'offence_key' => $input['offence_key'],
             'confidence' => $input['confidence'],
             'review_tally' => $input['review_tally'],
-            'last_reviewed' => date('Y-m-d H:i:s', time())
+            'last_reviewed' => date('Y-m-d H:i:s', time()),
         );
         $this->db->where('id', $input['post_key']);
         $this->db->update('post', $data);
+    }
+    function update_user($user_id, $new_streak, $new_pass, $new_fail, $new_total)
+    {
+        $data = array(
+            'streak' => $new_streak,
+            'pass' => $new_pass,
+            'fail' => $new_fail,
+            'total' => $new_total,
+        );
+        $this->db->where('id', $user_id);
+        $this->db->update('user', $data);
+
     }
 }
 ?>

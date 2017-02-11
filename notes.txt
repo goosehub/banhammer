@@ -6,6 +6,8 @@ Thinking about
     how should actions be meaningful?
     favicon for each site?
     weigh reputation in confidence?
+    abstract into accounts for each site?
+    how to package inputs
 
 High Priority
     sites
@@ -24,6 +26,10 @@ Low Priority
     better validation and feedback
     admin for managing site and enforcement tables
     view review history
+    post image upload
+    avatar image upload
+    leaderboard
+    active now for users, last activity
 
 No Priority
 
@@ -37,7 +43,7 @@ confidence logic
 
 New site checklist
     Brand Parody
-    Favicon
+    Icon
     Homepage
     Queue page
     Style

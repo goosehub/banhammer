@@ -80,7 +80,6 @@ class Main extends CI_Controller {
                 return false;
             }
 
-            $user = $this->get_user_by_session();
             $input['user_key'] = 0;
             $user_input['offence_key'] = $this->input->post('offence');
             $input['offence_key'] = $user_input['offence_key'];
@@ -108,32 +107,45 @@ class Main extends CI_Controller {
             $input['review_tally'] = $reviewed_post['review_tally'] + 1;
             $this->main_model->update_post($input);
 
-            // Tell client result
+            // Update session
             if ($reviewed_post['offence_key'] === $user_input['offence_key']) {
+                $new_streak = $data['user']['streak'] + 1;
+                $new_pass = $data['user']['pass'] + 1;
+                $new_fail = $data['user']['fail'];
+                $new_total = $data['user']['total'] + 1;
                 $data['review_result'] = true;
-                $sess_array = array(
-                    'id' => $user['id'],
-                    'pass' => $user['pass'] + 1,
-                    'fail' => $user['fail'],
-                    'streak' => $user['streak'] + 1,
-                );
-                $this->session->set_userdata('user', $sess_array);
             }
             else {
+                $new_streak = 0;
+                $new_pass = $data['user']['pass'];
+                $new_fail = $data['user']['fail'] + 1;
+                $new_total = $data['user']['total'] + 1;
+
                 $data['review_result'] = false;
-                $sess_array = array(
-                    'id' => $user['id'],
-                    'pass' => $user['pass'],
-                    'fail' => $user['fail'] + 1,
-                    'streak' => 0,
-                );
-                $this->session->set_userdata('user', $sess_array);
             }
 
+            // Update user
+            if ($data['user']['logged_in']) {
+                $this->main_model->update_user($data['user']['id'], $new_streak, $new_pass, $new_fail, $new_total);
+            }
+
+            // Update user session
+            $sess_array = array(
+                'logged_in' => $data['user']['logged_in'],
+                'id' => $data['user']['id'],
+                'username' => $data['user']['username'],
+                'pass' => $new_pass,
+                'fail' => $new_fail,
+                'streak' => $new_streak,
+                'total' => $new_total,
+            );
+            $this->session->set_userdata('user', $sess_array);
+
+            // Get new session
+            $data['user'] = $this->get_user_by_session();
         }
 
         // Get a random post
-        $data['user'] = $this->get_user_by_session();
         $data['post'] = $this->main_model->get_random_post($input);
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();
@@ -182,33 +194,18 @@ class Main extends CI_Controller {
         header('Location: ' . base_url() . 'site/' . $slug);
     }
 
-    public function login()
-    {
-        $data = $this->data;
-
-        // Handle post request
-
-        echo '<pre>'; print_r($_POST); echo '</pre>';
-    }
-
-    public function new_user()
-    {
-        $data = $this->data;
-
-        // Handle post request
-
-        echo '<pre>'; print_r($_POST); echo '</pre>';
-    }
-
     public function get_user_by_session()
     {
         $user_session = $this->session->userdata('user');
-        if (!$user_session) {
+        if (empty($user_session)) {
             $sess_array = array(
-                'id' => uniqid(),
                 'pass' => 0,
                 'fail' => 0,
                 'streak' => 0,
+                'total' => 0,
+                'id' => 0,
+                'username' => 'Anonymous',
+                'logged_in' => false,
             );
             $this->session->set_userdata('user', $sess_array);
             $user_session = $this->session->userdata('user');
