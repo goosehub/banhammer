@@ -4,6 +4,8 @@
         Homepage
     </a>
 
+    <hr>
+
     <div class="post_parent">
         <div class="post_username">
             <strong>

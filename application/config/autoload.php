@@ -45,6 +45,10 @@ function accuracy_calculator($pass, $fail) {
     return sprintf('%0.2f', $result);
 }
 
+function report_bugs_string() {
+    return '<p>Please report bugs to goosepostbox@gmail.com</p>';
+}
+
 function is_whole_int($val) {
     $val = strval($val);
     $val = str_replace('-', '', $val);

@@ -2,8 +2,10 @@
     <div class="row">
         <div class="col-md-6 col-md-push-3">
 
-            <?php if ($review_result) { ?>
-            <div class="alert alert-success">Last Result: <?php echo $review_result; ?></div>
+            <?php if ($this->input->method() === 'post') { ?>
+            <?php $result_class = $review_result ? 'success' : 'danger'; ?>
+            <?php $result_message = $review_result ? 'Pass' : 'Fail'; ?>
+            <div class="alert alert-<?php echo $result_class; ?>">Last Result: <?php echo $result_message; ?></div>
             <?php } ?>
                 
             <hr>

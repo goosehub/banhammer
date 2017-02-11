@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'main/landing';
-$route['about'] = 'main/about';
+$route['about'] = 'main/page/about';
 $route['site/(:any)'] = 'main/homepage/$1';
 $route['site/(:any)/queue'] = 'main/queue/$1';
 $route['site/(:any)/(:num)'] = 'main/homepage/$1/$2';

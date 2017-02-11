@@ -3,29 +3,27 @@
 ==========================================================================================
 
 Thinking about
-    how should actions be meaningful
+    how should actions be meaningful?
+    favicon for each site?
+    weigh reputation in confidence?
 
 High Priority
-    session
-    current session results
-    site not found
-
-Moderate Priority
     sites
-    prevent spam posting from skewing system
-    current streak
-    pagination
     register
     login
+
+Moderate Priority
+    pagination
+    prevent spam posting from skewing system
+    api to pull messages
+    real moderation for real issues
+    recent posts on homepage
+    mobile
     
 Low Priority
     better validation and feedback
-    real moderation
     admin for managing site and enforcement tables
-    recent posts on homepage
     view review history
-    favicon for each site
-    weigh reputation in confidence
 
 No Priority
 
@@ -36,6 +34,14 @@ confidence logic
     if 1 confidence, next review will overwrite
     if review is same as current config confidence goes up
     penalty/rewards when confidence is 3 or higher
+
+New site checklist
+    Brand Parody
+    Favicon
+    Homepage
+    Queue page
+    Style
+    Script
 
 ==========================================================================================
     Documentation

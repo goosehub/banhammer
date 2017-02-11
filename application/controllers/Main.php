@@ -30,6 +30,10 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
+        if (empty($data['current_site'])) {
+            $this->page('site_not_found');
+            return false;
+        }
         $data['validation_errors'] = $this->session->flashdata('validation_errors');
 
         // Get recent posts
@@ -55,11 +59,27 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
+        if (empty($data['current_site'])) {
+            $this->page('site_not_found');
+            return false;
+        }
         $input['site_key'] = $data['current_site']['id'];
 
         // If post request, handle post request
-        $data['review_result'] = false;
-        if (is_whole_int($this->input->post('post_id')) && is_whole_int($this->input->post('offence')) && is_whole_int($this->input->post('action'))) {
+        if ($this->input->method() === 'post') {
+            // Validation
+            $this->form_validation->set_rules('post_id', 'post_id', 'trim|required|integer|greater_than[0]|max_length[10]');
+            $this->form_validation->set_rules('offence', 'offence', 'trim|required|integer|greater_than[0]|max_length[10]');
+            $this->form_validation->set_rules('action', 'action', 'trim|required|integer|greater_than[0]|max_length[10]');
+            
+            // Fail
+            if ($this->form_validation->run() == FALSE) {
+                // Should only happen to hackers
+                echo validation_errors();
+                echo report_bugs_string();
+                return false;
+            }
+
             $user = $this->get_user_by_session();
             $input['user_key'] = 0;
             $user_input['offence_key'] = $this->input->post('offence');
@@ -90,8 +110,7 @@ class Main extends CI_Controller {
 
             // Tell client result
             if ($reviewed_post['offence_key'] === $user_input['offence_key']) {
-                echo 'marco';
-                $data['review_result'] = 'success';
+                $data['review_result'] = true;
                 $sess_array = array(
                     'id' => $user['id'],
                     'pass' => $user['pass'] + 1,
@@ -101,8 +120,7 @@ class Main extends CI_Controller {
                 $this->session->set_userdata('user', $sess_array);
             }
             else {
-                echo 'polo';
-                $data['review_result'] = 'fail';
+                $data['review_result'] = false;
                 $sess_array = array(
                     'id' => $user['id'],
                     'pass' => $user['pass'],
@@ -136,6 +154,10 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
+        if (empty($data['current_site'])) {
+            $this->page('site_not_found');
+            return false;
+        }
 
         // Validation
         $this->form_validation->set_rules('username', 'username', 'trim|required|max_length[100]');
@@ -194,13 +216,12 @@ class Main extends CI_Controller {
         return $user_session;
     }
 
-    public function about()
-    {
+    public function page($slug) {
         $data = $this->data;
-        $data['page_title'] = 'more info';
+        $data['page_title'] = deslug($slug);
         $this->load->view('templates/header', $data);
         $this->load->view('templates/toolbar', $data);
-        $this->load->view('pages/about', $data);
+        $this->load->view('pages/' . $slug, $data);
         $this->load->view('templates/scripts', $data);
         $this->load->view('templates/footer', $data);
     }
