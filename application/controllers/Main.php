@@ -10,6 +10,7 @@ class Main extends CI_Controller {
 
         // Get list of active sites
         $this->data['active_sites'] = $this->main_model->get_active_sites();
+        $this->data['user'] = $this->get_user_by_session();
 
         $this->confidence_minimum = 3;
     }
@@ -59,9 +60,11 @@ class Main extends CI_Controller {
         // If post request, handle post request
         $data['review_result'] = false;
         if (is_whole_int($this->input->post('post_id')) && is_whole_int($this->input->post('offence')) && is_whole_int($this->input->post('action'))) {
+            $user = $this->get_user_by_session();
             $input['user_key'] = 0;
+            $user_input['offence_key'] = $this->input->post('offence');
+            $input['offence_key'] = $user_input['offence_key'];
             $input['post_key'] = $this->input->post('post_id');
-            $input['offence_key'] = $this->input->post('offence');
             $input['action_key'] = $this->input->post('action');
 
             // Insert as new review
@@ -69,34 +72,50 @@ class Main extends CI_Controller {
 
             // Update post offence if no confidence
             $reviewed_post = $this->main_model->get_post_by_id($input);
-            if ($reviewed_post['offence_key'] != $input['offence_key'] && $reviewed_post['confidence'] === 1) {
-                $this->main_model->update_post_offence($input);
+            if ($reviewed_post['offence_key'] != $user_input['offence_key'] && $reviewed_post['confidence'] === 1) {
+                $input['offence_key'] = $user_input['offence_key'];
             }
             // Else increase post confidence on agree
             else if ($reviewed_post['offence_key'] === $input['offence_key']) {
                 $input['confidence'] = $reviewed_post['confidence'] + 1;
-                $this->main_model->update_post_confidence($input);
+                $input['offence_key'] = $reviewed_post['offence_key'];
             }
             // Else decrease post confidence on disagree
             else {
                 $input['confidence'] = $reviewed_post['confidence'] - 1;
-                $this->main_model->update_post_confidence($input);
+                $input['offence_key'] = $reviewed_post['offence_key'];
             }
+            $input['review_tally'] = $reviewed_post['review_tally'] + 1;
+            $this->main_model->update_post($input);
 
             // Tell client result
-            if ($reviewed_post['confidence'] < $this->confidence_minimum) {
-                $data['review_result'] = 'neutral';
-            }
-            else if ($reviewed_post['offence_key'] === $input['offence_key']) {
+            if ($reviewed_post['offence_key'] === $user_input['offence_key']) {
+                echo 'marco';
                 $data['review_result'] = 'success';
+                $sess_array = array(
+                    'id' => $user['id'],
+                    'pass' => $user['pass'] + 1,
+                    'fail' => $user['fail'],
+                    'streak' => $user['streak'] + 1,
+                );
+                $this->session->set_userdata('user', $sess_array);
             }
             else {
+                echo 'polo';
                 $data['review_result'] = 'fail';
+                $sess_array = array(
+                    'id' => $user['id'],
+                    'pass' => $user['pass'],
+                    'fail' => $user['fail'] + 1,
+                    'streak' => 0,
+                );
+                $this->session->set_userdata('user', $sess_array);
             }
 
         }
 
         // Get a random post
+        $data['user'] = $this->get_user_by_session();
         $data['post'] = $this->main_model->get_random_post($input);
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();
@@ -107,6 +126,7 @@ class Main extends CI_Controller {
         $this->load->view('templates/toolbar', $data);
         $this->load->view('sites/' . $slug . '/style', $data);
         $this->load->view('sites/' . $slug . '/queue', $data);
+        $this->load->view('templates/queue_form', $data);
         $this->load->view('templates/scripts', $data);
         $this->load->view('sites/' . $slug . '/script', $data);
         $this->load->view('templates/footer', $data);
@@ -156,6 +176,22 @@ class Main extends CI_Controller {
         // Handle post request
 
         echo '<pre>'; print_r($_POST); echo '</pre>';
+    }
+
+    public function get_user_by_session()
+    {
+        $user_session = $this->session->userdata('user');
+        if (!$user_session) {
+            $sess_array = array(
+                'id' => uniqid(),
+                'pass' => 0,
+                'fail' => 0,
+                'streak' => 0,
+            );
+            $this->session->set_userdata('user', $sess_array);
+            $user_session = $this->session->userdata('user');
+        }
+        return $user_session;
     }
 
     public function about()

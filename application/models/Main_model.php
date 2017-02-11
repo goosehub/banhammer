@@ -114,20 +114,12 @@ Class main_model extends CI_Model
         return $result;
     }
 
-    function update_post_offence($input)
+    function update_post($input)
     {
         $data = array(
-            'offence' => $input['offence_key'],
-            'last_reviewed' => date('Y-m-d H:i:s', time())
-        );
-        $this->db->where('id', $input['post_key']);
-        $this->db->update('post', $data);
-    }
-
-    function update_post_confidence($input)
-    {
-        $data = array(
+            'offence_key' => $input['offence_key'],
             'confidence' => $input['confidence'],
+            'review_tally' => $input['review_tally'],
             'last_reviewed' => date('Y-m-d H:i:s', time())
         );
         $this->db->where('id', $input['post_key']);

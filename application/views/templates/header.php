@@ -21,5 +21,8 @@
     <!-- Global Style -->
     <link href="<?=base_url()?>resources/style.css?<?php echo time(); ?>" rel="stylesheet" type="text/css">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+
   </head>
   <body>

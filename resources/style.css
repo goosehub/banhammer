@@ -17,7 +17,7 @@ body {
 .toolbar_site_parent {
     display: inline-block;
     padding: 0.3em;
-    margin: 0.2em;
+    margin: 0.1em;
     transition: background-color 0.5s;
     border-radius: 0.2em;
 }
@@ -27,6 +27,18 @@ body {
 .toolbar_link:hover {
     text-decoration: none;
     cursor: default;
+}
+#score_parent {
+    margin-top: 0.5em;
+    font-weight: bold;
+    font-family: 'Play', sans-serif;
+}
+.score_value {
+    margin: 0.5em;
+    padding: 0.5em;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 0.2em;
 }
 
 /* Orange Action Bootstrap-Styled Button */

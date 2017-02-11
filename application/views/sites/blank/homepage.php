@@ -1,16 +1,12 @@
 <div class="<?php echo $slug; ?>_parent">
 
-    <br>
-
     <a href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
-        Link to your Queue
+        Moderator Queue
     </a>
 
     <?php if ($validation_errors) { ?>
     <div class="new_post_validation_errors"><?php echo $validation_errors; ?></div>
     <?php } ?>
-
-    <hr>
 
     <form id="new_post_form" action="<?=base_url()?>site/<?php echo $slug; ?>/new_post" method="post" enctype="multipart/form-data">
         <input type="text" id="username_input" name="username"/>
@@ -21,10 +17,11 @@
     </form>
 
     <?php foreach ($posts as $post) { ?>
-    <hr>
     <div class="post_parent">
         <div class="post_username">
-            <?php echo html_escape($post['username']); ?>
+            <strong>
+                <?php echo html_escape($post['username']); ?>
+            </strong>
         </div>
         <div class="post_content">
             <?php echo html_escape($post['content']); ?>

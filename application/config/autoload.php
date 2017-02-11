@@ -40,6 +40,11 @@ function deslug($string) {
     return ucwords(str_replace('_', ' ', $string));
 }
 
+function accuracy_calculator($pass, $fail) {
+    $result = 100 - (100 / ( ($pass + $fail) / $fail) );
+    return sprintf('%0.2f', $result);
+}
+
 function is_whole_int($val) {
     $val = strval($val);
     $val = str_replace('-', '', $val);
