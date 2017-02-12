@@ -26,7 +26,7 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
-    public function homepage($slug, $offset = 0)
+    public function homepage($slug, $offset = 0, $limit = 30)
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
@@ -39,8 +39,9 @@ class Main extends CI_Controller {
         // Get recent posts
         $input['site_key'] = $data['current_site']['id'];
         $input['offset'] = $offset;
-        $input['limit'] = 10;
-        $data['posts'] = $this->main_model->get_posts($input);
+        $input['limit'] = $limit;
+        $data['posts'] = $this->main_model->get_site_posts($input);
+        $data['post_count'] = $this->main_model->get_site_post_count($input);
 
         $data['page_title'] = $slug;
         $data['slug'] = $slug;

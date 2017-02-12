@@ -6,6 +6,7 @@ $route['about'] = 'main/page/about';
 $route['site/(:any)'] = 'main/homepage/$1';
 $route['site/(:any)/queue'] = 'main/queue/$1';
 $route['site/(:any)/(:num)'] = 'main/homepage/$1/$2';
+$route['site/(:any)/(:num)/(:num)'] = 'main/homepage/$1/$2/$3';
 $route['site/(:any)/new_post'] = 'main/new_post/$1';
 $route['import'] = 'import';
 $route['login'] = 'user/login';

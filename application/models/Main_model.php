@@ -23,13 +23,23 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function get_posts($input)
+    function get_site_post_count($input)
+    {
+        $this->db->select('COUNT(*) as count');
+        $this->db->from('post');
+        $this->db->where('site_key', $input['site_key']);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]['count']) ? $result[0]['count'] : false;
+    }
+    function get_site_posts($input)
     {
         $this->db->select('*');
         $this->db->from('post');
         $this->db->where('site_key', $input['site_key']);
         $this->db->offset($input['offset']);
         $this->db->limit($input['limit']);
+        $this->db->order_by('id', 'desc');
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;

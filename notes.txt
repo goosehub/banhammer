@@ -5,22 +5,23 @@
 Thinking about
     how should actions be meaningful?
     favicon for each site?
+    new offences
+        racist/sexist
+        political
 
 High Priority
 
 Moderate Priority
+    show post id, etc
     sites
     pent test
         https://github.com/minimaxir/big-list-of-naughty-strings
-    pagination
     prevent spam posting from skewing system
-    api to pull messages
     real moderation for real issues
-    recent posts on homepage
-    mobile
     when inactive, doesn't tell you your no longer logged in
     
 Low Priority
+    mobile
     better validation and feedback
     admin for managing site and enforcement tables
     view review history
