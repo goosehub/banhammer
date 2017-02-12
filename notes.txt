@@ -5,15 +5,13 @@
 Thinking about
     how should actions be meaningful?
     favicon for each site?
-    weigh reputation in confidence?
-    abstract into accounts for each site?
-    how to package inputs
 
 High Priority
-    sites
 
 Moderate Priority
+    sites
     pent test
+        https://github.com/minimaxir/big-list-of-naughty-strings
     pagination
     prevent spam posting from skewing system
     api to pull messages
@@ -32,6 +30,10 @@ Low Priority
     active now for users, last activity
 
 No Priority
+    account for each site
+    refactor input variable design pattern
+    search
+    weigh reputation in confidence
 
 confidence logic
     post submitted by users

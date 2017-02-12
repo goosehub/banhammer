@@ -63,90 +63,19 @@ class Main extends CI_Controller {
             $this->page('site_not_found');
             return false;
         }
-        $input['site_key'] = $data['current_site']['id'];
 
         // If post request, handle post request
         if ($this->input->method() === 'post') {
-            // Validation
-            $this->form_validation->set_rules('post_id', 'post_id', 'trim|required|integer|greater_than[0]|max_length[10]');
-            $this->form_validation->set_rules('offence', 'offence', 'trim|required|integer|greater_than[0]|max_length[10]');
-            $this->form_validation->set_rules('action', 'action', 'trim|required|integer|greater_than[0]|max_length[10]');
-            
-            // Fail
-            if ($this->form_validation->run() == FALSE) {
+            $data = $this->new_review($data);
+            if (!$data) {
                 // Should only happen to hackers
                 echo validation_errors();
                 echo report_bugs_string();
-                return false;
             }
-
-            $input['user_key'] = 0;
-            $user_input['offence_key'] = $this->input->post('offence');
-            $input['offence_key'] = $user_input['offence_key'];
-            $input['post_key'] = $this->input->post('post_id');
-            $input['action_key'] = $this->input->post('action');
-
-            // Insert as new review
-            $this->main_model->create_review($input);
-
-            // Update post offence if no confidence
-            $reviewed_post = $this->main_model->get_post_by_id($input);
-            if ($reviewed_post['offence_key'] != $user_input['offence_key'] && $reviewed_post['confidence'] === 1) {
-                $input['offence_key'] = $user_input['offence_key'];
-            }
-            // Else increase post confidence on agree
-            else if ($reviewed_post['offence_key'] === $input['offence_key']) {
-                $input['confidence'] = $reviewed_post['confidence'] + 1;
-                $input['offence_key'] = $reviewed_post['offence_key'];
-            }
-            // Else decrease post confidence on disagree
-            else {
-                $input['confidence'] = $reviewed_post['confidence'] - 1;
-                $input['offence_key'] = $reviewed_post['offence_key'];
-            }
-            $input['review_tally'] = $reviewed_post['review_tally'] + 1;
-            $this->main_model->update_post($input);
-
-            // Update session
-            if ($reviewed_post['offence_key'] === $user_input['offence_key']) {
-                $new_streak = $data['user']['streak'] + 1;
-                $new_pass = $data['user']['pass'] + 1;
-                $new_fail = $data['user']['fail'];
-                $new_total = $data['user']['total'] + 1;
-                $data['review_result'] = true;
-            }
-            else {
-                $new_streak = 0;
-                $new_pass = $data['user']['pass'];
-                $new_fail = $data['user']['fail'] + 1;
-                $new_total = $data['user']['total'] + 1;
-
-                $data['review_result'] = false;
-            }
-
-            // Update user
-            if ($data['user']['logged_in']) {
-                $this->main_model->update_user($data['user']['id'], $new_streak, $new_pass, $new_fail, $new_total);
-            }
-
-            // Update user session
-            $sess_array = array(
-                'logged_in' => $data['user']['logged_in'],
-                'id' => $data['user']['id'],
-                'username' => $data['user']['username'],
-                'pass' => $new_pass,
-                'fail' => $new_fail,
-                'streak' => $new_streak,
-                'total' => $new_total,
-            );
-            $this->session->set_userdata('user', $sess_array);
-
-            // Get new session
-            $data['user'] = $this->get_user_by_session();
         }
 
         // Get a random post
-        $data['post'] = $this->main_model->get_random_post($input);
+        $data['post'] = $this->main_model->get_random_post($data['current_site']['id']);
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();
 
@@ -160,6 +89,85 @@ class Main extends CI_Controller {
         $this->load->view('templates/scripts', $data);
         $this->load->view('sites/' . $slug . '/script', $data);
         $this->load->view('templates/footer', $data);
+    }
+
+    public function new_review($data)
+    {
+        // Validation
+        $this->form_validation->set_rules('post_id', 'post_id', 'trim|required|integer|greater_than[0]|max_length[10]');
+        $this->form_validation->set_rules('offence', 'offence', 'trim|required|integer|greater_than[0]|max_length[10]');
+        $this->form_validation->set_rules('action', 'action', 'trim|required|integer|greater_than[0]|max_length[10]');
+        
+        // Fail
+        if ($this->form_validation->run() == FALSE) {
+            return false;
+        }
+
+        $input['site_key'] = $data['current_site']['id'];
+        $input['user_key'] = 0;
+        $user_input['offence_key'] = $this->input->post('offence');
+        $input['offence_key'] = $user_input['offence_key'];
+        $input['post_key'] = $this->input->post('post_id');
+        $input['action_key'] = $this->input->post('action');
+
+        // Insert as new review
+        $this->main_model->create_review($input);
+
+        // Update post offence if no confidence
+        $reviewed_post = $this->main_model->get_post_by_id($input);
+        if ($reviewed_post['offence_key'] != $user_input['offence_key'] && $reviewed_post['confidence'] === 1) {
+            $input['offence_key'] = $user_input['offence_key'];
+        }
+        // Else increase post confidence on agree
+        else if ($reviewed_post['offence_key'] === $input['offence_key']) {
+            $input['confidence'] = $reviewed_post['confidence'] + 1;
+            $input['offence_key'] = $reviewed_post['offence_key'];
+        }
+        // Else decrease post confidence on disagree
+        else {
+            $input['confidence'] = $reviewed_post['confidence'] - 1;
+            $input['offence_key'] = $reviewed_post['offence_key'];
+        }
+        $input['review_tally'] = $reviewed_post['review_tally'] + 1;
+        $this->main_model->update_post($input);
+
+        // Update session
+        if ($reviewed_post['confidence'] < $this->confidence_minimum || $reviewed_post['offence_key'] === $user_input['offence_key']) {
+            $new_streak = $data['user']['streak'] + 1;
+            $new_pass = $data['user']['pass'] + 1;
+            $new_fail = $data['user']['fail'];
+            $new_total = $data['user']['total'] + 1;
+            $data['review_result'] = true;
+        }
+        else {
+            $new_streak = 0;
+            $new_pass = $data['user']['pass'];
+            $new_fail = $data['user']['fail'] + 1;
+            $new_total = $data['user']['total'] + 1;
+
+            $data['review_result'] = false;
+        }
+
+        // Update user
+        if ($data['user']['logged_in']) {
+            $this->main_model->update_user($data['user']['id'], $new_streak, $new_pass, $new_fail, $new_total);
+        }
+
+        // Update user session
+        $sess_array = array(
+            'logged_in' => $data['user']['logged_in'],
+            'id' => $data['user']['id'],
+            'username' => $data['user']['username'],
+            'pass' => $new_pass,
+            'fail' => $new_fail,
+            'streak' => $new_streak,
+            'total' => $new_total,
+        );
+        $this->session->set_userdata('user', $sess_array);
+
+        // Get new session
+        $data['user'] = $this->get_user_by_session();
+        return $data;
     }
 
     public function new_post($slug)
