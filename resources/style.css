@@ -40,6 +40,9 @@ body {
     border: 1px solid #000;
     border-radius: 0.2em;
 }
+.offence_button {
+    margin-top: 1em;
+}
 
 /* Orange Action Bootstrap-Styled Button */
 .btn-action {   

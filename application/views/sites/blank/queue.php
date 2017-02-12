@@ -9,11 +9,11 @@
     <div class="post_parent">
         <div class="post_username">
             <strong>
-                <?php echo html_escape($post['username']); ?>
+                <?php echo html_clean($post['username']); ?>
             </strong>
         </div>
         <div class="post_content">
-            <?php echo html_escape($post['content']); ?>
+            <?php echo html_clean($post['content']); ?>
         </div>
     </div>
 

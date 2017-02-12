@@ -11,16 +11,16 @@ Thinking about
 
 High Priority
     sites
-    register
-    login
 
 Moderate Priority
+    pent test
     pagination
     prevent spam posting from skewing system
     api to pull messages
     real moderation for real issues
     recent posts on homepage
     mobile
+    when inactive, doesn't tell you your no longer logged in
     
 Low Priority
     better validation and feedback

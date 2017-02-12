@@ -40,6 +40,12 @@ function deslug($string) {
     return ucwords(str_replace('_', ' ', $string));
 }
 
+
+function html_clean($string)
+{
+    return strip_tags($string, '<br>');
+}
+
 function accuracy_calculator($pass, $fail) {
     if (!is_whole_int($pass) || !is_whole_int($fail)) {
         $result = 0;
