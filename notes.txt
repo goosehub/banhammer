@@ -7,27 +7,23 @@ High Priority
 Moderate Priority
     sites
     embedding urls
-    prevent spam posting from skewing system
-        hash time and secret
-        do a check on recent reviews
-    when inactive, doesn't tell you your no longer logged in
+    when inactive, indicate your no longer logged in
     
 Low Priority
     mobile
-    better validation and feedback
-    admin for adding/managing sites and enforcement tables
-    view review history
-    avatar image upload
+    prevent spam posting from skewing system with check on recent reviews
+    admin for adding/managing site and enforcement table data
     leaderboard
-    active now for users, last activity
-    pent test
-        https://github.com/minimaxir/big-list-of-naughty-strings
+    pent test https://github.com/minimaxir/big-list-of-naughty-strings
 
 No Priority
     save current progress on create account with active session
     get_user_by_id into raw sql for performance
     search
     weigh reputation in confidence
+    active now for users, last activity
+    avatar image upload
+    view review history
 
 Thinking about
     how should actions be meaningful?

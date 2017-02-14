@@ -72,9 +72,7 @@ class Main extends CI_Controller {
         if ($this->input->method() === 'post') {
             $data = $this->new_review($data);
             if (!$data) {
-                // Should only happen to hackers
-                echo validation_errors();
-                echo report_bugs_string();
+                exit();
             }
         }
 
@@ -106,6 +104,8 @@ class Main extends CI_Controller {
         
         // Fail
         if ($this->form_validation->run() == FALSE) {
+            echo validation_errors();
+            echo report_bugs_string();
             return false;
         }
 
