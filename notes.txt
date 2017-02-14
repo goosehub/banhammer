@@ -4,36 +4,40 @@
 
 Thinking about
     how should actions be meaningful?
+        dont be more or less heavy handed than the average
     favicon for each site?
-    warning
+    warning action
     new offences
         racist/sexist
         political
+        user underage
+        dox
+        impersonating a mod
+        get
+    get back to homepage more intuitive
 
 High Priority
+    real moderation for real issues
 
 Moderate Priority
-    show post id, etc
     sites
-    pent test
-        https://github.com/minimaxir/big-list-of-naughty-strings
     prevent spam posting from skewing system
-    real moderation for real issues
     when inactive, doesn't tell you your no longer logged in
     
 Low Priority
     mobile
     better validation and feedback
-    admin for managing site and enforcement tables
+    admin for adding/managing sites and enforcement tables
     view review history
-    post image upload
     avatar image upload
     leaderboard
     active now for users, last activity
+    pent test
+        https://github.com/minimaxir/big-list-of-naughty-strings
 
 No Priority
+    save current progress on create account with active session
     get_user_by_id into raw sql for performance
-    refactor input variable design pattern
     search
     weigh reputation in confidence
 

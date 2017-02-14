@@ -14,7 +14,8 @@ class User extends CI_Controller {
 	public function login()
 	{
         // Clear existing session
-        $this->session->unset_userdata('user');
+        // $this->session->unset_userdata('user');
+        $this->session->sess_destroy();
 
 		// Validation
         $this->load->library('form_validation');
@@ -24,7 +25,7 @@ class User extends CI_Controller {
 		// Fail
         if ($this->form_validation->run() == FALSE) {
         	$this->session->set_flashdata('validation_errors', validation_errors());
-            // redirect(base_url(), 'refresh');
+            redirect(base_url(), 'refresh');
             return false;
         }
 
@@ -42,7 +43,7 @@ class User extends CI_Controller {
             'logged_in' => true,
         );
         $this->session->set_userdata('user', $sess_array);
-        // redirect(base_url(), 'refresh');
+        redirect(base_url(), 'refresh');
 	}
 
 	// Validate Login Callback
@@ -74,12 +75,12 @@ class User extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
         	$this->session->set_flashdata('failed_form', 'register');
         	$this->session->set_flashdata('validation_errors', validation_errors());
-            // redirect(base_url(), 'refresh');
+            redirect(base_url(), 'refresh');
         }
         // Success
         else {
             $this->session->set_flashdata('just_registered', true);
-            // redirect(base_url(), 'refresh');
+            redirect(base_url(), 'refresh');
         }
 	}
 
@@ -123,8 +124,8 @@ class User extends CI_Controller {
 
 	// Logout
     public function logout() {
-        // $this->session->sess_destroy();
-        $this->session->unset_userdata('user');
-        // redirect(base_url(), 'refresh');
+        $this->session->sess_destroy();
+        // $this->session->unset_userdata('user');
+        redirect(base_url(), 'refresh');
     }
 }

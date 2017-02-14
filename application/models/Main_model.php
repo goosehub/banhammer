@@ -31,32 +31,32 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function get_site_post_count($input)
+    function get_site_post_count($site_key)
     {
         $this->db->select('COUNT(*) as count');
         $this->db->from('post');
-        $this->db->where('site_key', $input['site_key']);
+        $this->db->where('site_key', $site_key);
         $query = $this->db->get();
         $result = $query->result_array();
         return isset($result[0]['count']) ? $result[0]['count'] : false;
     }
-    function get_site_posts($input)
+    function get_site_posts($site_key, $offset, $limit)
     {
         $this->db->select('*');
         $this->db->from('post');
-        $this->db->where('site_key', $input['site_key']);
-        $this->db->offset($input['offset']);
-        $this->db->limit($input['limit']);
+        $this->db->where('site_key', $site_key);
+        $this->db->offset($offset);
+        $this->db->limit($limit);
         $this->db->order_by('id', 'desc');
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
     }
-    function get_post_by_id($input)
+    function get_post_by_id($post_key)
     {
         $this->db->select('*');
         $this->db->from('post');
-        $this->db->where('id', $input['post_key']);
+        $this->db->where('id', $post_key);
         $query = $this->db->get();
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
@@ -71,13 +71,13 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function create_post($input)
+    function create_post($post)
     {
         $data = array(
-            'site_key' => $input['site_key'],
-            'username' => $input['username'],
-            'content' => $input['content'],
-            'image' => $input['image'],
+            'site_key' => $post['site_key'],
+            'username' => $post['username'],
+            'content' => $post['content'],
+            'image' => $post['image'],
             'offence_key' => 1,
             'confidence' => 1,
             'last_reviewed' => date('Y-m-d H:i:s'),
@@ -85,14 +85,14 @@ Class main_model extends CI_Model
         $this->db->insert('post', $data);
         return $this->db->insert_id();
     }
-    function create_review($input)
+    function create_review($account_key, $site_key, $post_key, $offence_key, $action_key)
     {
         $data = array(
-            'user_key' => $input['user_key'],
-            'site_key' => $input['site_key'],
-            'post_key' => $input['post_key'],
-            'offence_key' => $input['offence_key'],
-            'action_key' => $input['action_key'],
+            'account_key' => $account_key,
+            'site_key' => $site_key,
+            'post_key' => $post_key,
+            'offence_key' => $offence_key,
+            'action_key' => $action_key,
         );
         $this->db->insert('review', $data);
         return $this->db->insert_id();
@@ -123,15 +123,15 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
-    function update_post($input)
+    function update_post($post)
     {
         $data = array(
-            'offence_key' => $input['offence_key'],
-            'confidence' => $input['confidence'],
-            'review_tally' => $input['review_tally'],
+            'offence_key' => $post['offence_key'],
+            'confidence' => $post['confidence'],
+            'review_tally' => $post['review_tally'],
             'last_reviewed' => date('Y-m-d H:i:s', time()),
         );
-        $this->db->where('id', $input['post_key']);
+        $this->db->where('id', $post['id']);
         $this->db->update('post', $data);
     }
     function update_account($account_key, $new_streak, $new_pass, $new_fail, $new_total)

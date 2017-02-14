@@ -23,25 +23,26 @@ Class user_model extends CI_Model
     if (!isset($result[0])) {
         return false;
     }
-    $result = $result[0];
+    $user = $result[0];
+    $user['logged_in'] = true;
 
     // Get accounts
     $this->db->select('*');
     $this->db->from('account');
     $this->db->where('user_key', $user_id);
     $query = $this->db->get();
-    $result['accounts'] = $query->result_array();
+    $user['accounts'] = $query->result_array();
 
     // Get account sum
     $this->db->select('SUM(pass) as pass, SUM(fail) as fail, MAX(streak) as streak, SUM(total) as total');
     $this->db->from('account');
     $this->db->where('user_key', $user_id);
     $query = $this->db->get();
-    $result['account_sum'] = $query->result_array();
-    $result['account_sum'] = $result['account_sum'][0];
-    $result['current_account'] = $result['account_sum'];
+    $user['account_sum'] = $query->result_array();
+    $user['account_sum'] = $user['account_sum'][0];
+    $user['current_account'] = $user['account_sum'];
 
-    return $result;
+    return $user;
  }
  function get_user_by_username($username)
  {
@@ -67,9 +68,10 @@ Class user_model extends CI_Model
         return false;
     }
  }
- function get_account_by_site($site_key) {
+ function get_account_by_site($user_key, $site_key) {
     $this->db->select('*');
     $this->db->from('account');
+    $this->db->where('user_key', $user_key);
     $this->db->where('site_key', $site_key);
     $this->db->limit(1);
     $query = $this->db->get();

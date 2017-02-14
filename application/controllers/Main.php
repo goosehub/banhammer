@@ -31,23 +31,22 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
-        if (empty($data['current_site'])) {
+        if (empty($data['current_site']) || !$data['current_site']['active']) {
             $this->page('site_not_found');
             return false;
         }
         $data['validation_errors'] = $this->session->flashdata('validation_errors');
 
         // Get recent posts
-        $input['site_key'] = $data['current_site']['id'];
-        $input['offset'] = $offset;
-        $input['limit'] = $limit;
-        $data['posts'] = $this->main_model->get_site_posts($input);
-        $data['post_count'] = $this->main_model->get_site_post_count($input);
+        $data['site_key'] = $data['current_site']['id'];
+        $data['offset'] = $offset;
+        $data['limit'] = $limit;
+        $data['posts'] = $this->main_model->get_site_posts($data['site_key'], $data['offset'], $data['limit']);
+        $data['post_count'] = $this->main_model->get_site_post_count($data['site_key']);
+        $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
 
         $data['page_title'] = $slug;
         $data['slug'] = $slug;
-        $data['offset'] = $offset;
-        $data['limit'] = $input['limit'];
         $this->load->view('templates/header', $data);
         $this->load->view('templates/toolbar', $data);
         $this->load->view('sites/' . $slug . '/style', $data);
@@ -61,8 +60,10 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
-        $data['user']['current_account'] = $this->user_model->get_account_by_site($data['current_site']['id']);
-        if (empty($data['current_site'])) {
+        if ($data['user']['logged_in']) {
+            $data['user']['current_account'] = $this->user_model->get_account_by_site($data['user']['id'], $data['current_site']['id']);
+        }
+        if (empty($data['current_site']) || !$data['current_site']['active']) {
             $this->page('site_not_found');
             return false;
         }
@@ -106,33 +107,29 @@ class Main extends CI_Controller {
             return false;
         }
 
-        $input['site_key'] = $data['current_site']['id'];
-        $input['user_key'] = 0;
+        $data['site_key'] = $data['current_site']['id'];
         $user_input['offence_key'] = $this->input->post('offence');
-        $input['offence_key'] = $user_input['offence_key'];
-        $input['post_key'] = $this->input->post('post_id');
-        $input['action_key'] = $this->input->post('action');
+        $user_input['post_key'] = $this->input->post('post_id');
+        $user_input['action_key'] = $this->input->post('action');
 
         // Insert as new review
-        $this->main_model->create_review($input);
+        $this->main_model->create_review($data['user']['current_account']['id'], $data['site_key'], $user_input['post_key'], $user_input['offence_key'], $user_input['action_key']);
 
         // Update post offence if no confidence
-        $reviewed_post = $this->main_model->get_post_by_id($input);
+        $reviewed_post = $this->main_model->get_post_by_id($user_input['post_key']);
         if ($reviewed_post['offence_key'] != $user_input['offence_key'] && $reviewed_post['confidence'] === 1) {
-            $input['offence_key'] = $user_input['offence_key'];
+            $reviewed_post['offence_key'] = $user_input['offence_key'];
         }
         // Else increase post confidence on agree
-        else if ($reviewed_post['offence_key'] === $input['offence_key']) {
-            $input['confidence'] = $reviewed_post['confidence'] + 1;
-            $input['offence_key'] = $reviewed_post['offence_key'];
+        else if ($reviewed_post['offence_key'] === $user_input['offence_key']) {
+            $reviewed_post['confidence'] = $reviewed_post['confidence'] + 1;
         }
         // Else decrease post confidence on disagree
         else {
-            $input['confidence'] = $reviewed_post['confidence'] - 1;
-            $input['offence_key'] = $reviewed_post['offence_key'];
+            $reviewed_post['confidence'] = $reviewed_post['confidence'] - 1;
         }
-        $input['review_tally'] = $reviewed_post['review_tally'] + 1;
-        $this->main_model->update_post($input);
+        $reviewed_post['review_tally'] = $reviewed_post['review_tally'] + 1;
+        $this->main_model->update_post($reviewed_post);
 
         // Update session
         if ($reviewed_post['confidence'] < $this->confidence_minimum || $reviewed_post['offence_key'] === $user_input['offence_key']) {
@@ -161,10 +158,12 @@ class Main extends CI_Controller {
                 'logged_in' => $data['user']['logged_in'],
                 'id' => $data['user']['id'],
                 'username' => $data['user']['username'],
-                'pass' => $new_pass,
-                'fail' => $new_fail,
-                'streak' => $new_streak,
-                'total' => $new_total,
+                'current_account' => array(
+                    'pass' => $new_pass,
+                    'fail' => $new_fail,
+                    'streak' => $new_streak,
+                    'total' => $new_total,
+                ),
             );
             $this->session->set_userdata('user', $sess_array);
         }
@@ -178,14 +177,40 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
-        if (empty($data['current_site'])) {
+        if (empty($data['current_site']) || !$data['current_site']['active']) {
             $this->page('site_not_found');
             return false;
         }
 
         // Validation
-        $this->form_validation->set_rules('username', 'username', 'trim|required|max_length[100]');
-        $this->form_validation->set_rules('content', 'content', 'trim|required|max_length[10000]');
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|max_length[100]');
+        $this->form_validation->set_rules('content', 'Message', 'trim|max_length[10000]');
+
+        // Image upload Config
+        $config['upload_path']   = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png|webm';
+        $config['max_size']      = '3000';
+        $config['max_width']     = '5000';
+        $config['max_height']    = '5000';
+        $config['encrypt_name']  = TRUE;
+        $this->load->library('upload', $config);
+
+        // Image
+        $post['image'] = '';
+        if (!$_FILES['image']['name'] && !$this->input->post('content')) {
+            $this->session->set_flashdata('validation_errors', 'Either image or message field required');
+            redirect(base_url() . 'site/' . $slug, 'refresh');
+            return false;
+        }
+        if ( $_FILES['image']['name'] && !$this->upload->do_upload('image') ) {
+            $this->session->set_flashdata('validation_errors', $this->upload->display_errors());
+            redirect(base_url() . 'site/' . $slug, 'refresh');
+            return false;
+        }
+        else if ($_FILES['image']['name']) {
+            $file = $this->upload->data();
+            $post['image'] = $file['file_name'];
+        }
         
         // Fail
         if ($this->form_validation->run() == FALSE) {
@@ -194,40 +219,39 @@ class Main extends CI_Controller {
         // Pass
         else {
             // Input
-            $input['site_key'] = $data['current_site']['id'];
-            $input['username'] = $this->input->post('username');
-            $input['content'] = $this->input->post('content');
-            $input['image'] = '';
+            $post['site_key'] = $data['current_site']['id'];
+            $post['username'] = $this->input->post('username');
+            $post['content'] = $this->input->post('content');
 
             // Create post
-            $this->main_model->create_post($input);
+            $this->main_model->create_post($post);
         }
 
-        header('Location: ' . base_url() . 'site/' . $slug);
+        redirect(base_url() . 'site/' . $slug, 'refresh');
     }
 
     public function get_user_by_session()
     {
-        $user_session = $this->session->userdata('user');
-        if (empty($user_session)) {
+        $user = $this->session->userdata('user');
+        if (empty($user)) {
             $sess_array = array(
-                'pass' => 0,
-                'fail' => 0,
-                'streak' => 0,
-                'total' => 0,
                 'id' => 0,
                 'username' => 'Anonymous',
                 'logged_in' => false,
+                'current_account' => array(
+                    'pass' => 0,
+                    'fail' => 0,
+                    'streak' => 0,
+                    'total' => 0,
+                ),
             );
             $this->session->set_userdata('user', $sess_array);
-            $user_session = $this->session->userdata('user');
+            $user = $this->session->userdata('user');
         }
-        if ($user_session['id']) {
-            $user = $this->user_model->get_user_by_id($user_session['id']);
-            $user['logged_in'] = true;
-            return $user; 
+        if ($user['id']) {
+            $user = $this->user_model->get_user_by_id($user['id']);
         }
-        return $user_session;
+        return $user; 
     }
 
     public function page($slug)
