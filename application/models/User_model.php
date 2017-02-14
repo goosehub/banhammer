@@ -10,19 +10,42 @@ Class user_model extends CI_Model
     $query = $this->db->get();
     return $query->result_array();
  }
+ // TODO: use raw sql and joins when reads become a performance becomes a pain point
  function get_user_by_id($user_id)
  {
-    $this->db->select('id, username, pass, fail, streak, total, last_login, created');
+    // Get user
+    $this->db->select('id, username, last_login, created');
     $this->db->from('user');
     $this->db->where('id', $user_id);
     $this->db->limit(1);
     $query = $this->db->get();
     $result = $query->result_array();
-    return isset($result[0]) ? $result[0] : false;
+    if (!isset($result[0])) {
+        return false;
+    }
+    $result = $result[0];
+
+    // Get accounts
+    $this->db->select('*');
+    $this->db->from('account');
+    $this->db->where('user_key', $user_id);
+    $query = $this->db->get();
+    $result['accounts'] = $query->result_array();
+
+    // Get account sum
+    $this->db->select('SUM(pass) as pass, SUM(fail) as fail, MAX(streak) as streak, SUM(total) as total');
+    $this->db->from('account');
+    $this->db->where('user_key', $user_id);
+    $query = $this->db->get();
+    $result['account_sum'] = $query->result_array();
+    $result['account_sum'] = $result['account_sum'][0];
+    $result['current_account'] = $result['account_sum'];
+
+    return $result;
  }
  function get_user_by_username($username)
  {
-    $this->db->select('id, username, pass, fail, streak, total, last_login, created');
+    $this->db->select('id, username, created');
     $this->db->from('user');
     $this->db->where('username', $username);
     $this->db->limit(1);
@@ -44,6 +67,15 @@ Class user_model extends CI_Model
         return false;
     }
  }
+ function get_account_by_site($site_key) {
+    $this->db->select('*');
+    $this->db->from('account');
+    $this->db->where('site_key', $site_key);
+    $this->db->limit(1);
+    $query = $this->db->get();
+    $result = $query->result_array();
+    return isset($result[0]) ? $result[0] : false;
+}
  function update_last_login($user_id)
  {
     $data = array(
@@ -52,7 +84,7 @@ Class user_model extends CI_Model
     $this->db->where('id', $user_id);
     $this->db->update('user', $data);
  }
- function register($username, $password, $email, $facebook_id, $ip)
+ function register($username, $password, $email, $facebook_id, $ip, $sites)
  {
     // Check if user already exists
     $this->db->select('username');
@@ -72,15 +104,26 @@ Class user_model extends CI_Model
         'email' => $email,
         'facebook_id' => $facebook_id,
         'ip' => $ip,
-        'pass' => 0,
-        'fail' => 0,
-        'streak' => 0,
-        'total' => 0,
         'last_login' => date('Y-m-d H:i:s', time()),
     );
     $this->db->insert('user', $data);
 
-    return $this->db->insert_id();
+    $user_key = $this->db->insert_id();
+
+    foreach ($sites as $site) {
+        // Insert user into user
+        $data = array(
+            'user_key' => $user_key,
+            'site_key' => $site['id'],
+            'pass' => 0,
+            'fail' => 0,
+            'streak' => 0,
+            'total' => 0,
+        );
+        $this->db->insert('account', $data);
+    }
+
+    return $user_key;
  }
 
 }

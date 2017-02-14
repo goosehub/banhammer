@@ -5,6 +5,7 @@
 Thinking about
     how should actions be meaningful?
     favicon for each site?
+    warning
     new offences
         racist/sexist
         political
@@ -31,7 +32,7 @@ Low Priority
     active now for users, last activity
 
 No Priority
-    account for each site
+    get_user_by_id into raw sql for performance
     refactor input variable design pattern
     search
     weigh reputation in confidence

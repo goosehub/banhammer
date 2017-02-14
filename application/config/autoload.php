@@ -50,10 +50,10 @@ function accuracy_calculator($pass, $fail) {
     if (!is_whole_int($pass) || !is_whole_int($fail)) {
         $result = 0;
     }
-    else if ($pass === 0) {
+    else if ($pass == 0) {
         $result = 0;
     }
-    else if ($fail === 0) {
+    else if ($fail == 0) {
         $result = 100;
     }
     else {

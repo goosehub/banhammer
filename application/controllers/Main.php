@@ -7,6 +7,7 @@ class Main extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('main_model', '', TRUE);
+        $this->load->model('user_model', '', TRUE);
 
         // Get list of active sites
         $this->data['active_sites'] = $this->main_model->get_active_sites();
@@ -60,6 +61,7 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);
+        $data['user']['current_account'] = $this->user_model->get_account_by_site($data['current_site']['id']);
         if (empty($data['current_site'])) {
             $this->page('site_not_found');
             return false;
@@ -134,39 +136,40 @@ class Main extends CI_Controller {
 
         // Update session
         if ($reviewed_post['confidence'] < $this->confidence_minimum || $reviewed_post['offence_key'] === $user_input['offence_key']) {
-            $new_streak = $data['user']['streak'] + 1;
-            $new_pass = $data['user']['pass'] + 1;
-            $new_fail = $data['user']['fail'];
-            $new_total = $data['user']['total'] + 1;
+            $new_streak = $data['user']['current_account']['streak'] + 1;
+            $new_pass = $data['user']['current_account']['pass'] + 1;
+            $new_fail = $data['user']['current_account']['fail'];
+            $new_total = $data['user']['current_account']['total'] + 1;
             $data['review_result'] = true;
         }
         else {
             $new_streak = 0;
-            $new_pass = $data['user']['pass'];
-            $new_fail = $data['user']['fail'] + 1;
-            $new_total = $data['user']['total'] + 1;
+            $new_pass = $data['user']['current_account']['pass'];
+            $new_fail = $data['user']['current_account']['fail'] + 1;
+            $new_total = $data['user']['current_account']['total'] + 1;
 
             $data['review_result'] = false;
         }
 
         // Update user
         if ($data['user']['logged_in']) {
-            $this->main_model->update_user($data['user']['id'], $new_streak, $new_pass, $new_fail, $new_total);
+            $this->main_model->update_account($data['user']['current_account']['id'], $new_streak, $new_pass, $new_fail, $new_total);
+        }
+        // Update user session
+        else {
+            $sess_array = array(
+                'logged_in' => $data['user']['logged_in'],
+                'id' => $data['user']['id'],
+                'username' => $data['user']['username'],
+                'pass' => $new_pass,
+                'fail' => $new_fail,
+                'streak' => $new_streak,
+                'total' => $new_total,
+            );
+            $this->session->set_userdata('user', $sess_array);
         }
 
-        // Update user session
-        $sess_array = array(
-            'logged_in' => $data['user']['logged_in'],
-            'id' => $data['user']['id'],
-            'username' => $data['user']['username'],
-            'pass' => $new_pass,
-            'fail' => $new_fail,
-            'streak' => $new_streak,
-            'total' => $new_total,
-        );
-        $this->session->set_userdata('user', $sess_array);
-
-        // Get new session
+        // Get user with new info
         $data['user'] = $this->get_user_by_session();
         return $data;
     }
@@ -219,10 +222,16 @@ class Main extends CI_Controller {
             $this->session->set_userdata('user', $sess_array);
             $user_session = $this->session->userdata('user');
         }
+        if ($user_session['id']) {
+            $user = $this->user_model->get_user_by_id($user_session['id']);
+            $user['logged_in'] = true;
+            return $user; 
+        }
         return $user_session;
     }
 
-    public function page($slug) {
+    public function page($slug)
+    {
         $data = $this->data;
         $data['page_title'] = deslug($slug);
         $this->load->view('templates/header', $data);

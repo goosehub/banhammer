@@ -16,19 +16,19 @@
     <span id="score_parent" class="pull-right">
         <span id="reputation_parent" class="text-default">
             <span id="reputation_label" class="score_label">Accuracy</span>
-            <span id="reputation_value" class="score_value"><?php echo accuracy_calculator($user['pass'], $user['fail']); ?>%</span>
+            <span id="reputation_value" class="score_value"><?php echo accuracy_calculator($user['account_sum']['pass'], $user['account_sum']['fail']); ?>%</span>
         </span>
         <span id="streak_parent" class="text-primary">
             <span id="streak_label" class="score_label">Streak</span>
-            <span id="streak_value" class="score_value"><?php echo $user['streak']; ?></span>
+            <span id="streak_value" class="score_value"><?php echo $user['account_sum']['streak']; ?></span>
         </span>
         <span id="pass_parent" class="text-success">
             <span id="pass_label" class="score_label">Pass</span>
-            <span id="pass_value" class="score_value"><?php echo $user['pass']; ?></span>
+            <span id="pass_value" class="score_value"><?php echo $user['account_sum']['pass']; ?></span>
         </span>
         <span id="fail_parent" class="text-danger">
             <span id="fail_label" class="score_label">Fail</span>
-            <span id="fail_value" class="score_value"><?php echo $user['fail']; ?></span>
+            <span id="fail_value" class="score_value"><?php echo $user['account_sum']['fail']; ?></span>
         </span>
     </span>
 </nav>

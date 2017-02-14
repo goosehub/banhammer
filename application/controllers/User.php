@@ -6,6 +6,7 @@ class User extends CI_Controller {
 
 	function __construct() {
 	    parent::__construct();
+        $this->load->model('main_model', '', TRUE);
 	    $this->load->model('user_model', '', TRUE);
 	}
 
@@ -23,7 +24,7 @@ class User extends CI_Controller {
 		// Fail
         if ($this->form_validation->run() == FALSE) {
         	$this->session->set_flashdata('validation_errors', validation_errors());
-            redirect(base_url(), 'refresh');
+            // redirect(base_url(), 'refresh');
             return false;
         }
 
@@ -39,13 +40,9 @@ class User extends CI_Controller {
             'id' => $user['id'],
             'username' => $user['username'],
             'logged_in' => true,
-            'pass' => $user['pass'],
-            'fail' => $user['fail'],
-            'streak' => $user['streak'],
-            'total' => $user['total'],
         );
         $this->session->set_userdata('user', $sess_array);
-        redirect(base_url(), 'refresh');
+        // redirect(base_url(), 'refresh');
 	}
 
 	// Validate Login Callback
@@ -77,12 +74,12 @@ class User extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
         	$this->session->set_flashdata('failed_form', 'register');
         	$this->session->set_flashdata('validation_errors', validation_errors());
-            redirect(base_url(), 'refresh');
+            // redirect(base_url(), 'refresh');
         }
         // Success
         else {
             $this->session->set_flashdata('just_registered', true);
-            redirect(base_url(), 'refresh');
+            // redirect(base_url(), 'refresh');
         }
 	}
 
@@ -105,7 +102,8 @@ class User extends CI_Controller {
         }
 
         // Attempt new user register
-        $user_id = $this->user_model->register($username, $password, $email, $facebook_id, $ip);
+        $sites = $this->main_model->get_all_sites();
+        $user_id = $this->user_model->register($username, $password, $email, $facebook_id, $ip, $sites);
 
         // Fail
         if (!$user_id) {
@@ -118,10 +116,6 @@ class User extends CI_Controller {
             'id' => $user_id,
             'username' => $username,
             'logged_in' => true,
-            'pass' => 0,
-            'fail' => 0,
-            'streak' => 0,
-            'total' => 0,
         );
         $this->session->set_userdata('user', $sess_array);
         return true;
@@ -131,6 +125,6 @@ class User extends CI_Controller {
     public function logout() {
         // $this->session->sess_destroy();
         $this->session->unset_userdata('user');
-        redirect(base_url(), 'refresh');
+        // redirect(base_url(), 'refresh');
     }
 }

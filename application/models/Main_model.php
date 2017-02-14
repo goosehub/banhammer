@@ -14,6 +14,14 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
+    function get_all_sites()
+    {
+        $this->db->select('*');
+        $this->db->from('site');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
     function get_current_site($slug)
     {
         $this->db->select('*');
@@ -126,7 +134,7 @@ Class main_model extends CI_Model
         $this->db->where('id', $input['post_key']);
         $this->db->update('post', $data);
     }
-    function update_user($user_id, $new_streak, $new_pass, $new_fail, $new_total)
+    function update_account($account_key, $new_streak, $new_pass, $new_fail, $new_total)
     {
         $data = array(
             'streak' => $new_streak,
@@ -134,8 +142,8 @@ Class main_model extends CI_Model
             'fail' => $new_fail,
             'total' => $new_total,
         );
-        $this->db->where('id', $user_id);
-        $this->db->update('user', $data);
+        $this->db->where('id', $account_key);
+        $this->db->update('account', $data);
 
     }
 }
