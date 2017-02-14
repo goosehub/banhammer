@@ -5,7 +5,7 @@
             <div class="col-md-8 col-md-push-2">
 
                 <a class="btn btn-primary" href="<?=base_url()?>site/<?php echo $slug; ?>">
-                    <strong>Back to <?php echo deslug($slug); ?> Homepage</strong>
+                    <strong>Back to <?php echo deslug($current_site['name']); ?> Homepage</strong>
                 </a>
 
                 <hr>

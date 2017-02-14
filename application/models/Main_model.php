@@ -134,17 +134,22 @@ Class main_model extends CI_Model
         $this->db->where('id', $post['id']);
         $this->db->update('post', $data);
     }
-    function update_account($account_key, $new_streak, $new_pass, $new_fail, $new_total)
+    function update_account($account)
     {
         $data = array(
-            'streak' => $new_streak,
-            'pass' => $new_pass,
-            'fail' => $new_fail,
-            'total' => $new_total,
+            'streak' => $account['streak'],
+            'pass' => $account['pass'],
+            'fail' => $account['fail'],
+            'total' => $account['total'],
         );
-        $this->db->where('id', $account_key);
+        $this->db->where('id', $account['id']);
         $this->db->update('account', $data);
-
+    }
+    function real_report($post_key)
+    {
+        $this->db->set('real_report', 'real_report+1', FALSE);
+        $this->db->where('id', $post_key);
+        $this->db->update('post');
     }
 }
 ?>

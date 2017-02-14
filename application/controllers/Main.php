@@ -88,6 +88,7 @@ class Main extends CI_Controller {
         $this->load->view('templates/header', $data);
         $this->load->view('templates/toolbar', $data);
         $this->load->view('sites/' . $slug . '/style', $data);
+        $this->load->view('templates/queue_result', $data);
         $this->load->view('sites/' . $slug . '/queue', $data);
         $this->load->view('templates/queue_form', $data);
         $this->load->view('templates/scripts', $data);
@@ -101,6 +102,7 @@ class Main extends CI_Controller {
         $this->form_validation->set_rules('post_id', 'post_id', 'trim|required|integer|greater_than[0]|max_length[10]');
         $this->form_validation->set_rules('offence', 'offence', 'trim|required|integer|greater_than[0]|max_length[10]');
         $this->form_validation->set_rules('action', 'action', 'trim|required|integer|greater_than[0]|max_length[10]');
+        $this->form_validation->set_rules('real_report', 'real_report', 'trim');
         
         // Fail
         if ($this->form_validation->run() == FALSE) {
@@ -111,6 +113,13 @@ class Main extends CI_Controller {
         $user_input['offence_key'] = $this->input->post('offence');
         $user_input['post_key'] = $this->input->post('post_id');
         $user_input['action_key'] = $this->input->post('action');
+        $user_input['real_report'] = $this->input->post('real_report');
+
+        if ($user_input['real_report']) {
+            $this->main_model->real_report($user_input['post_key']);
+            $data['review_result'] = true;
+            return $data;
+        }
 
         // Insert as new review
         $this->main_model->create_review($data['user']['current_account']['id'], $data['site_key'], $user_input['post_key'], $user_input['offence_key'], $user_input['action_key']);
@@ -133,43 +142,23 @@ class Main extends CI_Controller {
 
         // Update session
         if ($reviewed_post['confidence'] < $this->confidence_minimum || $reviewed_post['offence_key'] === $user_input['offence_key']) {
-            $new_streak = $data['user']['current_account']['streak'] + 1;
-            $new_pass = $data['user']['current_account']['pass'] + 1;
-            $new_fail = $data['user']['current_account']['fail'];
-            $new_total = $data['user']['current_account']['total'] + 1;
+            $data['user']['current_account']['streak']++;
+            $data['user']['current_account']['pass']++;
             $data['review_result'] = true;
         }
         else {
-            $new_streak = 0;
-            $new_pass = $data['user']['current_account']['pass'];
-            $new_fail = $data['user']['current_account']['fail'] + 1;
-            $new_total = $data['user']['current_account']['total'] + 1;
-
+            $data['user']['current_account']['streak'] = 0;
+            $data['user']['current_account']['fail']++;
             $data['review_result'] = false;
         }
+        $data['user']['current_account']['total']++;
 
         // Update user
         if ($data['user']['logged_in']) {
-            $this->main_model->update_account($data['user']['current_account']['id'], $new_streak, $new_pass, $new_fail, $new_total);
-        }
-        // Update user session
-        else {
-            $sess_array = array(
-                'logged_in' => $data['user']['logged_in'],
-                'id' => $data['user']['id'],
-                'username' => $data['user']['username'],
-                'current_account' => array(
-                    'pass' => $new_pass,
-                    'fail' => $new_fail,
-                    'streak' => $new_streak,
-                    'total' => $new_total,
-                ),
-            );
-            $this->session->set_userdata('user', $sess_array);
+            $this->main_model->update_account($data['user']['current_account']);
         }
 
         // Get user with new info
-        $data['user'] = $this->get_user_by_session();
         return $data;
     }
 
@@ -187,12 +176,12 @@ class Main extends CI_Controller {
         $this->form_validation->set_rules('content', 'Message', 'trim|max_length[10000]');
 
         // Image upload Config
-        $config['upload_path']   = './uploads/';
+        $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|jpeg|png|webm';
-        $config['max_size']      = '3000';
-        $config['max_width']     = '5000';
-        $config['max_height']    = '5000';
-        $config['encrypt_name']  = TRUE;
+        $config['max_size'] = '3000';
+        $config['max_width'] = '5000';
+        $config['max_height'] = '5000';
+        $config['encrypt_name'] = TRUE;
         $this->load->library('upload', $config);
 
         // Image

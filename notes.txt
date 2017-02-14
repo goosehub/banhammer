@@ -2,26 +2,14 @@
     Notes
 ==========================================================================================
 
-Thinking about
-    how should actions be meaningful?
-        dont be more or less heavy handed than the average
-    favicon for each site?
-    warning action
-    new offences
-        racist/sexist
-        political
-        user underage
-        dox
-        impersonating a mod
-        get
-    get back to homepage more intuitive
-
 High Priority
-    real moderation for real issues
 
 Moderate Priority
     sites
+    embedding urls
     prevent spam posting from skewing system
+        hash time and secret
+        do a check on recent reviews
     when inactive, doesn't tell you your no longer logged in
     
 Low Priority
@@ -40,6 +28,20 @@ No Priority
     get_user_by_id into raw sql for performance
     search
     weigh reputation in confidence
+
+Thinking about
+    how should actions be meaningful?
+        dont be more or less heavy handed than the average
+    favicon for each site?
+    warning action
+    new offences
+        racist/sexist
+        political
+        user underage
+        dox
+        impersonating a mod
+        get
+    get back to homepage more intuitive
 
 confidence logic
     post submitted by users
