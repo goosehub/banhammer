@@ -4,13 +4,14 @@
 
 High Priority
     sites
-    action outlier punishment
+    action outlier punishment with user feedback
+    how to play moved to queue form
+    leaderboard
+    get a domain
 
 Moderate Priority
-    site column to force anonymous username
-    leaderboard
-    explain some game mechanics somewhere
-    news
+    site column to force anonymous username on some sites
+    get a subreddit
     
 Low Priority
     queue to ajax
@@ -29,6 +30,7 @@ No Priority
     view review history
 
 Thinking about
+    bots should play this game
     action outlier punishment
         If you are an extreme outlier in your action, it is considerred inaccurate
         min of 10 reviews
@@ -42,21 +44,14 @@ Thinking about
         impersonating a mod
         get
 
-confidence logic
-    post submitted by users
-    defaults to none offence
-    first review gives confidence of 1 with those settings
-    if 1 confidence, next review will overwrite
-    if review is same as current config confidence goes up
-    penalty/rewards when confidence is 3 or higher
-
 New site checklist
-    Brand Parody
+    Brand
     Icon
     Homepage
     Queue page
+    Leaderboard
     Style
-    Script
+    Script (if needed)
 
 ==========================================================================================
     Documentation

@@ -239,7 +239,6 @@ class Main extends CI_Controller {
     {
         $user = $this->session->userdata('user');
         if (empty($user)) {
-            echo 'no session';
             $sess_array = array(
                 'id' => 0,
                 'username' => 'Anonymous',

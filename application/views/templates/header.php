@@ -23,7 +23,6 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Coustard:900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
 
   </head>

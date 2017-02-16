@@ -3,15 +3,12 @@ body {
     background-color: #f9f9f9;
     color: #222;
 }
-.main_site_name {
-    font-family: 'Coustard', serif;
-}
-.main_site_description, .moderator_queue_title {
+.main_site_name, .main_site_description, .moderator_queue_title, .overall_leaderboard, .update_news_parent h3 {
     font-family: 'Julius Sans One', sans-serif;
 }
 
 /* Toolbar */
-.toolbar {
+.global_toolbar {
     background-color: #f9f9f9;
     height: 2.3em;
     border-bottom: 1px solid #888;
@@ -30,7 +27,7 @@ body {
     border-radius: 0.1em;
 }
 .toolbar_site_parent:hover {
-    background-color: #d0d0d0;
+    background-color: #e6e6e6;
 }
 .toolbar_link:hover {
     text-decoration: none;
@@ -50,7 +47,7 @@ body {
     border-radius: 0.2em;
 }
 @media (max-device-width: 600px) {
-    .toolbar {
+    .global_toolbar {
         height: auto;
         padding-bottom: 1em;
     }
@@ -81,6 +78,11 @@ body {
 .message_video, .embedica_element iframe, .embedica_element video {
     width: 500px;
     height: 300px;
+}
+
+/* Landing Footer */
+.landing_footer {
+    color: #666;
 }
 
 /* Orange Action Bootstrap-Styled Button */

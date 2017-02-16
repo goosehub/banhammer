@@ -1,4 +1,4 @@
-<nav class="toolbar">
+<nav class="global_toolbar">
     <a class="toolbar_link" href="<?=base_url()?>">
         <div class="toolbar_site_parent">
             <img class="toolbar_site_icon" src="<?=base_url()?>resources/img/favicon.ico" alt="Moderator"/>
