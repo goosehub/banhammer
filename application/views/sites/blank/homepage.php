@@ -4,8 +4,10 @@
         <div class="row">
             <div class="col-md-8 col-md-push-2">
 
+                <hr>
+
                 <a class="btn btn-action" href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
-                    <strong>Go to your Moderator Queue</strong>
+                    <strong>Moderator Queue</strong>
                 </a>
 
                 <hr>
@@ -31,7 +33,7 @@
                             <input type="text" id="username_input" class="form-control" name="username" value="<?php echo $user['username']; ?>"/>
                             <label>Message</label>
                             <textarea id="content_input" class="form-control" name="content"></textarea>
-                            <label>File</label>
+                            <label>File <small>(Optional)</small></label>
                             <input type="file" id="image_input" class="form-control" name="image"/>
                             <br>
                             <input type="submit" class="form-control btn btn-success"/>

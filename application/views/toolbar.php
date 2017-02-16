@@ -13,11 +13,11 @@
         </div>
     </a>
     <?php } ?>
-    <span id="score_parent" class="pull-right">
+    <span id="score_parent">
         <?php if ($user['logged_in']) { ?>
         <span id="toolbar_username"><?php echo $user['username']; ?>: </span>
         <?php } ?>
-        <span id="site_name"><?php echo $current_site['name']; ?></span>
+        <span class="score_label"><?php echo $current_site['name']; ?></span>
         <span id="reputation_parent" class="text-default">
             <span id="reputation_label" class="score_label">Accuracy</span>
             <span id="reputation_value" class="score_value"><?php echo accuracy_calculator($user['current_account']['pass'], $user['current_account']['fail']); ?>%</span>

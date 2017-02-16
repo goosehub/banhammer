@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6 col-md-push-3">
             <h1 class="main_site_name text-center"><?php echo $page_title; ?></h1>
-            <h2 class="main_site_description">Live the exciting life of a website moderator</h2>
+            <!-- <h2 class="main_site_description">Live the exciting life of a website moderator</h2> -->
 
             <hr>
 
@@ -10,7 +10,11 @@
     </div>
     <div class="row">
         <div class="col-md-8">
-            <h2 class="moderator_queue_title">Moderator Queues</h2>
+            <h2 class="moderator_queue_title">
+                Moderator Queues
+                <?php if (!$user['logged_in']) { ?>
+                <small>Pick one to begin</small>
+                <?php } ?></h2>
             <?php foreach ($active_sites as $site) { ?>
             <a class="toolbar_link" href="<?=base_url()?>site/<?php echo $site['slug']; ?>/queue">
                 <div class="toolbar_site_parent">

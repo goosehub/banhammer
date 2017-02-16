@@ -3,22 +3,24 @@
 ==========================================================================================
 
 High Priority
+    sites
+    action outlier punishment
+    Prevent IP from reviewing and from seeing same post twice in 24 hour period
 
 Moderate Priority
-    sites
-    when inactive, indicate your no longer logged in
+    leaderboard
+    explain some game mechanics somewhere
+    news
     
 Low Priority
-    mobile
-    prevent spam posting from skewing system with check on recent reviews
-    leaderboard
+    mobile reevaluation
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
-
-No Priority
     admin for adding/managing site and enforcement table data
     after 10 total in temp session, prompt to create account
     save current progress on create account with active session
     get_user_by_id into raw sql for performance
+
+No Priority
     search
     weigh reputation in confidence
     active now for users, last activity
@@ -26,8 +28,10 @@ No Priority
     view review history
 
 Thinking about
-    how should actions be meaningful?
-        dont be more or less heavy handed than the average
+    action outlier punishment
+        If you are an extreme outlier in your action, it is considerred inaccurate
+        min of 10 reviews
+        choosen action is choosen in less than 10 percent of reviews
     favicon for each site?
     warning action
     new offences

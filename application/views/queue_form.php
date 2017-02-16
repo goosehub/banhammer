@@ -10,8 +10,8 @@
                     <h2>Offence</h2>
                     <input type="hidden" id="offence_input" name="offence"/>
                     <?php foreach ($offences as $offence) { ?>
-                        <?php $style = $offence['slug'] === 'none' ? 'primary' : 'danger'; ?>
-                        <div class="offence_button btn btn-<?php echo $style; ?>" offence="<?php echo $offence['id']; ?>">
+                        <?php $style = $offence['slug'] === 'none' ? 'btn-primary offence_none' : 'btn-danger'; ?>
+                        <div class="offence_button btn <?php echo $style; ?>" offence="<?php echo $offence['id']; ?>">
                             <?php echo deslug($offence['slug']); ?>
                         </div>
                     <?php } ?>
@@ -21,14 +21,22 @@
                     <h2>Action</h2>
                     <input type="hidden" id="action_input" name="action" value="1"/>
                     <?php foreach ($actions as $action) { ?>
-                        <?php $style = $action['slug'] === 'none' ? 'primary' : 'danger'; ?>
-                        <div class="action_button btn btn-<?php echo $style; ?>" action="<?php echo $action['id']; ?>">
+                        <?php $style = '';
+                        if ($action['slug'] === 'none') {
+                            $style = 'btn-primary';
+                        }
+                        else if ($action['slug'] === 'warning' || $action['slug'] === 'edit') {
+                            $style = 'btn-warning';
+                        }
+                        else {
+                            $style = 'btn-danger';
+                        }
+                        ?>
+                        <div class="action_button btn <?php echo $style; ?>" action="<?php echo $action['id']; ?>">
                             <?php echo deslug($action['slug']); ?>
                         </div>
                     <?php } ?>
                 </div>
-
-                <span class="offence_button glyphicon glyphicon-flag btn" offence="1" real_report="true" aria-hidden="true" title="Use this to report content that should actually be removed from the site"></span>
 
             </form>
 

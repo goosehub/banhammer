@@ -1,6 +1,6 @@
 /* Global */
 body {
-    background-color: #f8f8f8;
+    background-color: #f0f0f0;
     color: #222;
 }
 .main_site_name {
@@ -28,7 +28,7 @@ body {
     padding: 0.3em;
     margin: 0.1em;
     transition: background-color 0.5s;
-    border-radius: 0.2em;
+    border-radius: 0.1em;
 }
 .toolbar_site_parent:hover {
     background-color: #d0d0d0;
@@ -41,6 +41,7 @@ body {
     margin-top: 0.5em;
     font-weight: bold;
     font-family: 'Play', sans-serif;
+    float: right;
 }
 .score_value {
     margin: 0.5em;
@@ -49,10 +50,38 @@ body {
     border: 1px solid #000;
     border-radius: 0.2em;
 }
+@media (max-device-width: 600px) {
+    .toolbar {
+        height: auto;
+        padding-bottom: 1em;
+    }
+    #score_parent {
+        float: none;
+        display: block;
+        text-align: right;
+        margin-right: 1em;
+    }
+    .score_label {
+        display: none;
+    }
+}
 
 /* Queue Form */
-.offence_button {
+.offence_button, .action_button {
     margin-top: 1em;
+}
+.offence_none {
+    font-weight: bold;
+}
+
+/* Global posts rules */
+.message_video, .embedica_element, .embedica_element iframe, .embedica_element video {
+    max-width: 100%;
+    max-height 30vh;
+}
+.message_video, .embedica_element iframe, .embedica_element video {
+    width: 500px;
+    height: 300px;
 }
 
 /* Orange Action Bootstrap-Styled Button */
