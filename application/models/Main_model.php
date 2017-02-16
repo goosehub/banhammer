@@ -101,24 +101,17 @@ Class main_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('enforcement');
+        $this->db->join('offence', 'enforcement.offence_key = offence.id', 'left');
         $this->db->where('site_key', $site_key);
         $query = $this->db->get();
-        $sub_results = $query->result_array();
-        $result = array();
-        foreach ($sub_results as $sub_result) {
-            $this->db->select('*');
-            $this->db->from('offence');
-            $this->db->where('id', $sub_result['offence_key']);
-            $query = $this->db->get();
-            $offence = $query->result_array();
-            $result[] = $offence[0];
-        }
+        $result = $query->result_array();
         return $result;
     }
     function get_actions()
     {
         $this->db->select('*');
         $this->db->from('action');
+        $this->db->order_by('sort', 'ASC');
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
