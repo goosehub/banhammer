@@ -5,14 +5,15 @@
 High Priority
     sites
     action outlier punishment
-    Prevent IP from reviewing and from seeing same post twice in 24 hour period
 
 Moderate Priority
+    site column to force anonymous username
     leaderboard
     explain some game mechanics somewhere
     news
     
 Low Priority
+    queue to ajax
     mobile reevaluation
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
     after 10 total in temp session, prompt to create account

@@ -15,6 +15,7 @@ $(document).ready(function(){
         }
         else {
             $('#action_parent').show();
+            window.scrollTo(0,document.body.scrollHeight);
         }
     });
 

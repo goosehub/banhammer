@@ -12,6 +12,14 @@
 
                 <hr>
 
+                <?php if (!$post) { ?>
+
+                <div class="post_parent alert alert-info">
+                    Queue Empty
+                </div>
+
+                <?php } else { ?>
+
                 <div class="post_parent">
                     <blockquote>
                         <div class="post_user">
@@ -39,6 +47,8 @@
                         <span class="offence_button glyphicon glyphicon-flag btn" offence="1" real_report="true" aria-hidden="true" title="Report illegal content. Not a game button."></span>
                     </blockquote>
                 </div>
+
+                <?php } ?>
 
                 <hr>
 

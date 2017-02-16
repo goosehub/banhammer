@@ -61,15 +61,38 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function get_random_post($site_key)
+    function get_post_for_queue($site_key, $ip, $hours_between_reviews)
     {
-        $this->db->select('*');
-        $this->db->from('post');
-        $this->db->where('site_key', $site_key);
-        $this->db->order_by('id', 'random');
-        $query = $this->db->get();
+        $site_key = mysqli_real_escape_string(get_mysqli(), $site_key);
+        $ip = mysqli_real_escape_string(get_mysqli(), $ip);
+
+        // Left Join with negative check makes this query delicate, be careful
+        $query = $this->db->query("
+            SELECT `post`.*
+            FROM `post`
+            LEFT JOIN
+                `review`
+                ON `post`.`id` = `review`.`post_key`
+            WHERE `post`.`site_key` = '" . $site_key . "'
+            AND (
+                `review`.`ip` != '" . $ip . "'
+                OR `review`.`created` < timestampadd(hour, -" . $hours_between_reviews . ", now())
+                OR `review`.`id` IS NULL
+            )
+            ORDER BY RAND()
+            LIMIT 1;
+        ");
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
+    }
+    function recent_reviews_for_post($post_key, $hours_between_reviews)
+    {
+        $this->db->select('*');
+        $this->db->from('review');
+        $this->db->where('post_key', $post_key);
+        $this->db->where('`created` < timestampadd(hour, -" . $hours_between_reviews . ", now())', '', false);
+        $query = $this->db->get();
+        return $query->result_array();
     }
     function create_post($post)
     {
@@ -85,7 +108,7 @@ Class main_model extends CI_Model
         $this->db->insert('post', $data);
         return $this->db->insert_id();
     }
-    function create_review($account_key, $site_key, $post_key, $offence_key, $action_key)
+    function create_review($account_key, $site_key, $post_key, $offence_key, $action_key, $ip)
     {
         $data = array(
             'account_key' => $account_key,
@@ -93,6 +116,7 @@ Class main_model extends CI_Model
             'post_key' => $post_key,
             'offence_key' => $offence_key,
             'action_key' => $action_key,
+            'ip' => $ip,
         );
         $this->db->insert('review', $data);
         return $this->db->insert_id();

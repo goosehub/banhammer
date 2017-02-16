@@ -14,6 +14,7 @@ class Main extends CI_Controller {
         $this->data['user'] = $this->get_user_by_session();
         $this->data['current_site']['name'] = 'Overall';
         $this->data['current_site']['slug'] = 'default';
+        $this->data['hours_between_reviews'] = 24;
 
         $this->confidence_minimum = 3;
     }
@@ -70,8 +71,9 @@ class Main extends CI_Controller {
             return false;
         }
 
-        // Get a random post
-        $data['post'] = $this->main_model->get_random_post($data['current_site']['id']);
+        // Get a post for queue
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $data['post'] = $this->main_model->get_post_for_queue($data['current_site']['id'], $ip, $this->data['hours_between_reviews']);
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();
 
@@ -119,6 +121,13 @@ class Main extends CI_Controller {
         $user_input['action_key'] = $this->input->post('action');
         $user_input['real_report'] = $this->input->post('real_report');
 
+        // Check if this was recently reviewed (should only happen to hackers)
+        $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $this->data['hours_between_reviews']);
+        if (!empty($recently_reveiwed)) {
+            redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');
+            return false;
+        }
+
         if ($user_input['real_report']) {
             $this->main_model->real_report($user_input['post_key']);
             $data['review_result'] = true;
@@ -126,7 +135,8 @@ class Main extends CI_Controller {
         }
 
         // Insert as new review
-        $this->main_model->create_review($data['user']['current_account']['id'], $data['site_key'], $user_input['post_key'], $user_input['offence_key'], $user_input['action_key']);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $this->main_model->create_review($data['user']['current_account']['id'], $data['site_key'], $user_input['post_key'], $user_input['offence_key'], $user_input['action_key'], $ip);
 
         // Update post offence if no confidence
         $reviewed_post = $this->main_model->get_post_by_id($user_input['post_key']);
