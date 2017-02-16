@@ -1,6 +1,6 @@
 /* Global */
 body {
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
     color: #222;
 }
 .main_site_name {
@@ -12,7 +12,6 @@ body {
 
 /* Toolbar */
 .toolbar {
-    /*background-color: #f0f0f0;*/
     background-color: #f9f9f9;
     height: 2.3em;
     border-bottom: 1px solid #888;

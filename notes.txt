@@ -15,12 +15,12 @@ Moderate Priority
 Low Priority
     mobile reevaluation
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
-    admin for adding/managing site and enforcement table data
     after 10 total in temp session, prompt to create account
-    save current progress on create account with active session
     get_user_by_id into raw sql for performance
 
 No Priority
+    save current progress on create account with active session
+    admin for adding/managing site and enforcement table data
     search
     weigh reputation in confidence
     active now for users, last activity
@@ -33,14 +33,13 @@ Thinking about
         min of 10 reviews
         choosen action is choosen in less than 10 percent of reviews
     favicon for each site?
-    warning action
+    none for offence?
     new offences
         racist/sexist
         user underage
         dox
         impersonating a mod
         get
-    get back to homepage more intuitive
 
 confidence logic
     post submitted by users

@@ -103,6 +103,7 @@ Class main_model extends CI_Model
         $this->db->from('enforcement');
         $this->db->join('offence', 'enforcement.offence_key = offence.id', 'left');
         $this->db->where('site_key', $site_key);
+        $this->db->order_by('offence.sort', 'ASC');
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;

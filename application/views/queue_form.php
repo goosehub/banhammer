@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6 col-md-push-3">
 
-            <form id="queue_form" action="<?=base_url()?>site/<?php echo $slug; ?>/queue" method="post">
+            <form id="queue_form" action="<?=base_url()?>site/<?php echo $slug; ?>/new_review" method="post">
                 <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
                 <input id="real_report" type="hidden" name="real_report"/>
 
