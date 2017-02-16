@@ -25,11 +25,13 @@
                             <img class="post_image img-responsive" src="<?php echo $post['image']; ?>" alt=""/>
                             <?php } ?>
                         </div>
-                        <div class="post_content">
+                        <div class="post_content embedica_this">
                             <?php echo html_clean($post['content']); ?>
                         </div>
                         <div class="post_time">
+                            <small>
                             <?php echo get_time_ago(strtotime($post['created'])); ?>
+                            </small>
                         </div>
                     </blockquote>
                 </div>

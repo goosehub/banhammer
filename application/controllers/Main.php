@@ -12,6 +12,8 @@ class Main extends CI_Controller {
         // Get list of active sites
         $this->data['active_sites'] = $this->main_model->get_active_sites();
         $this->data['user'] = $this->get_user_by_session();
+        $this->data['current_site']['name'] = 'Overall';
+        $this->data['current_site']['slug'] = 'default';
 
         $this->confidence_minimum = 3;
     }
@@ -21,7 +23,7 @@ class Main extends CI_Controller {
         $data = $this->data;
         $data['page_title'] = site_name();
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/toolbar', $data);
+        $this->load->view('toolbar', $data);
         $this->load->view('landing', $data);
         $this->load->view('templates/scripts', $data);
         $this->load->view('templates/footer', $data);
@@ -48,7 +50,7 @@ class Main extends CI_Controller {
         $data['page_title'] = $slug;
         $data['slug'] = $slug;
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/toolbar', $data);
+        $this->load->view('toolbar', $data);
         $this->load->view('sites/' . $slug . '/style', $data);
         $this->load->view('sites/' . $slug . '/homepage', $data);
         $this->load->view('templates/scripts', $data);
@@ -84,11 +86,11 @@ class Main extends CI_Controller {
         $data['page_title'] = $slug . ' Moderator Queue';
         $data['slug'] = $slug;
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/toolbar', $data);
+        $this->load->view('toolbar', $data);
         $this->load->view('sites/' . $slug . '/style', $data);
-        $this->load->view('templates/queue_result', $data);
+        $this->load->view('queue_result', $data);
         $this->load->view('sites/' . $slug . '/queue', $data);
-        $this->load->view('templates/queue_form', $data);
+        $this->load->view('queue_form', $data);
         $this->load->view('templates/scripts', $data);
         $this->load->view('sites/' . $slug . '/script', $data);
         $this->load->view('templates/footer', $data);
@@ -223,6 +225,7 @@ class Main extends CI_Controller {
     {
         $user = $this->session->userdata('user');
         if (empty($user)) {
+            echo 'no session';
             $sess_array = array(
                 'id' => 0,
                 'username' => 'Anonymous',
@@ -248,7 +251,7 @@ class Main extends CI_Controller {
         $data = $this->data;
         $data['page_title'] = deslug($slug);
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/toolbar', $data);
+        $this->load->view('toolbar', $data);
         $this->load->view('pages/' . $slug, $data);
         $this->load->view('templates/scripts', $data);
         $this->load->view('templates/footer', $data);

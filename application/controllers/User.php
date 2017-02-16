@@ -14,8 +14,7 @@ class User extends CI_Controller {
 	public function login()
 	{
         // Clear existing session
-        // $this->session->unset_userdata('user');
-        $this->session->sess_destroy();
+        $this->session->unset_userdata('user');
 
 		// Validation
         $this->load->library('form_validation');
@@ -124,8 +123,8 @@ class User extends CI_Controller {
 
 	// Logout
     public function logout() {
+        $this->session->unset_userdata('user');
         $this->session->sess_destroy();
-        // $this->session->unset_userdata('user');
         redirect(base_url(), 'refresh');
     }
 }

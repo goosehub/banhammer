@@ -6,14 +6,18 @@
         </div>
     </a>
     <?php foreach ($active_sites as $site) { ?>
-    <a class="toolbar_link" href="<?=base_url()?>site/<?php echo $site['slug']; ?>">
+    <a class="toolbar_link" href="<?=base_url()?>site/<?php echo $site['slug']; ?>/queue">
         <div class="toolbar_site_parent">
-            <img class="toolbar_site_icon" src="<?=base_url()?>resources/img/site_icons/<?php echo $site['slug']; ?>.png" alt="<?php echo $site['name']; ?>"/>
+            <img class="toolbar_site_icon" src="<?=base_url()?>resources/sites/<?php echo $site['slug']; ?>/icon.png" alt="<?php echo $site['name']; ?>"/>
             <span class="toolbar_site_name"><?php echo $site['name']; ?></span>
         </div>
     </a>
     <?php } ?>
     <span id="score_parent" class="pull-right">
+        <?php if ($user['logged_in']) { ?>
+        <span id="toolbar_username"><?php echo $user['username']; ?>: </span>
+        <?php } ?>
+        <span id="site_name"><?php echo $current_site['name']; ?></span>
         <span id="reputation_parent" class="text-default">
             <span id="reputation_label" class="score_label">Accuracy</span>
             <span id="reputation_value" class="score_value"><?php echo accuracy_calculator($user['current_account']['pass'], $user['current_account']['fail']); ?>%</span>

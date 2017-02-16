@@ -6,17 +6,17 @@ High Priority
 
 Moderate Priority
     sites
-    embedding urls
     when inactive, indicate your no longer logged in
     
 Low Priority
     mobile
     prevent spam posting from skewing system with check on recent reviews
-    admin for adding/managing site and enforcement table data
     leaderboard
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
 
 No Priority
+    admin for adding/managing site and enforcement table data
+    after 10 total in temp session, prompt to create account
     save current progress on create account with active session
     get_user_by_id into raw sql for performance
     search
@@ -32,7 +32,6 @@ Thinking about
     warning action
     new offences
         racist/sexist
-        political
         user underage
         dox
         impersonating a mod

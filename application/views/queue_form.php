@@ -28,9 +28,7 @@
                     <?php } ?>
                 </div>
 
-                <div class="offence_button btn btn-default btn-sm" offence="1" real_report="true" title="Use this to report content that should actually be removed from the site">
-                    <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-                </div>
+                <span class="offence_button glyphicon glyphicon-flag btn" offence="1" real_report="true" aria-hidden="true" title="Use this to report content that should actually be removed from the site"></span>
 
             </form>
 

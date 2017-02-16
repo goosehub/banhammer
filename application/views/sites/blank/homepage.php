@@ -62,11 +62,13 @@
                             <?php } ?>
                             <?php } ?>
                         </div>
-                        <div class="post_content">
+                        <div class="post_content embedica_this">
                             <?php echo html_clean($post['content']); ?>
                         </div>
                         <div class="post_time">
+                            <small>
                             <?php echo get_time_ago(strtotime($post['created'])); ?>
+                            </small>
                         </div>
                     </blockquote>
                 </div>
