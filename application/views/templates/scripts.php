@@ -4,5 +4,8 @@
 <!-- Bootstrap -->
 <script src="<?=base_url()?>resources/bootstrap/js/bootstrap.min.js"></script>
 
+<!-- Embedica -->
+<script src="<?=base_url()?>resources/embedica/embedica.min.js"></script>
+
 <!-- Global Script -->
 <script src="<?=base_url()?>resources/script.js?<?php echo time(); ?>"></script>
