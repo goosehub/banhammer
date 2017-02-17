@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-md-3">
                         </div>
-                        <div class="col-md-6 col-md-push-3">
+                        <div class="col-md-6">
                             <h2>Offence</h2>
                         </div>
                         <div class="col-md-3">

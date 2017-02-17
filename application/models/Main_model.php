@@ -31,6 +31,41 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
+    function get_overall_leaderboard($limit)
+    {
+        // This is gonna get tricky
+        // We could (should) do sub queries, but just keeping it simple for now
+        $this->db->select('*');
+        $this->db->from('user');
+        $query = $this->db->get();
+        $users = $query->result_array();
+
+        foreach ($users as &$user) {
+            $this->db->select('SUM(pass) as pass, SUM(fail) as fail, MAX(streak) as streak, SUM(total) as total, (100 - (100 / (pass + fail) / fail) ) as accuracy');
+            $this->db->from('account');
+            $this->db->where('user_key', $user['id']);
+            $query = $this->db->get();
+            $result = $query->result_array();
+            $account = $result[0];
+            $account['username'] = $user['username'];
+            if ($account['total'] < $limit) {
+                $account['accuracy'] = 0;
+            }
+            $user = $account;
+        }
+        return $users;
+    }
+    function get_leaderboard_for_site($site_key, $limit)
+    {
+        $this->db->select('account.*, user.username, (100 - (100 / (pass + fail) / fail) ) as accuracy');
+        $this->db->from('account');
+        $this->db->join('user', 'user.id = account.user_key', 'left');
+        $this->db->where('site_key', $site_key);
+        $this->db->where('total >= ', $limit);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
     function get_site_post_count($site_key)
     {
         $this->db->select('COUNT(*) as count');

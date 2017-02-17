@@ -74,7 +74,7 @@
     <div class="row">
         <div class="col-md-6 col-md-push-3">
             <div class="overall_leaderboard">
-                <h3>Overall Leaderboard <small>Minimum of 100</small></h3>
+                <h3>Overall Leaderboard <small>Minimum of <?php echo $leaderboard_minimum; ?></small></h3>
                 <table class="table table-stripped">
                     <thead>
                         <tr class="success">
@@ -87,22 +87,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $rank = 1; ?>
+                        <?php foreach ($leaderboard as $account) { ?>
                         <tr>
-                            <td>1</td>
-                            <td>goose</td>
-                            <td class="text-primary"><strong>75%</strong></td>
-                            <td class="text-success">75</td>
-                            <td class="text-danger">25</td>
-                            <td class="text-default">100</td>
+                            <td><?php echo $rank; ?></td>
+                            <td><?php echo $account['username']; ?></td>
+                            <td class="text-primary"><strong><?php echo $account['accuracy']; ?>%</strong></td>
+                            <td class="text-success"><?php echo $account['pass']; ?></td>
+                            <td class="text-danger"><?php echo $account['fail']; ?></td>
+                            <td class="text-default"><?php echo $account['total']; ?></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>jack</td>
-                            <td class="text-primary"><strong>70%</strong></td>
-                            <td class="text-success">70</td>
-                            <td class="text-danger">30</td>
-                            <td class="text-default">100</td>
-                        </tr>
+                        <?php $rank++; ?>
+                        <?php if ($rank > 100) { break; } ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

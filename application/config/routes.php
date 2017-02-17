@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'main/landing';
 $route['about'] = 'main/page/about';
 $route['site/(:any)'] = 'main/homepage/$1';
+$route['site/(:any)/leaderboard'] = 'main/leaderboard/$1';
 $route['site/(:any)/queue'] = 'main/queue/$1';
 $route['site/(:any)/new_review']['post'] = 'main/new_review/$1';
 $route['site/(:any)/(:num)'] = 'main/homepage/$1/$2';

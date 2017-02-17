@@ -9,25 +9,50 @@ class Main extends CI_Controller {
         $this->load->model('main_model', '', TRUE);
         $this->load->model('user_model', '', TRUE);
 
+        if (is_dev()) {
+            $this->leaderboard_minimum = 10;
+        }
+        else {
+            $this->leaderboard_minimum = 100;
+        }
+        $this->confidence_minimum = 3;
+
         // Get list of active sites
         $this->data['active_sites'] = $this->main_model->get_active_sites();
         $this->data['user'] = $this->get_user_by_session();
         $this->data['current_site']['name'] = 'Overall';
         $this->data['current_site']['slug'] = 'default';
         $this->data['hours_between_reviews'] = 24;
-
-        $this->confidence_minimum = 3;
+        $this->data['leaderboard_minimum'] = $this->leaderboard_minimum;
     }
 
     public function landing()
     {
         $data = $this->data;
         $data['page_title'] = site_name();
+        $data['leaderboard'] = $this->main_model->get_overall_leaderboard($this->leaderboard_minimum);
+        $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
+
         $this->load->view('templates/header', $data);
         $this->load->view('toolbar', $data);
         $this->load->view('landing', $data);
         $this->load->view('templates/scripts', $data);
         $this->load->view('templates/footer', $data);
+    }
+
+    public function sort_leaderboard_main($leaderboard_array)
+    {
+        foreach ($leaderboard_array as &$leaderboard) {
+            // Null means it could not divide by 0 to get the accuracy
+            if (is_null($leaderboard['accuracy'])) {
+                $leaderboard['accuracy'] = 100;
+            }
+            // Round
+            $leaderboard['accuracy'] = sprintf('%0.2f', $leaderboard['accuracy']);
+        }
+        // Sort by accuracy
+        usort($leaderboard_array, 'leaderboard_sort_core');
+        return $leaderboard_array;
     }
 
     public function homepage($slug, $offset = 0, $limit = 30)
@@ -54,6 +79,30 @@ class Main extends CI_Controller {
         $this->load->view('toolbar', $data);
         $this->load->view('sites/' . $slug . '/style', $data);
         $this->load->view('sites/' . $slug . '/homepage', $data);
+        $this->load->view('templates/scripts', $data);
+        $this->load->view('sites/' . $slug . '/script', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function leaderboard($slug)
+    {
+        $data = $this->data;
+        $data['current_site'] = $this->main_model->get_current_site($slug);
+        if (empty($data['current_site']) || !$data['current_site']['active']) {
+            $this->page('site_not_found');
+            return false;
+        }
+
+        // Get recent posts
+        $data['leaderboard'] = $this->main_model->get_leaderboard_for_site($data['current_site']['id'], $this->leaderboard_minimum);
+        $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
+
+        $data['page_title'] = $slug;
+        $data['slug'] = $slug;
+        $this->load->view('templates/header', $data);
+        $this->load->view('toolbar', $data);
+        $this->load->view('sites/' . $slug . '/style', $data);
+        $this->load->view('sites/' . $slug . '/leaderboard', $data);
         $this->load->view('templates/scripts', $data);
         $this->load->view('sites/' . $slug . '/script', $data);
         $this->load->view('templates/footer', $data);

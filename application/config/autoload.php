@@ -62,6 +62,34 @@ function accuracy_calculator($pass, $fail) {
     return sprintf('%0.2f', $result);
 }
 
+function leaderboard_sort_core($a, $b)
+{
+    $accuracy = strcmp($a['accuracy'], $b['accuracy']);
+    // If difference in accuracy is 0, sort by total descening
+    if ($accuracy === 0) {
+        return ! $a['total'] - $b['total'];
+    }
+    // Else, sort by accuracy
+    return $accuracy;
+}
+
+function array_orderby()
+{
+    $args = func_get_args();
+    $data = array_shift($args);
+    foreach ($args as $n => $field) {
+        if (is_string($field)) {
+            $tmp = array();
+            foreach ($data as $key => $row)
+                $tmp[$key] = $row[$field];
+            $args[$n] = $tmp;
+            }
+    }
+    $args[] = &$data;
+    call_user_func_array('array_multisort', $args);
+    return array_pop($args);
+}
+
 function report_bugs_string() {
     return '<p>Please report bugs to goosepostbox@gmail.com</p>';
 }
