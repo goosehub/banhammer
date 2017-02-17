@@ -37,7 +37,8 @@ $(document).ready(function(){
     // Embedica converting urls to embeds
     $('.embedica_this').each(function(){
         var content = $(this).html();
-        content = content.replace('<br>', ' <br> ');
+        var re = new RegExp('<br>', 'g');
+        content = content.replace(re, ' <br> ');
         content = embedica(content);
         $(this).html(content);
     });

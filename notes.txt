@@ -4,11 +4,6 @@
 
 High Priority
     sites
-    action outlier punishment with user feedback
-    how to play moved to queue form
-    leaderboard
-    get a domain
-    <br>http breaking embedica, needs space
 
 Moderate Priority
     ssl
@@ -16,11 +11,13 @@ Moderate Priority
     get a subreddit
     
 Low Priority
+    verify leaderboard accuracy
     queue to ajax
     mobile reevaluation
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
     after 10 total in temp session, prompt to create account
     get_user_by_id into raw sql for performance
+    refactor leaderboards sql for performance
 
 No Priority
     save current progress on create account with active session
