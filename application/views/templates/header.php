@@ -7,7 +7,7 @@
     <title><?php echo $page_title; ?></title>
 
     <!-- Google please read this -->
-    <meta name="description" content="A Web Game about the exciting life of a website moderator!">
+    <meta name="description" content="Ban Hammer is a Web Game about the exciting life of a website moderator!">
 
     <!-- For Mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">

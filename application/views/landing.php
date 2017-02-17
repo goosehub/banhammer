@@ -155,7 +155,7 @@
                 <strong class="text-center">Please report bugs to goosepostbox@gmail.com</strong>
                 <br>
                 <br>
-                <!-- <a href="https://www.reddit.com/r/moderator"/>/r/moderator</a> -->
+                <!-- <a href="https://www.reddit.com/r/banhammer"/>/r/banhammer</a> -->
                 <!-- <strong>~</strong> -->
                 <a href="<?=base_url()?>about">About <?php echo site_name(); ?></a>
             </footer>

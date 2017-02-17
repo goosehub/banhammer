@@ -1,8 +1,8 @@
 <nav class="global_toolbar">
     <a class="toolbar_link" href="<?=base_url()?>">
         <div class="toolbar_site_parent">
-            <img class="toolbar_site_icon" src="<?=base_url()?>resources/img/favicon.ico" alt="Moderator"/>
-            <span class="toolbar_site_name">Mod</span>
+            <img class="toolbar_site_icon" src="<?=base_url()?>resources/img/favicon.ico" alt="Ban Hammer"/>
+            <span class="toolbar_site_name">Ban Hammer</span>
         </div>
     </a>
     <?php foreach ($active_sites as $site) { ?>

@@ -9,7 +9,7 @@ class Import extends CI_Controller {
         $this->load->model('main_model', '', TRUE);
     }
 
-    // http://localhost/moderator/import/fourchan?token=1234&board=s4s&page=1
+    // http://localhost/banhammer/import/fourchan?token=1234&board=s4s&page=1
     public function fourchan()
     {
         // Use hash equals function to prevent timing attack

@@ -8,8 +8,10 @@ High Priority
     how to play moved to queue form
     leaderboard
     get a domain
+    <br>http breaking embedica, needs space
 
 Moderate Priority
+    ssl
     site column to force anonymous username on some sites
     get a subreddit
     
