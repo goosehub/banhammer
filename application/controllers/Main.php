@@ -40,21 +40,6 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
-    public function sort_leaderboard_main($leaderboard_array)
-    {
-        foreach ($leaderboard_array as &$leaderboard) {
-            // Null means it could not divide by 0 to get the accuracy
-            if (is_null($leaderboard['accuracy'])) {
-                $leaderboard['accuracy'] = 100;
-            }
-            // Round
-            $leaderboard['accuracy'] = sprintf('%0.2f', $leaderboard['accuracy']);
-        }
-        // Sort by accuracy
-        usort($leaderboard_array, 'leaderboard_sort_core');
-        return $leaderboard_array;
-    }
-
     public function homepage($slug, $offset = 0, $limit = 30)
     {
         $data = $this->data;
@@ -73,36 +58,12 @@ class Main extends CI_Controller {
         $data['post_count'] = $this->main_model->get_site_post_count($data['site_key']);
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
 
-        $data['page_title'] = $slug;
+        $data['page_title'] = $data['current_site']['name'];
         $data['slug'] = $slug;
         $this->load->view('templates/header', $data);
         $this->load->view('toolbar', $data);
         $this->load->view('sites/' . $slug . '/style', $data);
         $this->load->view('sites/' . $slug . '/homepage', $data);
-        $this->load->view('templates/scripts', $data);
-        $this->load->view('sites/' . $slug . '/script', $data);
-        $this->load->view('templates/footer', $data);
-    }
-
-    public function leaderboard($slug)
-    {
-        $data = $this->data;
-        $data['current_site'] = $this->main_model->get_current_site($slug);
-        if (empty($data['current_site']) || !$data['current_site']['active']) {
-            $this->page('site_not_found');
-            return false;
-        }
-
-        // Get recent posts
-        $data['leaderboard'] = $this->main_model->get_leaderboard_for_site($data['current_site']['id'], $this->leaderboard_minimum);
-        $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
-
-        $data['page_title'] = $slug;
-        $data['slug'] = $slug;
-        $this->load->view('templates/header', $data);
-        $this->load->view('toolbar', $data);
-        $this->load->view('sites/' . $slug . '/style', $data);
-        $this->load->view('sites/' . $slug . '/leaderboard', $data);
         $this->load->view('templates/scripts', $data);
         $this->load->view('sites/' . $slug . '/script', $data);
         $this->load->view('templates/footer', $data);
@@ -291,6 +252,45 @@ class Main extends CI_Controller {
         }
 
         redirect(base_url() . 'site/' . $slug, 'refresh');
+    }
+
+    public function leaderboard($slug)
+    {
+        $data = $this->data;
+        $data['current_site'] = $this->main_model->get_current_site($slug);
+        if (empty($data['current_site']) || !$data['current_site']['active']) {
+            $this->page('site_not_found');
+            return false;
+        }
+
+        // Get recent posts
+        $data['leaderboard'] = $this->main_model->get_leaderboard_for_site($data['current_site']['id'], $this->leaderboard_minimum);
+        $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
+
+        $data['page_title'] = $data['current_site']['name'] . ' Leaderboard';
+        $data['slug'] = $slug;
+        $this->load->view('templates/header', $data);
+        $this->load->view('toolbar', $data);
+        $this->load->view('sites/' . $slug . '/style', $data);
+        $this->load->view('sites/' . $slug . '/leaderboard', $data);
+        $this->load->view('templates/scripts', $data);
+        $this->load->view('sites/' . $slug . '/script', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function sort_leaderboard_main($leaderboard_array)
+    {
+        foreach ($leaderboard_array as &$leaderboard) {
+            // Null means it could not divide by 0 to get the accuracy
+            if (is_null($leaderboard['accuracy'])) {
+                $leaderboard['accuracy'] = 100;
+            }
+            // Round
+            $leaderboard['accuracy'] = sprintf('%0.2f', $leaderboard['accuracy']);
+        }
+        // Sort by accuracy
+        usort($leaderboard_array, 'leaderboard_sort_core');
+        return $leaderboard_array;
     }
 
     public function get_user_by_session()
