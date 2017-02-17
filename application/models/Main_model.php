@@ -125,7 +125,7 @@ Class main_model extends CI_Model
         $this->db->select('*');
         $this->db->from('review');
         $this->db->where('post_key', $post_key);
-        $this->db->where('`created` < timestampadd(hour, -" . $hours_between_reviews . ", now())', '', false);
+        $this->db->where('`created` > timestampadd(hour, -' . $hours_between_reviews . ', now())', '', false);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -155,6 +155,23 @@ Class main_model extends CI_Model
         );
         $this->db->insert('review', $data);
         return $this->db->insert_id();
+    }
+    function percent_of_reviews_with_action_by_post_key($post_key, $action_key)
+    {
+        $post_key = mysqli_real_escape_string(get_mysqli(), $post_key);
+        $action_key = mysqli_real_escape_string(get_mysqli(), $action_key);
+
+        // Get percent of reviews with this action
+        $query = $this->db->query("
+            SELECT 100 * SUM(CASE WHEN `action_key` = " . $action_key . " THEN 1 ELSE 0 END)/COUNT(*) as percent, COUNT(*) as total
+            FROM `review`
+            WHERE `post_key` = " . $post_key . "
+        ");
+        $result = $query->result_array();
+        if (!$result[0]['percent']) {
+            $result[0]['percent'] = 100;
+        }
+        return $result[0];
     }
     function get_offences_by_site($site_key)
     {

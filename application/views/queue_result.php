@@ -6,7 +6,7 @@
             <?php $result_message = $review_result ? 'Pass' : 'Fail'; ?>
             <!-- <div class="alert alert-<?php echo $result_class; ?>">Last Result: <?php echo $result_message; ?></div> -->
             <?php } ?>
-            <?php echo flash('reivew_result'); ?>
+            <?php echo flash('review_result'); ?>
         </div>
     </div>
 </div>

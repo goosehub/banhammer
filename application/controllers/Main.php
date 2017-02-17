@@ -16,6 +16,8 @@ class Main extends CI_Controller {
             $this->leaderboard_minimum = 100;
         }
         $this->confidence_minimum = 3;
+        $this->action_outlier_review_minimum = 1;
+        $this->action_outlier_percentage = 5;
 
         // Get list of active sites
         $this->data['active_sites'] = $this->main_model->get_active_sites();
@@ -84,6 +86,7 @@ class Main extends CI_Controller {
         // Get a post for queue
         $ip = $_SERVER['REMOTE_ADDR'];
         $data['post'] = $this->main_model->get_post_for_queue($data['current_site']['id'], $ip, $this->data['hours_between_reviews']);
+
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();
 
@@ -131,9 +134,20 @@ class Main extends CI_Controller {
 
         // Check if this was recently reviewed (should only happen to hackers)
         $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $this->data['hours_between_reviews']);
+
         if (!empty($recently_reveiwed)) {
+            if (is_dev()) {
+                echo 'recently reviewed (should only happen to hackers)';
+                die();
+            }
             redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');
             return false;
+        }
+
+        // Check that action was appropriate
+        $action_percentage = $this->main_model->percent_of_reviews_with_action_by_post_key($user_input['post_key'], $user_input['action_key']);
+        if ($action_percentage['total'] > $this->action_outlier_review_minimum && (!$action_percentage || $action_percentage['percent'] < $this->action_outlier_percentage) ) {
+            flash('review_result', 'Fail - Inappropriate Action', 'danger');
         }
 
         // Insert as new review
@@ -160,12 +174,12 @@ class Main extends CI_Controller {
         if ($reviewed_post['confidence'] < $this->confidence_minimum || $reviewed_post['offence_key'] === $user_input['offence_key']) {
             $data['user']['current_account']['streak']++;
             $data['user']['current_account']['pass']++;
-            flash('reivew_result', 'Pass', 'success');
+            flash('review_result', 'Pass', 'success');
         }
         else {
             $data['user']['current_account']['streak'] = 0;
             $data['user']['current_account']['fail']++;
-            flash('reivew_result', 'Fail', 'danger');
+            flash('review_result', 'Fail - Wrong Offence', 'danger');
         }
         $data['user']['current_account']['total']++;
 

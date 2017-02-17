@@ -2,6 +2,8 @@
     <div class="row">
         <div class="col-md-6 col-md-push-3">
 
+            <?php if ($post) { ?>
+
             <form id="real_report_form" action="<?=base_url()?>site/<?php echo $slug; ?>/real_report" method="post">
                 <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
 
@@ -70,6 +72,8 @@
                     </div>
                 </div>
             </div>
+            
+            <?php } ?>
 
         </div>
     </div>

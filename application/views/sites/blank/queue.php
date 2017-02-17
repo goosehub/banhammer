@@ -15,8 +15,10 @@
                 <?php if (!$post) { ?>
 
                 <div class="post_parent alert alert-info">
-                    Queue Empty
+                    <p>Queue Empty.</p>
                 </div>
+
+                <h4>Great job! <a class="" href="<?=base_url()?>site/<?php echo $slug; ?>">Consider creating some posts on this site</a>.</h4>
 
                 <?php } else { ?>
 
