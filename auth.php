@@ -2,6 +2,6 @@
     "hostname" : "localhost",
     "username" : "root",
     "password" : "root",
-    "database" : "moderator",
+    "database" : "banhammer",
     "token" : "1234"
 }
