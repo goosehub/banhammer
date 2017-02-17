@@ -8,7 +8,7 @@
     </div>
     <div class="row">
 
-        <div class="col-md-8">
+        <div class="moderator_queue_list_parent col-md-8">
             <h2 class="moderator_queue_title">
                 Moderator Queues
                 <?php if (!$user['logged_in']) { ?>
@@ -70,30 +70,6 @@
     </div>
 
     <hr>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#how_to_play_modal">
-        How To Play
-        <span class="glyphicon glyphicon-question-sign"></span>
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="how_to_play_modal" tabindex="-1" role="dialog" aria-labelledby="how_to_play_modal_label">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="how_to_play_modal_label">How To Play?</h4>
-                </div>
-                <div class="modal-body">
-                    You are presented with a post. You must decide which rule if any that post is breaking. If you deviate from the consensus, or if the action you take is too strong or soft, you fail.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-6 col-md-push-3">

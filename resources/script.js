@@ -6,10 +6,7 @@ $(document).ready(function(){
         var offence = parseInt($(this).attr('offence'));
         var real_report = $(this).attr('real_report');
         $('#offence_input').val(offence);
-        // No offence or actual flag no action
-        if (real_report) {
-            $('#real_report').val('1');
-        }
+        // No offence, no action needed
         if (offence === 1) {
             $('#queue_form').submit();
         }
@@ -17,6 +14,10 @@ $(document).ready(function(){
             $('#action_parent').show();
             window.scrollTo(0,document.body.scrollHeight);
         }
+    });
+
+    $('.real_report_button').click(function(event){
+        $('#real_report_form').submit();
     });
 
     $('.action_button').click(function(event){
@@ -36,6 +37,7 @@ $(document).ready(function(){
     // Embedica converting urls to embeds
     $('.embedica_this').each(function(){
         var content = $(this).html();
+        content = content.replace('<br>', ' <br> ');
         content = embedica(content);
         $(this).html(content);
     });

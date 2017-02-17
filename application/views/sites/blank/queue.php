@@ -43,8 +43,6 @@
                             <?php echo get_time_ago(strtotime($post['created'])); ?>
                             </small>
                         </div>
-
-                        <span class="offence_button glyphicon glyphicon-flag btn" offence="1" real_report="true" aria-hidden="true" title="Report illegal content. Not a game button."></span>
                     </blockquote>
                 </div>
 

@@ -106,7 +106,6 @@ class Main extends CI_Controller {
         $this->form_validation->set_rules('post_id', 'post_id', 'trim|required|integer|greater_than[0]|max_length[10]');
         $this->form_validation->set_rules('offence', 'offence', 'trim|required|integer|greater_than[0]|max_length[10]');
         $this->form_validation->set_rules('action', 'action', 'trim|required|integer|greater_than[0]|max_length[10]');
-        $this->form_validation->set_rules('real_report', 'real_report', 'trim');
         
         // Fail
         if ($this->form_validation->run() == FALSE) {
@@ -119,19 +118,12 @@ class Main extends CI_Controller {
         $user_input['offence_key'] = $this->input->post('offence');
         $user_input['post_key'] = $this->input->post('post_id');
         $user_input['action_key'] = $this->input->post('action');
-        $user_input['real_report'] = $this->input->post('real_report');
 
         // Check if this was recently reviewed (should only happen to hackers)
         $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $this->data['hours_between_reviews']);
         if (!empty($recently_reveiwed)) {
             redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');
             return false;
-        }
-
-        if ($user_input['real_report']) {
-            $this->main_model->real_report($user_input['post_key']);
-            $data['review_result'] = true;
-            return $data;
         }
 
         // Insert as new review
@@ -158,13 +150,11 @@ class Main extends CI_Controller {
         if ($reviewed_post['confidence'] < $this->confidence_minimum || $reviewed_post['offence_key'] === $user_input['offence_key']) {
             $data['user']['current_account']['streak']++;
             $data['user']['current_account']['pass']++;
-            $data['review_result'] = true;
             flash('reivew_result', 'Pass', 'success');
         }
         else {
             $data['user']['current_account']['streak'] = 0;
             $data['user']['current_account']['fail']++;
-            $data['review_result'] = false;
             flash('reivew_result', 'Fail', 'danger');
         }
         $data['user']['current_account']['total']++;
@@ -176,6 +166,25 @@ class Main extends CI_Controller {
 
         // Get user with new info
         redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');
+    }
+
+    function real_report($slug)
+    {
+        // Validation
+        $this->form_validation->set_rules('post_id', 'post_id', 'trim|required|integer|greater_than[0]|max_length[10]');
+        
+        // Fail
+        if ($this->form_validation->run() == FALSE) {
+            echo validation_errors();
+            echo report_bugs_string();
+            return false;
+        }
+
+        $user_input['post_id'] = $this->input->post('post_id');
+        $this->main_model->real_report($user_input['post_id']);   
+
+        // Get user with new info
+        redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');     
     }
 
     public function new_post($slug)

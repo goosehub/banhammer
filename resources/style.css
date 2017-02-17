@@ -3,7 +3,7 @@ body {
     background-color: #f9f9f9;
     color: #222;
 }
-.main_site_name, .main_site_description, .moderator_queue_title, .overall_leaderboard, .update_news_parent h3 {
+.main_site_name, .main_site_description, .moderator_queue_title, .overall_leaderboard, .update_news_parent h3, .moderator_queue_list_parent {
     font-family: 'Julius Sans One', sans-serif;
 }
 
@@ -69,6 +69,12 @@ body {
 .offence_none {
     font-weight: bold;
 }
+.how_to_play_button {
+
+}
+.real_report_button {
+    
+}
 
 /* Global posts rules */
 .message_video, .embedica_element, .embedica_element iframe, .embedica_element video {
@@ -80,7 +86,13 @@ body {
     height: 300px;
 }
 
-/* Landing Footer */
+/* Landing */
+.moderator_queue_list_parent .toolbar_site_name {
+    font-size: 2em;
+}
+.moderator_queue_list_parent .toolbar_site_icon {
+    height: 2em;
+}
 .landing_footer {
     color: #666;
 }

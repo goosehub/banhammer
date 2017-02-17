@@ -9,6 +9,7 @@ $route['site/(:any)/new_review']['post'] = 'main/new_review/$1';
 $route['site/(:any)/(:num)'] = 'main/homepage/$1/$2';
 $route['site/(:any)/(:num)/(:num)'] = 'main/homepage/$1/$2/$3';
 $route['site/(:any)/new_post']['post'] = 'main/new_post/$1';
+$route['site/(:any)/real_report']['post'] = 'main/real_report/$1';
 $route['import'] = 'import';
 $route['login']['post'] = 'user/login';
 $route['new_user']['post'] = 'user/register';
