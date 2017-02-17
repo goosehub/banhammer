@@ -41,7 +41,7 @@ Class main_model extends CI_Model
         $users = $query->result_array();
 
         foreach ($users as &$user) {
-            $this->db->select('SUM(pass) as pass, SUM(fail) as fail, MAX(streak) as streak, SUM(total) as total, (100 - (100 / (pass + fail) / fail) ) as accuracy');
+            $this->db->select('SUM(pass) as pass, SUM(fail) as fail, MAX(streak) as streak, SUM(total) as total, (100 - (100 / ( (pass + fail) / fail) ) ) as accuracy');
             $this->db->from('account');
             $this->db->where('user_key', $user['id']);
             $query = $this->db->get();
@@ -57,7 +57,7 @@ Class main_model extends CI_Model
     }
     function get_leaderboard_for_site($site_key, $limit)
     {
-        $this->db->select('account.*, user.username, (100 - (100 / (pass + fail) / fail) ) as accuracy');
+        $this->db->select('account.*, user.username, (100 - (100 / ( (pass + fail) / fail) ) ) as accuracy');
         $this->db->from('account');
         $this->db->join('user', 'user.id = account.user_key', 'left');
         $this->db->where('site_key', $site_key);

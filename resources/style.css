@@ -10,26 +10,26 @@ body {
 /* Toolbar */
 .global_toolbar {
     background-color: #f9f9f9;
-    height: 2.3em;
+    height: 2.8em;
     border-bottom: 1px solid #888;
 }
-.toolbar_site_icon {
+.global_site_icon {
     height: 1em;
 }
-.toolbar_site_name {
+.global_site_name {
     color: #000;
 }
-.toolbar_site_parent {
+.global_site_parent {
     display: inline-block;
-    padding: 0.3em;
+    padding: 0.5em;
     margin: 0.1em;
     transition: background-color 0.5s;
     border-radius: 0.1em;
 }
-.toolbar_site_parent:hover {
+.global_site_parent:hover {
     background-color: #e6e6e6;
 }
-.toolbar_link:hover {
+.global_link:hover {
     text-decoration: none;
     cursor: default;
 }
@@ -69,12 +69,6 @@ body {
 .offence_none {
     font-weight: bold;
 }
-.how_to_play_button {
-
-}
-.real_report_button {
-    
-}
 
 /* Global posts rules */
 .message_video, .embedica_element, .embedica_element iframe, .embedica_element video {
@@ -87,10 +81,10 @@ body {
 }
 
 /* Landing */
-.moderator_queue_list_parent .toolbar_site_name {
+.moderator_queue_list_parent .global_site_name {
     font-size: 2em;
 }
-.moderator_queue_list_parent .toolbar_site_icon {
+.moderator_queue_list_parent .global_site_icon {
     height: 2em;
 }
 .landing_footer {

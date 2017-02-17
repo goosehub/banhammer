@@ -1,6 +1,23 @@
-<div class="container">
+<div class="<?php echo $slug; ?>_parent container">
     <div class="row">
-        <div class="col-md-6 col-md-push-3">
+        <div class="col-md-8 col-md-push-2">
+
+            <hr>
+
+            <a class="btn btn-primary" href="<?=base_url()?>site/<?php echo $slug; ?>">
+                <strong><?php echo deslug($current_site['name']); ?></strong>
+            </a>
+
+            <a class="btn btn-action" href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
+                <strong>Moderator Queue</strong>
+            </a>
+
+            <a class="btn btn-success" href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard">
+                <strong>Moderator Leaderboard</strong>
+            </a>
+
+            <hr>
+
             <div class="overall_leaderboard">
                 <h3><?php echo $current_site['name']; ?> Leaderboard <small>Minimum of <?php echo $leaderboard_minimum; ?></small></h3>
                 <table class="table table-stripped">

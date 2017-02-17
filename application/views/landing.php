@@ -15,10 +15,10 @@
                 <small>Pick one to begin</small>
                 <?php } ?></h2>
             <?php foreach ($active_sites as $site) { ?>
-            <a class="toolbar_link" href="<?=base_url()?>site/<?php echo $site['slug']; ?>/queue">
-                <div class="toolbar_site_parent">
-                    <img class="toolbar_site_icon" src="<?=base_url()?>resources/sites/<?php echo $site['slug']; ?>/icon.png" alt="<?php echo $site['name']; ?>"/>
-                    <span class="toolbar_site_name"><?php echo $site['name']; ?></span>
+            <a class="global_link" href="<?=base_url()?>site/<?php echo $site['slug']; ?>/queue">
+                <div class="global_site_parent">
+                    <img class="global_site_icon" src="<?=base_url()?>resources/sites/<?php echo $site['slug']; ?>/icon.png" alt="<?php echo $site['name']; ?>"/>
+                    <span class="global_site_name"><?php echo $site['name']; ?></span>
                 </div>
             </a>
             <?php } ?>
@@ -29,7 +29,7 @@
             <div class="login_register_parent">
                 <?php if ($user['logged_in']) { ?>
                 <h2>Welcome back <?php echo $user['username']; ?></h2>
-                <a class="btn btn-danger" href="<?=base_url()?>logout">Logout</a>
+                <a class="text-danger" href="<?=base_url()?>logout">Logout</a>
                 <?php } else { ?>
                 <h3>Create an account to save your progress</h3>
                 <strong class="text-primary">Not required to play</strong>
