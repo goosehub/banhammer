@@ -6,6 +6,9 @@ body {
 .main_site_name, .main_site_description, .moderator_queue_title, .overall_leaderboard, .update_news_parent h3 {
     font-family: 'Julius Sans One', sans-serif;
 }
+.btn {
+    margin-top: 1em;
+}
 
 /* Toolbar */
 .global_toolbar {
@@ -63,9 +66,6 @@ body {
 }
 
 /* Queue Form */
-.offence_button, .action_button {
-    margin-top: 1em;
-}
 .offence_none {
     font-weight: bold;
 }

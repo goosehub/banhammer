@@ -18,7 +18,7 @@
 
             <hr>
 
-            <div class="overall_leaderboard">
+            <div class="overall_leaderboard table-responsive">
                 <h3><?php echo $current_site['name']; ?> Leaderboard <small>Minimum of <?php echo $leaderboard_minimum; ?></small></h3>
                 <table class="table table-stripped">
                     <thead>
