@@ -13,7 +13,6 @@ Low Priority
     verify leaderboard accuracy
     queue to ajax
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
-    after 10 total in temp session, prompt to create account
 
 No Priority
     simplier leaderboard queries/sorting

@@ -24,6 +24,7 @@ class Main extends CI_Controller {
         $this->data['user'] = $this->get_user_by_session();
         $this->data['current_site']['name'] = 'Overall';
         $this->data['current_site']['slug'] = 'default';
+        $this->data['login_reminder_point'] = 30;
         $this->data['hours_between_reviews'] = 24;
         $this->data['leaderboard_minimum'] = $this->leaderboard_minimum;
     }

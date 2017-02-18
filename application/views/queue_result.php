@@ -7,6 +7,11 @@
             <!-- <div class="alert alert-<?php echo $result_class; ?>">Last Result: <?php echo $result_message; ?></div> -->
             <?php } ?>
             <?php echo flash('review_result'); ?>
+
+            <?php if (!$user['logged_in'] && $user['current_account']['total'] === $login_reminder_point) { ?>
+            <strong>You're progress isn't being saved.</strong>
+            <a href="<?=base_url()?>">Create an account?</a>
+            <?php } ?>
         </div>
     </div>
 </div>
