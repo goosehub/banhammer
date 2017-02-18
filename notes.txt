@@ -7,7 +7,6 @@ High Priority
 
 Moderate Priority
     ssl
-    site column to force anonymous username on some sites
     get a subreddit
     a/b testing homepage
     

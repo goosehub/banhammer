@@ -277,6 +277,10 @@ class Main extends CI_Controller {
             $post['username'] = $this->input->post('username');
             $post['content'] = $this->input->post('content');
 
+            if ($data['current_site']['anonymous_flag']) {
+                $post['username'] = 'Anonymous';
+            }
+
             // Create post
             $this->main_model->create_post($post);
         }
