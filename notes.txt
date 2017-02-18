@@ -7,10 +7,9 @@ High Priority
 
 Moderate Priority
     ssl
-    get a subreddit
-    a/b testing homepage
     
 Low Priority
+    a/b testing homepage
     verify leaderboard accuracy
     queue to ajax
     mobile reevaluation

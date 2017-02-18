@@ -128,8 +128,8 @@
                 <strong class="text-center">Please report bugs to goosepostbox@gmail.com</strong>
                 <br>
                 <br>
-                <!-- <a href="https://www.reddit.com/r/banhammer"/>/r/banhammer</a> -->
-                <!-- <strong>~</strong> -->
+                <a href="https://www.reddit.com/r/ban_hammer" target="_blank"/>/r/ban_hammer</a>
+                <strong>~</strong>
                 <a href="<?=base_url()?>about">About <?php echo site_name(); ?></a>
             </footer>
         </div>

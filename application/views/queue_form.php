@@ -64,7 +64,7 @@
                             <h4 class="modal-title text-primary" id="how_to_play_modal_label">How To Play?</h4>
                         </div>
                         <div class="modal-body">
-                            You are presented with a post. You must decide which rule if any that is being broken. If you deviate from the consensus, or if the action you take is too strong or soft, you fail. Keep your accuracy high and top the leaderboard.
+                            You are presented with a post. You must decide which rule if any that is being broken. If you deviate from the consensus, or if the action you take is unusual, you fail. Keep your accuracy high and top the leaderboard.
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
