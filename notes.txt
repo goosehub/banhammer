@@ -16,6 +16,7 @@ Low Priority
     after 10 total in temp session, prompt to create account
 
 No Priority
+    simplier leaderboard queries/sorting
     accuracy null done in query
     save current progress on create account with active session
     admin for adding/managing site and enforcement table data
@@ -27,12 +28,7 @@ No Priority
 
 Thinking about
     bots should play this game
-    action outlier punishment
-        If you are an extreme outlier in your action, it is considerred inaccurate
-        min of 10 reviews
-        choosen action is choosen in less than 10 percent of reviews
     favicon for each site?
-    none for offence?
     new offences
         racist/sexist
         user underage

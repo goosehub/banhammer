@@ -324,6 +324,7 @@ class Main extends CI_Controller {
         }
         // Sort by accuracy
         usort($leaderboard_array, 'leaderboard_sort_core');
+        $leaderboard_array = array_reverse($leaderboard_array);
         return $leaderboard_array;
     }
 

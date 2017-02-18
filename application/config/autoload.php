@@ -70,7 +70,7 @@ function leaderboard_sort_core($a, $b)
         return ! $a['total'] - $b['total'];
     }
     // Else, sort by accuracy
-    return $accuracy;
+    return !$accuracy;
 }
 
 function array_orderby()
