@@ -3,7 +3,7 @@ body {
     background-color: #f9f9f9;
     color: #222;
 }
-.main_site_name, .main_site_description, .moderator_queue_title, .overall_leaderboard, .update_news_parent h3, .moderator_queue_list_parent {
+.main_site_name, .main_site_description, .moderator_queue_title, .overall_leaderboard, .update_news_parent h3 {
     font-family: 'Julius Sans One', sans-serif;
 }
 

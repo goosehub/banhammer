@@ -89,6 +89,7 @@
                     <tbody>
                         <?php $rank = 1; ?>
                         <?php foreach ($leaderboard as $account) { ?>
+                        <?php if ($account['total'] < $leaderboard_minimum) { continue; } ?>
                         <tr>
                             <td><?php echo $rank; ?></td>
                             <td><?php echo $account['username']; ?></td>

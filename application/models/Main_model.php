@@ -48,9 +48,6 @@ Class main_model extends CI_Model
             $result = $query->result_array();
             $account = $result[0];
             $account['username'] = $user['username'];
-            if ($account['total'] < $limit) {
-                $account['accuracy'] = 0;
-            }
             $user = $account;
         }
         return $users;

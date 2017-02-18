@@ -16,8 +16,8 @@
     <span id="score_parent">
         <?php if ($user['logged_in']) { ?>
         <span id="global_username"><?php echo $user['username']; ?>: </span>
-        <?php } ?>
         <span class="score_label"><?php echo $current_site['name']; ?></span>
+        <?php } ?>
         <span id="reputation_parent" class="text-default">
             <span id="reputation_label" class="score_label">Accuracy</span>
             <span id="reputation_value" class="score_value"><?php echo accuracy_calculator($user['current_account']['pass'], $user['current_account']['fail']); ?>%</span>

@@ -187,6 +187,22 @@ class Main extends CI_Controller {
         if ($data['user']['logged_in']) {
             $this->main_model->update_account($data['user']['current_account']);
         }
+        else {
+            $sess_array = array(
+                'id' => 0,
+                'username' => 'Anonymous',
+                'logged_in' => false,
+                'current_account' => array(
+                    'id' => 0,
+                    'pass' => $data['user']['current_account']['pass'],
+                    'fail' => $data['user']['current_account']['fail'],
+                    'streak' => $data['user']['current_account']['streak'],
+                    'total' => $data['user']['current_account']['total'],
+                ),
+            );
+            $this->session->set_userdata('user', $sess_array);
+            $user = $this->session->userdata('user');
+        }
 
         // Get user with new info
         redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');
@@ -316,6 +332,7 @@ class Main extends CI_Controller {
                 'username' => 'Anonymous',
                 'logged_in' => false,
                 'current_account' => array(
+                    'id' => 0,
                     'pass' => 0,
                     'fail' => 0,
                     'streak' => 0,
