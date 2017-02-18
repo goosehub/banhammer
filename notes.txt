@@ -4,6 +4,7 @@
 
 High Priority
     sites
+    recently reviewed bug
 
 Moderate Priority
     ssl
@@ -18,9 +19,9 @@ Low Priority
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
     after 10 total in temp session, prompt to create account
     get_user_by_id into raw sql for performance
-    refactor leaderboards sql for performance
 
 No Priority
+    accuracy null done in query
     save current progress on create account with active session
     admin for adding/managing site and enforcement table data
     search
