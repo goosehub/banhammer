@@ -323,9 +323,20 @@ class Main extends CI_Controller {
             $leaderboard['accuracy'] = sprintf('%0.2f', $leaderboard['accuracy']);
         }
         // Sort by accuracy
-        usort($leaderboard_array, 'leaderboard_sort_core');
+        usort($leaderboard_array, array($this, 'leaderboard_sort_core'));
         $leaderboard_array = array_reverse($leaderboard_array);
         return $leaderboard_array;
+    }
+
+    public function leaderboard_sort_core($a, $b)
+    {
+        $accuracy = strcmp($a['accuracy'], $b['accuracy']);
+        // If difference in accuracy is 0, sort by total descening
+        if ($accuracy === 0) {
+            return ! $a['total'] - $b['total'];
+        }
+        // Else, sort by accuracy
+        return !$accuracy;
     }
 
     public function get_user_by_session()

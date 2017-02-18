@@ -62,17 +62,6 @@ function accuracy_calculator($pass, $fail) {
     return sprintf('%0.2f', $result);
 }
 
-function leaderboard_sort_core($a, $b)
-{
-    $accuracy = strcmp($a['accuracy'], $b['accuracy']);
-    // If difference in accuracy is 0, sort by total descening
-    if ($accuracy === 0) {
-        return ! $a['total'] - $b['total'];
-    }
-    // Else, sort by accuracy
-    return !$accuracy;
-}
-
 function array_orderby()
 {
     $args = func_get_args();
