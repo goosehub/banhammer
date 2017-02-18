@@ -4,7 +4,6 @@
 
 High Priority
     sites
-    recently reviewed bug
 
 Moderate Priority
     ssl

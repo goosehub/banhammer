@@ -132,12 +132,12 @@ class Main extends CI_Controller {
         $user_input['post_key'] = $this->input->post('post_id');
         $user_input['action_key'] = $this->input->post('action');
 
-        // Check if this was recently reviewed (should only happen to hackers)
+        // Check if this was recently reviewed (most likely to be frequent malicious target)
         $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $this->data['hours_between_reviews']);
 
         if (!empty($recently_reveiwed)) {
             if (is_dev()) {
-                echo 'recently reviewed (should only happen to hackers)';
+                echo 'recently reviewed';
                 die();
             }
             redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');

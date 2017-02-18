@@ -89,21 +89,20 @@ Class main_model extends CI_Model
         $ip = mysqli_real_escape_string(get_mysqli(), $ip);
 
         // Left Join with negative check makes this query delicate, be careful
-        $query = $this->db->query("
-            SELECT `post`.*
-            FROM `post`
-            LEFT JOIN
-                `review`
-                ON `post`.`id` = `review`.`post_key`
-            WHERE `post`.`site_key` = '" . $site_key . "'
-            AND (
-                `review`.`ip` != '" . $ip . "'
-                OR `review`.`created` < timestampadd(hour, -" . $hours_between_reviews . ", now())
-                OR `review`.`id` IS NULL
-            )
-            ORDER BY RAND()
-            LIMIT 1;
-        ");
+        $raw_query = "
+        SELECT `post`.*
+        FROM `post`
+        WHERE `post`.`site_key` = " . $site_key . "
+        AND NOT EXISTS (
+            SELECT *
+            FROM `review`
+            WHERE `post_key` = `post`.`id`
+            AND `review`.`created` > timestampadd(hour, -" . $hours_between_reviews . ", now())
+        )
+        ORDER BY RAND()
+        LIMIT 1;
+        ";
+        $query = $this->db->query($raw_query);
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
