@@ -18,7 +18,6 @@ Low Priority
     mobile reevaluation
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
     after 10 total in temp session, prompt to create account
-    get_user_by_id into raw sql for performance
 
 No Priority
     accuracy null done in query

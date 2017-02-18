@@ -14,9 +14,10 @@ Class user_model extends CI_Model
  function get_user_by_id($user_id)
  {
     // Get user
-    $this->db->select('id, username, last_login, created');
+    $this->db->select('`user`.id, username, last_login, `user`.created, SUM(pass) as pass, SUM(fail) as fail, MAX(streak) as streak, SUM(total) as total');
     $this->db->from('user');
-    $this->db->where('id', $user_id);
+    $this->db->join('account', 'user.id = account.user_key', 'left');
+    $this->db->where('`user`.id', $user_id);
     $this->db->limit(1);
     $query = $this->db->get();
     $result = $query->result_array();
@@ -25,22 +26,11 @@ Class user_model extends CI_Model
     }
     $user = $result[0];
     $user['logged_in'] = true;
-
-    // Get accounts
-    $this->db->select('*');
-    $this->db->from('account');
-    $this->db->where('user_key', $user_id);
-    $query = $this->db->get();
-    $user['accounts'] = $query->result_array();
-
-    // Get account sum
-    $this->db->select('SUM(pass) as pass, SUM(fail) as fail, MAX(streak) as streak, SUM(total) as total');
-    $this->db->from('account');
-    $this->db->where('user_key', $user_id);
-    $query = $this->db->get();
-    $user['account_sum'] = $query->result_array();
-    $user['account_sum'] = $user['account_sum'][0];
-    $user['current_account'] = $user['account_sum'];
+    $user['current_account']['id'] = 0;
+    $user['current_account']['pass'] = $user['pass'];
+    $user['current_account']['fail'] = $user['fail'];
+    $user['current_account']['streak'] = $user['streak'];
+    $user['current_account']['total'] = $user['total'];
 
     return $user;
  }
