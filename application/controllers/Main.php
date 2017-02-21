@@ -9,6 +9,12 @@ class Main extends CI_Controller {
         $this->load->model('main_model', '', TRUE);
         $this->load->model('user_model', '', TRUE);
 
+        // Force ssl
+        if (!is_dev()) {
+            force_ssl();
+        }
+
+        // Get shared variables
         if (is_dev()) {
             $this->leaderboard_minimum = 10;
         }
@@ -18,8 +24,6 @@ class Main extends CI_Controller {
         $this->confidence_minimum = 3;
         $this->action_outlier_review_minimum = 1;
         $this->action_outlier_percentage = 5;
-
-        // Get list of active sites
         $this->data['active_sites'] = $this->main_model->get_active_sites();
         $this->data['user'] = $this->get_user_by_session();
         $this->data['current_site']['name'] = 'Overall';
