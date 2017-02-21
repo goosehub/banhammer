@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 21, 2017 at 05:58 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Host: localhost
+-- Generation Time: Feb 21, 2017 at 05:46 PM
+-- Server version: 5.7.17
+-- PHP Version: 5.5.9-1ubuntu4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `account` (
   `fail` int(10) unsigned NOT NULL,
   `streak` int(10) unsigned NOT NULL,
   `total` int(10) unsigned NOT NULL,
-  `created` timestamp NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 -- --------------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `action` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(100) NOT NULL,
   `sort` int(10) unsigned NOT NULL,
-  `created` timestamp NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `offence` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(100) NOT NULL,
   `sort` int(10) unsigned NOT NULL,
-  `created` timestamp NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
@@ -91,17 +91,17 @@ CREATE TABLE IF NOT EXISTS `post` (
   `username` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `real_report` int(10) unsigned NOT NULL,
+  `real_report` int(10) unsigned NOT NULL DEFAULT '0',
   `site_key` int(10) NOT NULL,
   `account_key` int(10) NOT NULL,
   `offence_key` int(10) unsigned NOT NULL,
   `confidence` int(10) unsigned NOT NULL,
-  `severity_sum` int(10) unsigned NOT NULL,
-  `review_tally` int(10) unsigned NOT NULL,
+  `severity_sum` int(10) unsigned NOT NULL DEFAULT '0',
+  `review_tally` int(10) unsigned NOT NULL DEFAULT '0',
   `last_reviewed` varchar(100) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=224 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=235 ;
 
 -- --------------------------------------------------------
 
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   `ip` varchar(100) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=558 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=580 ;
 
 -- --------------------------------------------------------
 
@@ -148,16 +148,16 @@ CREATE TABLE IF NOT EXISTS `site` (
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
-  `ab_test` varchar(100) NOT NULL,
-  `image` varchar(100) NOT NULL,
+  `ab_test` varchar(100) NOT NULL DEFAULT '',
+  `image` varchar(100) NOT NULL DEFAULT '',
   `ip` varchar(100) NOT NULL,
-  `email` varchar(256) NOT NULL,
-  `facebook_id` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL DEFAULT '',
+  `facebook_id` varchar(256) NOT NULL DEFAULT '',
   `last_login` varchar(100) NOT NULL,
   `password` varchar(1000) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
