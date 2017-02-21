@@ -147,7 +147,8 @@ class Main extends CI_Controller {
         $review_result = array();
 
         // Check if this was recently reviewed (most likely to be frequent malicious target)
-        $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $this->data['hours_between_reviews']);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $ip, $this->data['hours_between_reviews']);
 
         if (!empty($recently_reveiwed)) {
             if (is_dev()) {

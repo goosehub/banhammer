@@ -98,6 +98,7 @@ Class main_model extends CI_Model
             SELECT *
             FROM `review`
             WHERE `post_key` = `post`.`id`
+            AND `ip` = '" . $ip . "'
             AND `review`.`created` > timestampadd(hour, -" . $hours_between_reviews . ", now())
         )
         ORDER BY RAND()
@@ -107,11 +108,12 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function recent_reviews_for_post($post_key, $hours_between_reviews)
+    function recent_reviews_for_post($post_key, $ip, $hours_between_reviews)
     {
         $this->db->select('*');
         $this->db->from('review');
         $this->db->where('post_key', $post_key);
+        $this->db->where('ip', $ip);
         $this->db->where('`created` > timestampadd(hour, -' . $hours_between_reviews . ', now())', '', false);
         $query = $this->db->get();
         return $query->result_array();

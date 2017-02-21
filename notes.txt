@@ -8,7 +8,6 @@ High Priority
 Moderate Priority
     
 Low Priority
-    last login
     prevent post mass spam by ip
     verify leaderboard accuracy
     move javascript to php
