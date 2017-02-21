@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `confidence` int(10) unsigned NOT NULL,
   `severity_sum` int(10) unsigned NOT NULL,
   `review_tally` int(10) unsigned NOT NULL,
-  `last_reviewed` timestamp NOT NULL,
+  `last_reviewed` varchar(100) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=224 ;
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ip` varchar(100) NOT NULL,
   `email` varchar(256) NOT NULL,
   `facebook_id` varchar(256) NOT NULL,
-  `last_login` timestamp NOT NULL,
+  `last_login` varchar(100) NOT NULL,
   `password` varchar(1000) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
