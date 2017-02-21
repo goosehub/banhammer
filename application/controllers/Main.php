@@ -239,33 +239,7 @@ class Main extends CI_Controller {
 
         // Validation
         $this->form_validation->set_rules('username', 'Username', 'trim|required|max_length[100]');
-        $this->form_validation->set_rules('content', 'Message', 'trim|max_length[10000]');
-
-        // Image upload Config
-        $config['upload_path'] = './uploads/';
-        $config['allowed_types'] = 'gif|jpg|jpeg|png|webm';
-        $config['max_size'] = '3000';
-        $config['max_width'] = '5000';
-        $config['max_height'] = '5000';
-        $config['encrypt_name'] = TRUE;
-        $this->load->library('upload', $config);
-
-        // Image
-        $post['image'] = '';
-        if (!$_FILES['image']['name'] && !$this->input->post('content')) {
-            $this->session->set_flashdata('validation_errors', 'Either image or message field required');
-            redirect(base_url() . 'site/' . $slug, 'refresh');
-            return false;
-        }
-        if ( $_FILES['image']['name'] && !$this->upload->do_upload('image') ) {
-            $this->session->set_flashdata('validation_errors', $this->upload->display_errors());
-            redirect(base_url() . 'site/' . $slug, 'refresh');
-            return false;
-        }
-        else if ($_FILES['image']['name']) {
-            $file = $this->upload->data();
-            $post['image'] = $file['file_name'];
-        }
+        $this->form_validation->set_rules('content', 'Message', 'trim|required|max_length[10000]');
         
         // Fail
         if ($this->form_validation->run() == FALSE) {
@@ -277,6 +251,7 @@ class Main extends CI_Controller {
             $post['site_key'] = $data['current_site']['id'];
             $post['username'] = $this->input->post('username');
             $post['content'] = $this->input->post('content');
+            $post['image'] = '';
 
             if ($data['current_site']['anonymous_flag']) {
                 $post['username'] = 'Anonymous';

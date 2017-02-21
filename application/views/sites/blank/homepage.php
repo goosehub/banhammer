@@ -44,8 +44,6 @@
                         <?php } ?>
                         <label>Message</label>
                         <textarea id="content_input" class="form-control" name="content"></textarea>
-                        <label>File <small>(Optional)</small></label>
-                        <input type="file" id="image_input" class="form-control" name="image"/>
                         <br>
                         <input type="submit" class="form-control btn btn-success"/>
                     </form>
@@ -65,15 +63,6 @@
                         <strong>
                             <?php echo html_clean($post['username']); ?>
                         </strong>
-                    </div>
-                    <div class="post_image_parent">
-                        <?php if ($post['image'] && file_exists('uploads/' . $post['image'])) { ?>
-                        <?php if (pathinfo($post['image'], PATHINFO_EXTENSION ) === 'webm') { ?>
-                        <video class="message_video message_content" muted controls="" loop="" controls src="<?php echo base_url() . 'uploads/' . $post['image']; ?>"></video>
-                        <?php } else { ?>
-                        <img class="post_image img-responsive" src="<?php echo base_url() . 'uploads/' . $post['image']; ?>" alt=""/>
-                        <?php } ?>
-                        <?php } ?>
                     </div>
                     <div class="post_content embedica_this">
                         <?php echo html_clean($post['content']); ?>

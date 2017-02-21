@@ -40,11 +40,6 @@
                             <?php echo html_clean($post['username']); ?>
                         </strong>
                     </div>
-                    <div class="post_image_parent">
-                        <?php if ($post['image'] && file_exists('./uploads' . $post['image'])) { ?>
-                        <img class="post_image img-responsive" src="<?php echo $post['image']; ?>" alt=""/>
-                        <?php } ?>
-                    </div>
                     <div class="post_content embedica_this">
                         <?php echo html_clean($post['content']); ?>
                     </div>
