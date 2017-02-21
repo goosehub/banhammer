@@ -125,9 +125,6 @@ Class main_model extends CI_Model
             'image' => $post['image'],
             'offence_key' => 1,
             'confidence' => 1,
-            'real_report' => 0,
-            'severity_sum' => 0,
-            'review_tally' => 0,
             'account_key' => $user['current_account']['id'],
             'last_reviewed' => date('Y-m-d H:i:s'),
         );

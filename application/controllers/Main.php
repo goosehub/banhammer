@@ -96,7 +96,9 @@ class Main extends CI_Controller {
         // Get a post for queue
         $ip = $_SERVER['REMOTE_ADDR'];
         $data['post'] = $this->main_model->get_post_for_queue($data['current_site']['id'], $ip, $this->data['hours_between_reviews']);
-        $data['post']['time_ago'] = get_time_ago(strtotime($data['post']['created']));
+        if ($data['post']) {
+            $data['post']['time_ago'] = get_time_ago(strtotime($data['post']['created']));
+        }
 
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();
@@ -227,11 +229,16 @@ class Main extends CI_Controller {
 
         $ip = $_SERVER['REMOTE_ADDR'];
         $output['post'] = $this->main_model->get_post_for_queue($data['current_site']['id'], $ip, $this->data['hours_between_reviews']);
-        $output['post']['time_ago'] = get_time_ago(strtotime($output['post']['created']));
+        if ($output['post']) {
+            $output['post']['time_ago'] = get_time_ago(strtotime($output['post']['created']));
+            $output['post']['username'] = html_clean($output['post']['username']);
+            $output['post']['content'] = html_clean($output['post']['content']);
+        }
+        else {
+            $output['post'] = false;
+        }
         $output['review_result'] = $review_result;
         $output['new_accuracy'] = accuracy_calculator($data['user']['current_account']['pass'], $data['user']['current_account']['fail']);
-        $output['post']['username'] = html_clean($output['post']['username']);
-        $output['post']['content'] = html_clean($output['post']['content']);
         echo json_encode($output);
     }
 

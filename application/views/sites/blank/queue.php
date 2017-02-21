@@ -7,30 +7,24 @@
             <a class="custom_btn btn btn-primary" href="<?=base_url()?>site/<?php echo $slug; ?>">
                 <strong><?php echo deslug($current_site['name']); ?></strong>
             </a>
-
             <a class="custom_btn btn btn-action" href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
                 <strong>Moderator Queue</strong>
             </a>
-
             <a class="custom_btn btn btn-success" href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard">
                 <strong>Moderator Leaderboard</strong>
             </a>
 
             <hr>
 
-            <?php if (!$post) { ?>
-
-            <div class="post_parent alert alert-info">
-                <p>Queue Empty.</p>
+            <div id="queue_empty_parent" <?php if ($post) { echo 'style="display: none;"'; } ?>>
+                <div class="post_parent alert alert-info">
+                    <p>Queue Empty.</p>
+                </div>
+                <hr>
+                <h4>Great job! <a class="" href="<?=base_url()?>site/<?php echo $slug; ?>"><strong>Consider creating some posts</strong></a>.</h4>
             </div>
 
-            <hr>
-
-            <h4>Great job! <a class="" href="<?=base_url()?>site/<?php echo $slug; ?>"><strong>Consider creating some posts</strong></a>.</h4>
-
-            <?php } else { ?>
-
-            <div class="post_parent">
+            <div id="queue_post_parent" class="post_parent" <?php if (!$post) { echo 'style="display: none;"'; } ?>>
                 <blockquote>
                     <div class="post_user">
                         <small>
@@ -50,8 +44,6 @@
                     </div>
                 </blockquote>
             </div>
-
-            <?php } ?>
 
             <hr>
 

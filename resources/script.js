@@ -45,7 +45,7 @@ $(document).ready(function(){
                     return false;
                 }
 
-                // debug
+                // Debug
                 console.log('Review submitted, new post returned');
                 console.log(response);
 
@@ -61,13 +61,19 @@ $(document).ready(function(){
                 }
 
                 // Update View
-                $('#queue_post_id_label, #real_report_form_post_id').html(response.post.id);
-                $('#queue_post_username').html(response.post.username);
-                $('#queue_post_content').hide();
-                var content = embedica(response.post.content);
-                $('#queue_post_content').html(content);
-                $('#queue_post_content').fadeIn(200);
-                $('#queue_post_time_ago').html(response.post.time_ago);
+                if (!response.post) {
+                    $('#queue_empty_parent').show();
+                    $('#queue_post_parent').hide();
+                }
+                else {
+                    $('#queue_post_id_label, #real_report_form_post_id').html(response.post.id);
+                    $('#queue_post_username').html(response.post.username);
+                    $('#queue_post_content').hide();
+                    var content = embedica(response.post.content);
+                    $('#queue_post_content').html(content);
+                    $('#queue_post_content').fadeIn(200);
+                    $('#queue_post_time_ago').html(response.post.time_ago);
+                }
 
                 // Update Score
                 $('#accuracy_value').html(response.new_accuracy);
@@ -80,7 +86,9 @@ $(document).ready(function(){
                 }
 
                 // Update Inputs
-                $('#queue_post_id').val(response.post.id)
+                if (response.post) {
+                    $('#queue_post_id').val(response.post.id)
+                }
                 $('#offence_input').val();
                 $('#action_input').val();
             }
