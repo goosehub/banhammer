@@ -43,7 +43,7 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
-    public function homepage($slug, $offset = 0, $limit = 30)
+    public function homepage($slug, $offset = 0, $limit = 20)
     {
         $data = $this->data;
         $data['current_site'] = $this->main_model->get_current_site($slug);

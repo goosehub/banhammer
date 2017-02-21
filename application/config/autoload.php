@@ -40,10 +40,11 @@ function deslug($string) {
     return ucwords(str_replace('_', ' ', $string));
 }
 
-
 function html_clean($string)
 {
-    return strip_tags($string, '<br>');
+    $string = htmlspecialchars($string, ENT_QUOTES, config_item('charset'), TRUE);
+    $string = nl2br($string);
+    return $string;
 }
 
 function accuracy_calculator($pass, $fail) {

@@ -3,10 +3,11 @@
 ==========================================================================================
 
 High Priority
+    ssl
+    queue to ajax (may make sites more difficult to create)
     sites
 
 Moderate Priority
-    ssl
     
 Low Priority
     a/b testing homepage with create account
@@ -14,8 +15,8 @@ Low Priority
     pent test https://github.com/minimaxir/big-list-of-naughty-strings
 
 No Priority
+    html stripped instead of escaped
     enable post image upload (Bandwidth and moderation concerns)
-    queue to ajax (may make sites more difficult to create)
     simplier leaderboard queries/sorting
     accuracy null done in query
     save current progress on create account with active session
