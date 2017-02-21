@@ -67,7 +67,10 @@ body {
 
 /* Queue Form */
 #review_result_alert {
-    transition: all 0.2s ease;
+    transition: all 0.2s ease-out;
+}
+#queue_post_content {
+    transition: height 0.5s ease;
 }
 .offence_none {
     font-weight: bold;

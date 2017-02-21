@@ -22,6 +22,11 @@ $(document).ready(function(){
     }
 
     $('#queue_form').on('submit', function(e){
+        // Empty and hide while we white
+        $('#action_parent').fadeOut(200);
+        $('#review_result_alert').removeClass('alert-info alert-success alert-danger');
+        $('#review_result_alert').html('...');
+
         var url = 'new_review';
         $.ajax({
             type: "POST",
@@ -45,21 +50,28 @@ $(document).ready(function(){
                 console.log(response);
 
                 // Update Feedback
-                $('#action_parent').fadeOut(200);
-                $('#review_result_alert').removeClass('alert-info', 'alert-success', 'alert-danger');
+                $('#review_result_alert').fadeIn(500);
                 $('#review_result_alert').addClass(response.review_result.class);
+                $('#review_result_alert').html(response.review_result.message);
+                if (response.review_result.bool) {
+                    $('#review_result_alert').prepend(' <span class="glyphicon glyphicon-ok-sign"></span> ');
+                }
+                else {
+                    $('#review_result_alert').prepend(' <span class="glyphicon glyphicon-remove-sign"></span> ');
+                }
 
                 // Update View
                 $('#queue_post_id_label, #real_report_form_post_id').html(response.post.id);
                 $('#queue_post_username').html(response.post.username);
+                $('#queue_post_content').hide();
                 var content = embedica(response.post.content);
                 $('#queue_post_content').html(content);
+                $('#queue_post_content').fadeIn(200);
                 $('#queue_post_time_ago').html(response.post.time_ago);
-                $('#review_result_alert').html(response.review_result.message);
 
                 // Update Score
-                $('#streak_value').html(parseInt($('#streak_value').html()) + 1);
                 $('#accuracy_value').html(response.new_accuracy);
+                $('#streak_value').html(parseInt($('#streak_value').html()) + 1);
                 if (response.review_result.bool) {
                     $('#pass_value').html(parseInt($('#pass_value').html()) + 1);
                 }

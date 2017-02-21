@@ -89,8 +89,9 @@ Class main_model extends CI_Model
         $ip = mysqli_real_escape_string(get_mysqli(), $ip);
 
         // Left Join with negative check makes this query delicate, be careful
+        // Specific select to keep offence_key, confidence, real report, and other data secret
         $raw_query = "
-        SELECT `post`.*
+        SELECT `post`.id, `post`.username, `post`.content, `post`.created
         FROM `post`
         WHERE `post`.`site_key` = " . $site_key . "
         AND NOT EXISTS (

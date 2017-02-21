@@ -226,6 +226,8 @@ class Main extends CI_Controller {
         $output['post']['time_ago'] = get_time_ago(strtotime($output['post']['created']));
         $output['review_result'] = $review_result;
         $output['new_accuracy'] = accuracy_calculator($data['user']['current_account']['pass'], $data['user']['current_account']['fail']);
+        $output['post']['username'] = html_clean($output['post']['username']);
+        $output['post']['content'] = html_clean($output['post']['content']);
         echo json_encode($output);
     }
 
