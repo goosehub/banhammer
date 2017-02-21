@@ -10,9 +10,7 @@ High Priority
 Moderate Priority
     
 Low Priority
-    a/b testing homepage with create account
     verify leaderboard accuracy
-    pent test https://github.com/minimaxir/big-list-of-naughty-strings
 
 No Priority
     html stripped instead of escaped

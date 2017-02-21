@@ -27,6 +27,7 @@ class Main extends CI_Controller {
         $this->data['login_reminder_point'] = 30;
         $this->data['hours_between_reviews'] = 24;
         $this->data['leaderboard_minimum'] = $this->leaderboard_minimum;
+        $this->data['real_report'] = false;
     }
 
     public function landing()
@@ -35,6 +36,10 @@ class Main extends CI_Controller {
         $data['page_title'] = site_name();
         $data['leaderboard'] = $this->main_model->get_overall_leaderboard($this->leaderboard_minimum);
         $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
+
+        // A/B testing
+        $ab_array = array('hide_subheader', 'show_subheader');
+        $data['ab_test'] = $ab_array[array_rand($ab_array)];
 
         $this->load->view('templates/header', $data);
         $this->load->view('toolbar', $data);

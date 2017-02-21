@@ -2,7 +2,9 @@
     <div class="row">
         <div class="col-md-6 col-md-push-3">
             <h1 class="main_site_name text-center"><?php echo $page_title; ?></h1>
-            <!-- <h2 class="main_site_description">Live the exciting life of a website moderator</h2> -->
+            <?php if (!$user['logged_in'] && $ab_test === 'show_subheader') { ?>
+            <h2 class="main_site_description text-center">Live the exciting life of an online moderator</h2>
+            <?php } ?>
             <hr>
         </div>
     </div>
@@ -37,14 +39,16 @@
                 <br>
                 <div id="new_user_parent">
                     <form action="<?=base_url()?>new_user" method="post">
+                        <input type="hidden" name="ab_test" value="<?php echo $ab_test; ?>"/>
+                        <input type="hidden" name="bee_movie" value=""/>
                         <div class="form-group">
-                            <input type="username" class="form-control" id="new_user_input_username" name="username" placeholder="Username">
+                            <input type="username" class="form-control" id="new_user_input_username" name="username" placeholder="Username"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="new_user_input_password" name="password" placeholder="Password">
+                            <input type="password" class="form-control" id="new_user_input_password" name="password" placeholder="Password"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="new_user_input_password_confirm" name="confirm" placeholder="Confirm">
+                            <input type="password" class="form-control" id="new_user_input_password_confirm" name="confirm" placeholder="Confirm"/>
                         </div>
                         <button type="submit" class="btn btn-action form-control">New User</button>
                     </form>
@@ -55,10 +59,10 @@
                 <div id="login_parent" style="display: none;">
                     <form action="<?=base_url()?>login" method="post">
                         <div class="form-group">
-                            <input type="username" class="form-control" id="login_input_username" name="username" placeholder="Username">
+                            <input type="username" class="form-control" id="login_input_username" name="username" placeholder="Username"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="login_input_password" name="password" placeholder="Password">
+                            <input type="password" class="form-control" id="login_input_password" name="password" placeholder="Password"/>
                         </div>
                         <button type="submit" class="btn btn-action form-control">Login</button>
                     </form>

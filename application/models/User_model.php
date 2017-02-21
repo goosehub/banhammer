@@ -76,7 +76,7 @@ Class user_model extends CI_Model
     $this->db->where('id', $user_id);
     $this->db->update('user', $data);
  }
- function register($username, $password, $email, $facebook_id, $ip, $sites)
+ function register($username, $password, $email, $facebook_id, $ip, $ab_test, $sites)
  {
     // Check if user already exists
     $this->db->select('username');
@@ -96,6 +96,7 @@ Class user_model extends CI_Model
         'email' => $email,
         'facebook_id' => $facebook_id,
         'ip' => $ip,
+        'ab_test' => $ab_test,
         'last_login' => date('Y-m-d H:i:s', time()),
     );
     $this->db->insert('user', $data);

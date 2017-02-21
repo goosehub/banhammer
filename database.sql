@@ -146,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `site` (
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
+  `ab_test` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL,
   `ip` varchar(100) NOT NULL,
   `email` varchar(256) NOT NULL,

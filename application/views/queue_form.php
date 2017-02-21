@@ -4,10 +4,11 @@
 
             <?php if ($post) { ?>
 
+            <?php if ($real_report) { ?>
             <form id="real_report_form" action="<?=base_url()?>site/<?php echo $slug; ?>/real_report" method="post">
                 <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
-
             </form>
+            <?php } ?>
 
             <form id="queue_form" action="<?=base_url()?>site/<?php echo $slug; ?>/new_review" method="post">
                 <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
@@ -20,7 +21,9 @@
                             <h2>Offence</h2>
                         </div>
                         <div class="col-md-3">
+                            <?php if ($real_report) { ?>
                             <span class="real_report_button glyphicon glyphicon-flag btn pull-right" real_report="true" aria-hidden="true" title="Report illegal content. Not a game button."></span>
+                            <?php } ?>
                             <span class="how_to_play_button glyphicon glyphicon-question-sign btn pull-right" type="button" data-toggle="modal" data-target="#how_to_play_modal" title="How To Play"></span>
                         </div>
                     </div>
