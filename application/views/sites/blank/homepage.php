@@ -4,15 +4,15 @@
 
             <hr>
 
-            <a class="btn btn-primary" href="<?=base_url()?>site/<?php echo $slug; ?>">
+            <a class="custom_btn btn btn-primary" href="<?=base_url()?>site/<?php echo $slug; ?>">
                 <strong><?php echo deslug($current_site['name']); ?></strong>
             </a>
 
-            <a class="btn btn-action" href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
+            <a class="custom_btn btn btn-action" href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
                 <strong>Moderator Queue</strong>
             </a>
 
-            <a class="btn btn-success" href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard">
+            <a class="custom_btn btn btn-success" href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard">
                 <strong>Moderator Leaderboard</strong>
             </a>
 
@@ -45,7 +45,7 @@
                         <label>Message</label>
                         <textarea id="content_input" class="form-control" name="content"></textarea>
                         <br>
-                        <input type="submit" class="form-control btn btn-success"/>
+                        <input type="submit" class="form-control custom_btn btn btn-success"/>
                     </form>
 
                 </div>
@@ -77,20 +77,20 @@
             <?php } ?>
 
             <div class="pagination">
-                <a class="btn btn-default" href="<?=base_url()?>site/<?php echo $slug; ?>">
+                <a class="custom_btn btn btn-default" href="<?=base_url()?>site/<?php echo $slug; ?>">
                     First
                 </a>
                 <?php if ($offset >= 1) { ?>
-                <a class="btn btn-default" href="<?=base_url()?>site/<?php echo $slug; ?>/<?php echo max($offset - $limit, 0); ?>">
+                <a class="custom_btn btn btn-default" href="<?=base_url()?>site/<?php echo $slug; ?>/<?php echo max($offset - $limit, 0); ?>">
                     Previous
                 </a>
                 <?php } ?>
                 <?php if ($offset + $limit < $post_count) { ?>
-                <a class="btn btn-default" href="<?=base_url()?>site/<?php echo $slug; ?>/<?php echo $offset + $limit; ?>">
+                <a class="custom_btn btn btn-default" href="<?=base_url()?>site/<?php echo $slug; ?>/<?php echo $offset + $limit; ?>">
                     Next
                 </a>
                 <?php } ?>
-                <a class="btn btn-default" href="<?=base_url()?>site/<?php echo $slug; ?>/<?php echo $post_count - $limit; ?>">
+                <a class="custom_btn btn btn-default" href="<?=base_url()?>site/<?php echo $slug; ?>/<?php echo $post_count - $limit; ?>">
                     Last
                 </a>
             </div>

@@ -6,8 +6,10 @@ body {
 .main_site_name, .main_site_description, .moderator_queue_title, .overall_leaderboard, .update_news_parent h3 {
     font-family: 'Julius Sans One', sans-serif;
 }
-.btn {
+/* Control for bootstrap .btn */
+.custom_btn {
     margin-top: 1em;
+    border-radius: 0;
 }
 
 /* Toolbar */

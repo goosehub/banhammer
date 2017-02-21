@@ -50,11 +50,11 @@
                         <div class="form-group">
                             <input type="password" class="form-control" id="new_user_input_password_confirm" name="confirm" placeholder="Confirm"/>
                         </div>
-                        <button type="submit" class="btn btn-action form-control">New User</button>
+                        <button type="submit" class="custom_btn btn btn-action form-control">New User</button>
                     </form>
                 </div>
                 <br>
-                <div id="show_login" class="btn btn-primary form-control">Or Login</div>
+                <div id="show_login" class="custom_btn btn btn-primary form-control">Or Login</div>
 
                 <div id="login_parent" style="display: none;">
                     <form action="<?=base_url()?>login" method="post">
@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <input type="password" class="form-control" id="login_input_password" name="password" placeholder="Password"/>
                         </div>
-                        <button type="submit" class="btn btn-action form-control">Login</button>
+                        <button type="submit" class="custom_btn btn btn-action form-control">Login</button>
                     </form>
                 </div>
                 <?php } ?>

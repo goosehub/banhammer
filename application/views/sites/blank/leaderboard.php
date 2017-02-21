@@ -4,15 +4,15 @@
 
             <hr>
 
-            <a class="btn btn-primary" href="<?=base_url()?>site/<?php echo $slug; ?>">
+            <a class="custom_btn btn btn-primary" href="<?=base_url()?>site/<?php echo $slug; ?>">
                 <strong><?php echo deslug($current_site['name']); ?></strong>
             </a>
 
-            <a class="btn btn-action" href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
+            <a class="custom_btn btn btn-action" href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
                 <strong>Moderator Queue</strong>
             </a>
 
-            <a class="btn btn-success" href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard">
+            <a class="custom_btn btn btn-success" href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard">
                 <strong>Moderator Leaderboard</strong>
             </a>
 

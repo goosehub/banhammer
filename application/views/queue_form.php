@@ -30,7 +30,7 @@
                     <input type="hidden" id="offence_input" name="offence"/>
                     <?php foreach ($offences as $offence) { ?>
                         <?php $style = $offence['slug'] === 'none' ? 'btn-primary offence_none' : 'btn-danger'; ?>
-                        <div class="offence_button btn <?php echo $style; ?>" offence="<?php echo $offence['id']; ?>">
+                        <div class="offence_button custom_btn btn <?php echo $style; ?>" offence="<?php echo $offence['id']; ?>">
                             <?php echo deslug($offence['slug']); ?>
                         </div>
                     <?php } ?>
@@ -70,7 +70,7 @@
                             You are presented with a post. You must decide which rule if any that is being broken. If you deviate from the consensus, or if the action you take is unusual, you fail. Keep your accuracy high and top the leaderboard.
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="custom_btn btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
