@@ -66,6 +66,9 @@ body {
 }
 
 /* Queue Form */
+#review_result_alert {
+    transition: all 0.2s ease;
+}
 .offence_none {
     font-weight: bold;
 }

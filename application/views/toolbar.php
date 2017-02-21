@@ -18,9 +18,9 @@
         <span id="global_username"><?php echo $user['username']; ?>: </span>
         <span class="score_label"><?php echo $current_site['name']; ?></span>
         <?php } ?>
-        <span id="reputation_parent" class="text-default">
-            <span id="reputation_label" class="score_label">Accuracy</span>
-            <span id="reputation_value" class="score_value"><?php echo accuracy_calculator($user['current_account']['pass'], $user['current_account']['fail']); ?>%</span>
+        <span id="accuracy_parent" class="text-default">
+            <span id="accuracy_label" class="score_label">Accuracy</span>
+            <span id="accuracy_value_parent" class="score_value"><span id="accuracy_value"><?php echo $user['accuracy']; ?>%</span></span>
         </span>
         <span id="streak_parent" class="text-primary">
             <span id="streak_label" class="score_label">Streak</span>

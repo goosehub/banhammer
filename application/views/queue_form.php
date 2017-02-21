@@ -6,12 +6,12 @@
 
             <?php if ($real_report) { ?>
             <form id="real_report_form" action="<?=base_url()?>site/<?php echo $slug; ?>/real_report" method="post">
-                <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
+                <input id="real_report_form_post_id" type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
             </form>
             <?php } ?>
 
             <form id="queue_form" action="<?=base_url()?>site/<?php echo $slug; ?>/new_review" method="post">
-                <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
+                <input id="queue_post_id" type="hidden" name="post_id" value="<?php echo $post['id']; ?>"/>
 
                 <div id="offence_parent">
                     <div class="row">

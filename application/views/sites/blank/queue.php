@@ -34,18 +34,18 @@
                 <blockquote>
                     <div class="post_user">
                         <small>
-                            #<?php echo html_clean($post['id']); ?>
+                            #<span id="queue_post_id_label"><?php echo html_clean($post['id']); ?></span>
                         </small>
-                        <strong>
+                        <strong id="queue_post_user">
                             <?php echo html_clean($post['username']); ?>
                         </strong>
                     </div>
-                    <div class="post_content embedica_this">
+                    <div id="queue_post_content" class="post_content embedica_this">
                         <?php echo html_clean($post['content']); ?>
                     </div>
                     <div class="post_time">
-                        <small>
-                        <?php echo get_time_ago(strtotime($post['created'])); ?>
+                        <small id="queue_post_time_ago">
+                        <?php echo $post['time_ago']; ?>
                         </small>
                     </div>
                 </blockquote>

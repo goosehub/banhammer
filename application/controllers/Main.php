@@ -92,6 +92,7 @@ class Main extends CI_Controller {
         // Get a post for queue
         $ip = $_SERVER['REMOTE_ADDR'];
         $data['post'] = $this->main_model->get_post_for_queue($data['current_site']['id'], $ip, $this->data['hours_between_reviews']);
+        $data['post']['time_ago'] = get_time_ago(strtotime($data['post']['created']));
 
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();
@@ -137,6 +138,7 @@ class Main extends CI_Controller {
         $user_input['offence_key'] = $this->input->post('offence');
         $user_input['post_key'] = $this->input->post('post_id');
         $user_input['action_key'] = $this->input->post('action');
+        $review_result = array();
 
         // Check if this was recently reviewed (most likely to be frequent malicious target)
         $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $this->data['hours_between_reviews']);
@@ -153,7 +155,9 @@ class Main extends CI_Controller {
         // Check that action was appropriate
         $action_percentage = $this->main_model->percent_of_reviews_with_action_by_post_key($user_input['post_key'], $user_input['action_key']);
         if ($action_percentage['total'] > $this->action_outlier_review_minimum && (!$action_percentage || $action_percentage['percent'] < $this->action_outlier_percentage) ) {
-            flash('review_result', 'Fail - Inappropriate Action', 'danger');
+            $review_result['bool'] = false;
+            $review_result['message'] = 'Fail - Inappropriate Action';
+            $review_result['class'] = 'alert-danger';
         }
 
         // Insert as new review
@@ -180,12 +184,16 @@ class Main extends CI_Controller {
         if ($reviewed_post['confidence'] < $this->confidence_minimum || $reviewed_post['offence_key'] === $user_input['offence_key']) {
             $data['user']['current_account']['streak']++;
             $data['user']['current_account']['pass']++;
-            flash('review_result', 'Pass', 'success');
+            $review_result['bool'] = true;
+            $review_result['message'] = 'Pass';
+            $review_result['class'] = 'alert-success';
         }
         else {
             $data['user']['current_account']['streak'] = 0;
             $data['user']['current_account']['fail']++;
-            flash('review_result', 'Fail - Wrong Offence', 'danger');
+            $review_result['bool'] = false;
+            $review_result['message'] = 'Fail - Wrong Offence';
+            $review_result['class'] = 'alert-danger';
         }
         $data['user']['current_account']['total']++;
 
@@ -211,7 +219,14 @@ class Main extends CI_Controller {
         }
 
         // Get user with new info
-        redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');
+        // redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');
+
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $output['post'] = $this->main_model->get_post_for_queue($data['current_site']['id'], $ip, $this->data['hours_between_reviews']);
+        $output['post']['time_ago'] = get_time_ago(strtotime($output['post']['created']));
+        $output['review_result'] = $review_result;
+        $output['new_accuracy'] = accuracy_calculator($data['user']['current_account']['pass'], $data['user']['current_account']['fail']);
+        echo json_encode($output);
     }
 
     function real_report($slug)
@@ -342,6 +357,7 @@ class Main extends CI_Controller {
         if ($user['id']) {
             $user = $this->user_model->get_user_by_id($user['id']);
         }
+        $user['accuracy'] = accuracy_calculator($user['current_account']['pass'], $user['current_account']['fail']);
         return $user; 
     }
 

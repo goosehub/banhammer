@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     // Mod queue form interface
     $('.offence_button').click(function(event){
         $('.offence_button').removeClass('active');
@@ -8,12 +9,71 @@ $(document).ready(function(){
         $('#offence_input').val(offence);
         // No offence, no action needed
         if (offence === 1) {
-            $('#queue_form').submit();
+            submit_review();
         }
         else {
             $('#action_parent').show();
             window.scrollTo(0,document.body.scrollHeight);
         }
+    });
+
+    function submit_review() {
+        $('#queue_form').submit();
+    }
+
+    $('#queue_form').on('submit', function(e){
+        var url = 'new_review';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $('#queue_form').serialize(),
+            success: function(data)
+            {
+                // Try to parse, fail gracefully
+                try {
+                    response = JSON.parse(data);
+                } catch(error) {
+                    alert('Something went wrong. Please let me know at goosepostbox@gmail.com.');
+                    // alert(error);
+                }
+                if (!response) {
+                    return false;
+                }
+
+                // debug
+                console.log('Review submitted, new post returned');
+                console.log(response);
+
+                // Update Feedback
+                $('#action_parent').fadeOut(200);
+                $('#review_result_alert').removeClass('alert-info', 'alert-success', 'alert-danger');
+                $('#review_result_alert').addClass(response.review_result.class);
+
+                // Update View
+                $('#queue_post_id_label, #real_report_form_post_id').html(response.post.id);
+                $('#queue_post_username').html(response.post.username);
+                var content = embedica(response.post.content);
+                $('#queue_post_content').html(content);
+                $('#queue_post_time_ago').html(response.post.time_ago);
+                $('#review_result_alert').html(response.review_result.message);
+
+                // Update Score
+                $('#streak_value').html(parseInt($('#streak_value').html()) + 1);
+                $('#accuracy_value').html(response.new_accuracy);
+                if (response.review_result.bool) {
+                    $('#pass_value').html(parseInt($('#pass_value').html()) + 1);
+                }
+                else {
+                    $('#fail_value').html(parseInt($('#fail_value').html()) + 1);
+                }
+
+                // Update Inputs
+                $('#queue_post_id').val(response.post.id)
+                $('#offence_input').val();
+                $('#action_input').val();
+            }
+        });
+        e.preventDefault();
     });
 
     $('.real_report_button').click(function(event){

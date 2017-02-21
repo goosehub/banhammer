@@ -4,15 +4,18 @@
 
 High Priority
     ssl
-    queue to ajax (may make sites more difficult to create)
     sites
 
 Moderate Priority
     
 Low Priority
     verify leaderboard accuracy
+    move javascript to php
+    case sensitive font for site and leaderboard names
 
 No Priority
+    data analysis
+    load image url as image
     html stripped instead of escaped
     enable post image upload (Bandwidth and moderation concerns)
     simplier leaderboard queries/sorting
