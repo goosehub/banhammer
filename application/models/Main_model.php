@@ -116,7 +116,7 @@ Class main_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
-    function create_post($post)
+    function create_post($post, $user)
     {
         $data = array(
             'site_key' => $post['site_key'],
@@ -125,6 +125,10 @@ Class main_model extends CI_Model
             'image' => $post['image'],
             'offence_key' => 1,
             'confidence' => 1,
+            'real_report' => 0,
+            'severity_sum' => 0,
+            'review_tally' => 0,
+            'account_key' => $user['current_account']['id'],
             'last_reviewed' => date('Y-m-d H:i:s'),
         );
         $this->db->insert('post', $data);

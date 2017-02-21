@@ -284,7 +284,7 @@ class Main extends CI_Controller {
             }
 
             // Create post
-            $this->main_model->create_post($post);
+            $this->main_model->create_post($post, $data['user']);
         }
 
         redirect(base_url() . 'site/' . $slug, 'refresh');
