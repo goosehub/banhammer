@@ -19,7 +19,7 @@ class Main extends CI_Controller {
             $this->leaderboard_minimum = 10;
         }
         else {
-            $this->leaderboard_minimum = 100;
+            $this->leaderboard_minimum = 30;
         }
         $this->confidence_minimum = 3;
         $this->action_outlier_review_minimum = 1;
@@ -334,20 +334,26 @@ class Main extends CI_Controller {
             $leaderboard['accuracy'] = sprintf('%0.2f', $leaderboard['accuracy']);
         }
         // Sort by accuracy
-        usort($leaderboard_array, array($this, 'leaderboard_sort_core'));
-        $leaderboard_array = array_reverse($leaderboard_array);
+        $leaderboard_array = $this->array_orderby($leaderboard_array, 'accuracy', SORT_DESC, 'total', SORT_DESC);
         return $leaderboard_array;
     }
 
-    public function leaderboard_sort_core($a, $b)
+    // http://php.net/manual/en/function.array-multisort.php#100534
+    public function array_orderby()
     {
-        $accuracy = strcmp($a['accuracy'], $b['accuracy']);
-        // If difference in accuracy is 0, sort by total descening
-        if ($accuracy === 0) {
-            return ! $a['total'] - $b['total'];
+        $args = func_get_args();
+        $data = array_shift($args);
+        foreach ($args as $n => $field) {
+            if (is_string($field)) {
+                $tmp = array();
+                foreach ($data as $key => $row)
+                    $tmp[$key] = $row[$field];
+                    $args[$n] = $tmp;
+                }
         }
-        // Else, sort by accuracy
-        return !$accuracy;
+        $args[] = &$data;
+        call_user_func_array('array_multisort', $args);
+        return array_pop($args);
     }
 
     public function get_user_by_session()

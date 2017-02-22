@@ -119,14 +119,14 @@
                 <blockquote>
                     <h4>Beta</h4>
                     <small>February 21th, 2017</small>
-                    <p>Moderator has entered Open Beta. Please report bugs to goosepostbox@gmail.com.</p>
+                    <p>Ban Hammer has entered Open Beta. Please report bugs to goosepostbox@gmail.com.</p>
                 </blockquote>
             </div>
             <div class="update_news_item">
                 <blockquote>
                     <h4>Alpha</h4>
                     <small>February 16th, 2017</small>
-                    <p>Moderator has entered Alpha</p>
+                    <p>Ban Hammer has entered Alpha</p>
                 </blockquote>
             </div>
         </div>
