@@ -125,6 +125,7 @@ Class main_model extends CI_Model
             'username' => $post['username'],
             'content' => $post['content'],
             'image' => $post['image'],
+            'ip' => $post['ip'],
             'offence_key' => 1,
             'confidence' => 1,
             'account_key' => $user['current_account']['id'],

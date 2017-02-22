@@ -286,6 +286,7 @@ class Main extends CI_Controller {
             $post['username'] = $this->input->post('username');
             $post['content'] = $this->input->post('content');
             $post['image'] = '';
+            $post['ip'] = $_SERVER['REMOTE_ADDR'];
 
             if ($data['current_site']['anonymous_flag']) {
                 $post['username'] = 'Anonymous';
