@@ -179,6 +179,7 @@ Class main_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('action');
+        $this->db->where('active', 1);
         $this->db->order_by('sort', 'ASC');
         $query = $this->db->get();
         $result = $query->result_array();

@@ -44,7 +44,7 @@
                         if ($action['slug'] === 'none') {
                             $style = 'btn-primary';
                         }
-                        else if ($action['slug'] === 'warning' || $action['slug'] === 'edit') {
+                        else if ($action['slug'] === 'warning' || $action['slug'] === 'delete') {
                             $style = 'btn-warning';
                         }
                         else {

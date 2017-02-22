@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `action` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(100) NOT NULL,
   `sort` int(10) unsigned NOT NULL,
+  `active` int(1) unsigned NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
