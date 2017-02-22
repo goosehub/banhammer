@@ -9,11 +9,9 @@ Moderate Priority
     
 Low Priority
     prevent post mass spam by ip
-    verify leaderboard accuracy
-    move javascript to php
-    case sensitive font for site and leaderboard names
 
 No Priority
+    move javascript to php
     data analysis
     load image url as image
     html stripped instead of escaped

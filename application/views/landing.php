@@ -77,7 +77,7 @@
 
     <div class="row">
         <div class="col-md-6 col-md-push-3">
-            <div class="overall_leaderboard table-responsive">
+            <div class="leaderboard_parent table-responsive">
                 <h3>Overall Leaderboard <small>Minimum of <?php echo $leaderboard_minimum; ?></small></h3>
                 <table class="table table-stripped">
                     <thead>

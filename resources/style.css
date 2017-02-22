@@ -3,8 +3,11 @@ body {
     background-color: #f9f9f9;
     color: #222;
 }
-.main_site_name, .main_site_description, .moderator_queue_title, .overall_leaderboard, .update_news_parent h3 {
+.main_site_name, .main_site_description, .moderator_queue_title, .update_news_parent h3 {
     font-family: 'Julius Sans One', sans-serif;
+}
+.leaderboard_parent {
+    font-family: 'Play', sans-serif;
 }
 /* Control for bootstrap .btn */
 .custom_btn {
