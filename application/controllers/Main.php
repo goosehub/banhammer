@@ -14,31 +14,31 @@ class Main extends CI_Controller {
             force_ssl();
         }
 
-        // Get shared variables
-        if (is_dev()) {
-            $this->leaderboard_minimum = 10;
-        }
-        else {
-            $this->leaderboard_minimum = 30;
-        }
+        // Get shared data
+        $this->data['active_sites'] = $this->main_model->get_active_sites();
+        $this->data['user'] = $this->get_user_by_session();
+
+        // Configuration
         $this->confidence_minimum = 3;
         $this->action_outlier_review_minimum = 1;
         $this->action_outlier_percentage = 5;
-        $this->data['active_sites'] = $this->main_model->get_active_sites();
-        $this->data['user'] = $this->get_user_by_session();
+        $this->data['real_report'] = false;
         $this->data['current_site']['name'] = 'Overall';
         $this->data['current_site']['slug'] = 'default';
         $this->data['login_reminder_point'] = 30;
         $this->data['hours_between_reviews'] = 24;
-        $this->data['leaderboard_minimum'] = $this->leaderboard_minimum;
-        $this->data['real_report'] = false;
+        $this->data['suggest_account_at'] = 30;
+        $this->data['leaderboard_minimum'] = 30;
+        if (is_dev()) {
+            $this->data['leaderboard_minimum'] = 10;
+        }
     }
 
     public function landing()
     {
         $data = $this->data;
         $data['page_title'] = site_name();
-        $data['leaderboard'] = $this->main_model->get_overall_leaderboard($this->leaderboard_minimum);
+        $data['leaderboard'] = $this->main_model->get_overall_leaderboard($data['leaderboard_minimum']);
         $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
 
         // A/B testing
@@ -309,7 +309,7 @@ class Main extends CI_Controller {
         }
 
         // Get recent posts
-        $data['leaderboard'] = $this->main_model->get_leaderboard_for_site($data['current_site']['id'], $this->leaderboard_minimum);
+        $data['leaderboard'] = $this->main_model->get_leaderboard_for_site($data['current_site']['id'], $data['leaderboard_minimum']);
         $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
 
         $data['page_title'] = $data['current_site']['name'] . ' Leaderboard';

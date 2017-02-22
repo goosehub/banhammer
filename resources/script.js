@@ -1,3 +1,4 @@
+// See scripts.php for some global scope variables from the server
 $(document).ready(function(){
 
     // Mod queue form interface
@@ -23,7 +24,6 @@ $(document).ready(function(){
 
     $('#queue_form').on('submit', function(e){
         // Empty and hide while we white
-        $('#action_parent').fadeOut(200);
         $('#review_result_alert').removeClass('alert-info alert-success alert-danger');
         $('#review_result_alert').html('...');
 
@@ -50,6 +50,7 @@ $(document).ready(function(){
                 console.log(response);
 
                 // Update Feedback
+                $('#action_parent').fadeOut(200);
                 $('#review_result_alert').fadeIn(500);
                 $('#review_result_alert').addClass(response.review_result.class);
                 $('#review_result_alert').html(response.review_result.message);
@@ -76,13 +77,21 @@ $(document).ready(function(){
                 }
 
                 // Update Score
+                var streak_value = parseInt($('#streak_value').html());
+                var pass_value = parseInt($('#pass_value').html());
+                var fail_value = parseInt($('#fail_value').html());
                 $('#accuracy_value').html(response.new_accuracy);
-                $('#streak_value').html(parseInt($('#streak_value').html()) + 1);
+                $('#streak_value').html(streak_value + 1);
                 if (response.review_result.bool) {
-                    $('#pass_value').html(parseInt($('#pass_value').html()) + 1);
+                    $('#pass_value').html(pass_value + 1);
                 }
                 else {
-                    $('#fail_value').html(parseInt($('#fail_value').html()) + 1);
+                    $('#fail_value').html(fail_value + 1);
+                }
+
+                // Suggest account at following conditions
+                if (!user.logged_in && pass_value + fail_value === suggest_account_at) {
+                    $('#suggest_account_parent').show();
                 }
 
                 // Update Inputs
