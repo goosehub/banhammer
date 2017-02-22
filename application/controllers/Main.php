@@ -173,7 +173,7 @@ class Main extends CI_Controller {
 
         // Update post offence if no confidence
         $reviewed_post = $this->main_model->get_post_by_id($user_input['post_key']);
-        if ($reviewed_post['offence_key'] != $user_input['offence_key'] && $reviewed_post['confidence'] === 1) {
+        if ($reviewed_post['offence_key'] != $user_input['offence_key'] && $reviewed_post['confidence'] <= 1) {
             $reviewed_post['offence_key'] = $user_input['offence_key'];
         }
         // Else increase post confidence on agree
