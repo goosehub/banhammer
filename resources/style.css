@@ -9,10 +9,16 @@ body {
 .leaderboard_parent {
     font-family: 'Play', sans-serif;
 }
-/* Control for bootstrap .btn */
+
+/* Override for bootstrap .btn */
 .custom_btn {
     margin-top: 1em;
     border-radius: 0;
+}
+
+/* Greentext */
+.greentext {
+    color:green;
 }
 
 /* Toolbar */

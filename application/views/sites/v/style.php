@@ -2,10 +2,6 @@
 <link href="<?=base_url()?>resources/4shame/yotsubluenew.css" rel="stylesheet" type="text/css">
 
 <style>
-/* Greentext */
-.greentext {
-	color:green;
-}
 div.pagelist>div {
 	border: none !important;
 }
