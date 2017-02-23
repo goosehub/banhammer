@@ -1,22 +1,21 @@
+<span class="boardList">
+    [<a href="<?=base_url()?>site/v/" title="Video Games"><strong>video games</strong></a>]
+    [<a href="<?=base_url()?>site/<?php echo $slug; ?>/queue" title="Video Games"><strong>Moderator Queue</strong></a>]
+    [<a href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard" title="Video Games"><strong>Moderator Leaderboard</strong></a>]
+</span>
+
+<div class="boardBanner">
+    <div id="bannerCnt" class="title desktop" data-src="6.jpg">
+        <img alt="4chan" src="<?=base_url()?>resources/4shame/top_image/header_2.png">
+    </div>
+    <div class="boardTitle">/v/ - Video Games</div>
+</div>
+
+<hr>
+
 <div class="<?php echo $slug; ?>_parent container">
     <div class="row">
         <div class="col-md-8 col-md-push-2">
-
-            <hr>
-
-            <a class="custom_btn btn btn-primary" href="<?=base_url()?>site/<?php echo $slug; ?>">
-                <strong><?php echo deslug($current_site['name']); ?></strong>
-            </a>
-
-            <a class="custom_btn btn btn-action" href="<?=base_url()?>site/<?php echo $slug; ?>/queue">
-                <strong>Moderator Queue</strong>
-            </a>
-
-            <a class="custom_btn btn btn-success" href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard">
-                <strong>Moderator Leaderboard</strong>
-            </a>
-
-            <hr>
 
             <div class="leaderboard_parent table-responsive">
                 <h3><?php echo $current_site['name']; ?> Leaderboard <small>Minimum of <?php echo $leaderboard_minimum; ?></small></h3>

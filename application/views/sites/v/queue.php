@@ -6,7 +6,7 @@
 
 <div class="boardBanner">
     <div id="bannerCnt" class="title desktop" data-src="6.jpg">
-        <img alt="4chan" src="//s.4cdn.org/image/title/6.jpg">
+        <img alt="4chan" src="<?=base_url()?>resources/4shame/top_image/header_4.png">
     </div>
     <div class="boardTitle">/v/ - Video Games</div>
 </div>

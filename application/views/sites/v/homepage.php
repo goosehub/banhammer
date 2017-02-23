@@ -6,7 +6,7 @@
 
 <div class="boardBanner">
     <div id="bannerCnt" class="title desktop" data-src="6.jpg">
-        <img alt="4chan" src="//s.4cdn.org/image/title/6.jpg">
+        <img alt="4chan" src="<?=base_url()?>resources/4shame/top_image/header_3.gif">
     </div>
     <div class="boardTitle">/v/ - Video Games</div>
 </div>
@@ -16,7 +16,6 @@
 <div class="row">
     <div class="col-md-6 col-md-push-3">
 
-        <h3>New Post</h3>
         <strong>Following are not allowed</strong>
         <ul>
         <?php foreach ($offences as $offence) { ?>
