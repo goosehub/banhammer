@@ -11,6 +11,7 @@ Low Priority
     prevent post mass spam by ip
 
 No Priority
+    force unique content per site
     move javascript to php
     data analysis
     load image url as image
