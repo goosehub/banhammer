@@ -72,9 +72,9 @@ $(document).ready(function(){
                     $('#queue_post_content').hide();
                     // Embedica for embedding URLs
                     var content = embedica(response.post.content);
-                    // Greentext, only takes effect when postMessage class exists
                     $('#queue_post_content').html(content);
-                    $(".postMessage").greentext();
+                    // Greentext, only takes effect when greentext class exists
+                    $('.greentext_this').greentext();
                     $('#queue_post_content').fadeIn(200);
                     $('#queue_post_time_ago').html(response.post.time_ago);
                 }
@@ -132,6 +132,18 @@ $(document).ready(function(){
         content = embedica(content);
         $(this).html(content);
     });
+
+    // Greentext, only for 4shame sites
+    $.fn.greentext = function() {
+        this.each(function() {
+            $(this).html( 
+                $(this).html()
+                    .replace(/(^|\s)&gt;(.*?)(<br( )*(\/)?( )*>|\n|$)/g,'$1<span class="greentext">>$2</span>$3')               
+            );
+        });
+        return $(this);
+    };
+    $('.greentext_this').greentext();
 
     // Sometimes I like to lay on the floor and pretend I'm a carrot
     console.log(

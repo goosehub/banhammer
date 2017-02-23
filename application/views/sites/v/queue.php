@@ -28,7 +28,7 @@
    <div id="p<?php echo $post_id; ?>" class="post reply">
       <div class="postInfoM mobile" id="pim<?php echo $post_id; ?>"><span class="nameBlock"><span id="queue_post_username" class="name"><?php echo html_clean($post['username']); ?></span><br></span><span id="queue_post_time_ago" class="dateTime postNum"><?php echo $post['time_ago']; ?><a href="thread/1234#p<?php echo $post_id; ?>" title="Link to this post">No.</a><a id="queue_post_id_label" href="thread/1234#q<?php echo $post_id; ?>" title="Reply to this post"><?php echo $post_id; ?></a></span></div>
       <div class="postInfo desktop" id="pi<?php echo $post_id; ?>"><input type="checkbox" name="<?php echo $post_id; ?>" value="delete"> <span class="nameBlock"><span class="name">Anonymous</span> </span> <span class="dateTime">02/22/17(Wed)19:01:54</span> <span class="postNum desktop"><a href="thread/1234#p<?php echo $post_id; ?>" title="Link to this post">No.</a><a href="thread/1234#q<?php echo $post_id; ?>" title="Reply to this post"><?php echo $post_id; ?></a></span></div>
-      <blockquote class="postMessage embedica_this" id="queue_post_content" class="post_content embedica_this"><?php echo html_clean($post['content']); ?></blockquote>
+      <blockquote class="postMessage greentext_this embedica_this" id="queue_post_content" class="post_content embedica_this"><?php echo html_clean($post['content']); ?></blockquote>
    </div>
 </div>
 </div>
