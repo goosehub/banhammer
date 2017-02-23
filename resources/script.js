@@ -70,8 +70,11 @@ $(document).ready(function(){
                     $('#queue_post_id_label, #real_report_form_post_id').html(response.post.id);
                     $('#queue_post_username').html(response.post.username);
                     $('#queue_post_content').hide();
+                    // Embedica for embedding URLs
                     var content = embedica(response.post.content);
+                    // Greentext, only takes effect when postMessage class exists
                     $('#queue_post_content').html(content);
+                    $(".postMessage").greentext();
                     $('#queue_post_content').fadeIn(200);
                     $('#queue_post_time_ago').html(response.post.time_ago);
                 }

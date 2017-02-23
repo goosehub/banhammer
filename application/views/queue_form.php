@@ -51,7 +51,7 @@
                             $style = 'btn-danger';
                         }
                         ?>
-                        <div class="action_button btn <?php echo $style; ?>" action="<?php echo $action['id']; ?>">
+                        <div class="action_button custom_btn btn <?php echo $style; ?>" action="<?php echo $action['id']; ?>">
                             <?php echo deslug($action['slug']); ?>
                         </div>
                     <?php } ?>
