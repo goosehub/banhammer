@@ -35,8 +35,8 @@
                     <?php } ?>
 
                     <form id="new_post_form" action="<?=base_url()?>site/<?php echo $slug; ?>/new_post" method="post" enctype="multipart/form-data">
-                        <?php if ($current_site['anonymous_flag']) { ?>
                         <label>Username</label>
+                        <?php if ($current_site['anonymous_flag']) { ?>
                         <input type="hidden" class="form-control" name="username" value="Anonymous"/>
                         <input disabled type="text" id="username_input" class="form-control" name="anonymous_username" value="Anonymous"/>
                         <?php } else { ?>
