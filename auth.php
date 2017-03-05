@@ -1,7 +1,7 @@
 {
     "hostname" : "localhost",
     "username" : "root",
-    "password" : "root",
+    "password" : "",
     "database" : "banhammer",
     "token" : "1234"
 }
