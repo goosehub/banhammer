@@ -548,7 +548,7 @@ INSERT INTO `review` (`id`, `account_key`, `site_key`, `post_key`, `offence_key`
 
 INSERT INTO `site` (`id`, `slug`, `name`, `active`, `accuracy_minimum`, `anonymous_flag`, `sort`, `created`) VALUES
 (1, 'blank', 'bLanK', 1, 0, 1, 0, '2017-02-09 05:44:49'),
-(2, 'v', '/v/', 1, 0, 1, 0, '2017-02-09 05:44:49'),
+(2, 'a', '/a/', 1, 0, 1, 0, '2017-02-09 05:44:49'),
 (3, 'facepage', 'Facepage', 0, 0, 0, 0, '2017-02-09 05:45:20'),
 (4, 'rumblr', 'Rumblr', 0, 0, 0, 0, '2017-02-09 05:45:20'),
 (5, 'bitter', 'Bitter', 0, 0, 0, 0, '2017-02-09 05:45:54'),
