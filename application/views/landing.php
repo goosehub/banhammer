@@ -23,6 +23,7 @@
                     <span class="global_site_name"><?php echo $site['name']; ?></span>
                 </div>
             </a>
+            <br>
             <?php } ?>
 
         </div>

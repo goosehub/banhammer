@@ -19,7 +19,7 @@ class Main extends CI_Controller {
         $this->data['user'] = $this->get_user_by_session();
 
         // Configuration
-        $this->confidence_minimum = 3;
+        $this->confidence_minimum = 2;
         $this->action_outlier_review_minimum = 1;
         $this->action_outlier_percentage = 5;
         $this->data['real_report'] = false;
