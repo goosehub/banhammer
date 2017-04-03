@@ -1,5 +1,8 @@
 <link href="<?=base_url()?>resources/4shame/burichan.css" rel="stylesheet" type="text/css">
-<link href="<?=base_url()?>resources/4shame/yotsubluenew.css" rel="stylesheet" type="text/css">
+<!-- Blue -->
+<!-- <link href="<?=base_url()?>resources/4shame/yotsubluenew.css" rel="stylesheet" type="text/css"> -->
+<!-- Classic -->
+<link href="<?=base_url()?>resources/4shame/yotsubanew.css" rel="stylesheet" type="text/css">
 
 <style>
 div.pagelist>div {

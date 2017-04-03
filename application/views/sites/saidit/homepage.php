@@ -55,24 +55,24 @@
 
             <?php foreach ($posts as $post) { ?>
             <div class="post_parent">
-                <blockquote>
-                    <div class="post_user">
-                        <small>
-                            #<?php echo html_clean($post['id']); ?>
-                        </small>
-                        <strong>
-                            <?php echo html_clean($post['username']); ?>
-                        </strong>
-                    </div>
-                    <div class="post_content embedica_this">
-                        <?php echo html_clean($post['content']); ?>
-                    </div>
-                    <div class="post_time">
-                        <small>
-                        <?php echo get_time_ago(strtotime($post['created'])); ?>
-                        </small>
-                    </div>
-                </blockquote>
+                <span id="queue_post_id_label" class="hidden"><?php echo html_clean($post['id']); ?></span>
+                <div class=" thing id-t1_dfs6j4y noncollapsed comment score-hidden">
+                   <div class="midcol unvoted">
+                      <div class="arrow up login-required access-required" role="button" aria-label="upvote" tabindex="0"></div>
+                      <div class="arrow down login-required access-required" role="button" aria-label="downvote" tabindex="0"></div>
+                   </div>
+                   <div class="entry unvoted">
+                      <p class="tagline"><a href="#" class="expand">[–]</a><a href="#" class="author may-blank" id="queue_post_user"><?php echo html_clean($post['username']); ?></a><span class="userattrs"></span> <span class="score-hidden">[score hidden]</span> <time id="queue_post_time_ago" class="live-timestamp"><?php echo get_time_ago(strtotime($post['created'])); ?>></time></p>
+                      <form action="#" class="usertext warn-on-unload">
+                         <div class="usertext-body may-blank-within md-container ">
+                            <div class="md">
+                               <p><span id="queue_post_content" class="post_content embedica_this">gonna hank all over dem titties</span></p>
+                            </div>
+                         </div>
+                      </form>
+                   </div>
+                   <div class="clearleft"></div>
+                </div>
             </div>
             <?php } ?>
 
