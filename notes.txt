@@ -2,8 +2,24 @@
     Notes
 ==========================================================================================
 
+4chan first approach
+    Feeling very unmotivated, may do 4chan exclusive launch to get ball rolling
+    def
+        /v/
+        /a/
+        /b/
+        /s4s/
+    maybe
+        /po/
+        /his/
+        /r9k/?
+        /pol/
+        /fa/
+        /fit/
+
 High Priority
     sites
+    location for myface
 
 Moderate Priority
     

@@ -1,14 +1,14 @@
 <span class="boardList">
-    [<a href="<?=base_url()?>site/a/" title="/a/"><strong>/a/</strong></a>]
-    [<a href="<?=base_url()?>site/<?php echo $slug; ?>/queue" title="/a/"><strong>Moderator Queue</strong></a>]
-    [<a href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard" title="/a/"><strong>Moderator Leaderboard</strong></a>]
+    [<a href="<?=base_url()?>site/4shame/" title="/4shame/"><strong>/4shame/</strong></a>]
+    [<a href="<?=base_url()?>site/<?php echo $slug; ?>/queue" title="/4shame/"><strong>Moderator Queue</strong></a>]
+    [<a href="<?=base_url()?>site/<?php echo $slug; ?>/leaderboard" title="/4shame/"><strong>Moderator Leaderboard</strong></a>]
 </span>
 
 <div class="boardBanner">
     <div id="bannerCnt" class="title desktop" data-src="6.jpg">
         <img alt="4chan" src="<?=base_url()?>resources/4shame/top_image/header_3.gif">
     </div>
-    <div class="boardTitle">/a/ - Anime & Manga</div>
+    <div class="boardTitle">/4shame/</div>
 </div>
 
 <hr>
