@@ -40,6 +40,7 @@ class Main extends CI_Controller {
         $data['page_title'] = site_name();
         $data['leaderboard'] = $this->main_model->get_overall_leaderboard($data['leaderboard_minimum']);
         $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
+        $data['validation_errors'] = $this->session->flashdata('validation_errors');
 
         // A/B testing
         $ab_array = array('hide_subheader', 'show_subheader');
@@ -103,7 +104,7 @@ class Main extends CI_Controller {
         $data['offences'] = $this->main_model->get_offences_by_site($data['current_site']['id']);
         $data['actions'] = $this->main_model->get_actions();
 
-        $data['page_title'] = $slug . ' Moderator Queue';
+        $data['page_title'] = $data['current_site']['name'] . ' Moderator Queue';
         $data['slug'] = $slug;
         $this->load->view('templates/header', $data);
         $this->load->view('toolbar', $data);

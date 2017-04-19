@@ -56,8 +56,10 @@ class User extends CI_Controller {
 
         // Fail
         if (!$user || !password_verify($password, $user['password'])) {
-            return 'Invalid username or password';
+            $this->form_validation->set_message('login_validation', 'Username or Password incorrect');
+            return false;
         }
+
 		// Success
         return true;
 	}

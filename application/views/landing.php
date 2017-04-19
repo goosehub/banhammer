@@ -38,6 +38,7 @@
                 <strong class="text-primary">Not required to play</strong>
                 <br>
                 <br>
+                <?php echo $validation_errors; ?>
                 <div id="new_user_parent">
                     <form action="<?=base_url()?>new_user" method="post">
                         <input type="hidden" name="ab_test" value="<?php echo $ab_test; ?>"/>

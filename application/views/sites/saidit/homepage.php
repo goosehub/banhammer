@@ -66,7 +66,7 @@
                       <form action="#" class="usertext warn-on-unload">
                          <div class="usertext-body may-blank-within md-container ">
                             <div class="md">
-                               <p><span id="queue_post_content" class="post_content embedica_this">gonna hank all over dem titties</span></p>
+                               <p><span id="queue_post_content" class="post_content embedica_this"><?php echo html_clean($post['content']); ?></span></p>
                             </div>
                          </div>
                       </form>
