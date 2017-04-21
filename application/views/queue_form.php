@@ -1,6 +1,6 @@
 <div class="container text-center">
     <div class="row">
-        <div class="col-md-6 col-md-push-3">
+        <div class="col-md-8 col-md-push-2">
 
             <?php if ($post) { ?>
 
