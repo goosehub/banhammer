@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2017 at 04:18 AM
+-- Generation Time: Apr 21, 2017 at 11:39 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -37,16 +37,6 @@ CREATE TABLE `account` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `account`
---
-
-INSERT INTO `account` (`id`, `user_key`, `site_key`, `pass`, `fail`, `streak`, `total`, `created`) VALUES
-(1, 1, 1, 0, 0, 0, 0, '2017-04-19 04:17:38'),
-(2, 1, 2, 1, 0, 1, 1, '2017-04-19 04:18:11'),
-(3, 1, 3, 0, 0, 0, 0, '2017-04-19 04:17:38'),
-(4, 1, 4, 0, 0, 0, 0, '2017-04-19 04:17:38');
-
 -- --------------------------------------------------------
 
 --
@@ -61,18 +51,6 @@ CREATE TABLE `action` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `action`
---
-
-INSERT INTO `action` (`id`, `slug`, `active`, `sort`, `created`) VALUES
-(1, 'none', 1, 1, '2017-02-23 02:17:34'),
-(2, 'edit', 0, 3, '2017-02-09 05:59:55'),
-(3, 'delete', 1, 5, '2017-02-23 02:17:41'),
-(4, 'temp_ban', 1, 9, '2017-02-23 02:17:43'),
-(5, 'perm_ban', 1, 10, '2017-02-23 02:17:46'),
-(8, 'warning', 1, 2, '2017-02-23 02:17:49');
-
 -- --------------------------------------------------------
 
 --
@@ -86,30 +64,6 @@ CREATE TABLE `enforcement` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `enforcement`
---
-
-INSERT INTO `enforcement` (`id`, `site_key`, `offence_key`, `created`) VALUES
-(1, 2, 1, '2017-04-19 02:51:18'),
-(2, 2, 2, '2017-04-19 02:51:18'),
-(3, 2, 13, '2017-04-19 02:51:19'),
-(4, 2, 14, '2017-04-19 02:51:19'),
-(5, 2, 15, '2017-04-19 02:51:19'),
-(6, 2, 16, '2017-04-19 02:51:19'),
-(7, 2, 20, '2017-04-19 02:51:19'),
-(8, 3, 1, '2017-04-19 02:51:19'),
-(9, 3, 2, '2017-04-19 02:51:19'),
-(10, 3, 7, '2017-04-19 02:51:19'),
-(11, 3, 8, '2017-04-19 02:51:19'),
-(12, 3, 9, '2017-04-19 02:51:19'),
-(13, 4, 1, '2017-04-19 02:51:19'),
-(14, 4, 2, '2017-04-19 02:51:19'),
-(15, 4, 4, '2017-04-19 02:51:19'),
-(16, 3, 24, '2017-04-19 03:31:49'),
-(17, 4, 23, '2017-04-19 03:52:42'),
-(18, 4, 21, '2017-04-19 03:56:04');
-
 -- --------------------------------------------------------
 
 --
@@ -122,33 +76,6 @@ CREATE TABLE `offence` (
   `sort` int(10) UNSIGNED NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `offence`
---
-
-INSERT INTO `offence` (`id`, `slug`, `sort`, `created`) VALUES
-(1, 'none', 0, '2017-02-09 06:00:59'),
-(2, 'spam', 1, '2017-02-09 06:00:59'),
-(3, 'off_topic', 2, '2017-02-22 23:46:39'),
-(4, 'troll', 3, '2017-02-22 23:46:42'),
-(5, 'low_quality', 30, '2017-02-22 23:46:50'),
-(6, 'opinion_based', 30, '2017-02-22 23:46:51'),
-(7, 'hate_speech', 30, '2017-04-19 03:31:57'),
-(8, 'copyright', 30, '2017-04-19 03:32:28'),
-(9, 'fake_news', 30, '2017-02-22 23:46:57'),
-(10, 'pornographic', 35, '2017-03-05 17:05:51'),
-(11, 'political', 10, '2017-02-09 06:00:59'),
-(12, 'raid', 28, '2017-04-19 03:07:08'),
-(13, 'user_underage', 24, '2017-04-19 03:07:27'),
-(14, 'advertising', 21, '2017-02-22 23:47:27'),
-(15, 'furry', 50, '2017-02-22 23:50:13'),
-(16, 'brony', 51, '2017-02-22 23:50:18'),
-(20, 'dubs', 26, '2017-02-22 23:50:53'),
-(21, 'vote_begging', 29, '2017-04-19 03:55:45'),
-(22, 'request', 30, '2017-02-22 23:46:11'),
-(23, 'impersonation', 53, '2017-04-19 03:52:22'),
-(24, 'nudity', 20, '2017-04-19 03:31:28');
 
 -- --------------------------------------------------------
 
@@ -173,21 +100,6 @@ CREATE TABLE `post` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `post`
---
-
-INSERT INTO `post` (`id`, `username`, `ip`, `content`, `image`, `offence_key`, `real_report`, `site_key`, `account_key`, `confidence`, `severity_sum`, `review_tally`, `last_reviewed`, `created`) VALUES
-(1, 'Anonymous', '::1', 'whatever', '', 1, 0, 2, 0, 2, 0, 1, '2017-04-19 00:18:11', '2017-04-19 02:40:26'),
-(2, 'Anonymous', '::1', 'test', '', 1, 0, 3, 0, 2, 0, 1, '2017-04-18 23:06:03', '2017-04-19 02:45:35'),
-(3, 'Anonymous', '::1', 'whatever', '', 1, 0, 4, 0, 1, 0, 0, '2017-04-18 22:45:41', '2017-04-19 02:45:41'),
-(4, 'Anonymous', '::1', 'another post\r\nhttps://www.youtube.com/watch?v=WU7-8C93raI', '', 1, 0, 4, 0, 2, 0, 1, '2017-04-18 23:05:55', '2017-04-19 02:55:24'),
-(5, 'Anonymous', '::1', 'another guess', '', 1, 0, 4, 0, 1, 0, 0, '2017-04-18 22:55:34', '2017-04-19 02:55:34'),
-(6, 'Anonymous', '::1', 'Keep posting', '', 1, 0, 3, 0, 1, 0, 0, '2017-04-18 22:55:54', '2017-04-19 02:55:54'),
-(7, 'Anonymous', '::1', 'moabo number 5\r\n\r\nhttps://www.youtube.com/watch?v=WU7-8C93raI', '', 1, 0, 3, 0, 1, 0, 0, '2017-04-18 22:58:14', '2017-04-19 02:58:14'),
-(8, 'Anonymous', '::1', 'first line\r\n\r\nthird line', '', 1, 0, 3, 0, 2, 0, 1, '2017-04-18 23:06:02', '2017-04-19 02:58:25'),
-(9, 'Anonymous', '::1', 'first line\r\n\r\nthird line', '', 1, 0, 4, 0, 2, 0, 1, '2017-04-18 23:05:58', '2017-04-19 02:58:35');
-
 -- --------------------------------------------------------
 
 --
@@ -205,17 +117,6 @@ CREATE TABLE `review` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `review`
---
-
-INSERT INTO `review` (`id`, `account_key`, `site_key`, `post_key`, `offence_key`, `action_key`, `ip`, `created`) VALUES
-(1, 0, 4, 4, 1, 1, '::1', '2017-04-19 03:05:55'),
-(2, 0, 4, 9, 1, 1, '::1', '2017-04-19 03:05:58'),
-(3, 0, 3, 8, 1, 1, '::1', '2017-04-19 03:06:02'),
-(4, 0, 3, 2, 1, 1, '::1', '2017-04-19 03:06:03'),
-(5, 2, 2, 1, 1, 1, '::1', '2017-04-19 04:18:11');
-
 -- --------------------------------------------------------
 
 --
@@ -232,16 +133,6 @@ CREATE TABLE `site` (
   `sort` int(10) UNSIGNED NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `site`
---
-
-INSERT INTO `site` (`id`, `slug`, `name`, `active`, `accuracy_minimum`, `anonymous_flag`, `sort`, `created`) VALUES
-(1, 'default', 'Default', 0, 0, 1, 0, '2017-02-09 05:44:49'),
-(2, '4shame', '4shame', 1, 0, 1, 0, '2017-02-09 05:44:49'),
-(3, 'myface', 'MyFace', 1, 0, 0, 0, '2017-02-09 05:45:20'),
-(4, 'saidit', 'Saidit', 1, 0, 0, 0, '2017-02-09 07:33:46');
 
 -- --------------------------------------------------------
 
@@ -261,13 +152,6 @@ CREATE TABLE `user` (
   `password` varchar(1000) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `username`, `ab_test`, `image`, `ip`, `email`, `facebook_id`, `last_login`, `password`, `created`) VALUES
-(1, 'goose', 'hide_subheader', '', '::1', 'placeholder@gmail.com', '0', '2017-04-19 00:18:05', '$2y$10$LMR7uY.pMC0JwJ5STWRVEe8lJMWoNiZ2HnBw0CKoMskIiuIXmYp6W', '2017-04-19 04:17:38');
 
 --
 -- Indexes for dumped tables
@@ -339,7 +223,7 @@ ALTER TABLE `action`
 -- AUTO_INCREMENT for table `enforcement`
 --
 ALTER TABLE `enforcement`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `offence`
 --
@@ -354,7 +238,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `site`
 --
