@@ -114,6 +114,8 @@
 
     <hr>
 
+    <?php $show_news = false; ?>
+    <?php if ($show_news) { ?>
     <div class="row">
         <div class="update_news_parent col-md-6 col-md-push-3">
             <h3>Updates</h3>
@@ -133,6 +135,7 @@
             </div>
         </div>
     </div>
+    <?php } ?>
 
     <div class="row">
         <div class="col-md-6 col-md-push-3 text-center">
