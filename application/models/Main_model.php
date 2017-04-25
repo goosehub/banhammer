@@ -31,17 +31,6 @@ Class main_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function get_overall_leaderboard($limit)
-    {
-        $this->db->select('`user`.username, `account`.*, SUM(pass) as pass, SUM(fail) as fail, MAX(streak) as streak, SUM(total) as total, (100 - (100 / ( (pass + fail) / fail) ) ) as accuracy');
-        $this->db->from('user');
-        $this->db->join('account', 'user.id = account.user_key', 'left');
-        $this->db->where('total >= ', $limit);
-        $this->db->group_by('user_key');
-        $query = $this->db->get();
-        $result = $query->result_array();
-        return $result;
-    }
     function get_leaderboard_for_site($site_key, $limit)
     {
         $this->db->select('account.*, user.username, (100 - (100 / ( (pass + fail) / fail) ) ) as accuracy');

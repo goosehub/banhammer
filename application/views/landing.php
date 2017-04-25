@@ -86,6 +86,7 @@
                         <tr class="success">
                             <th>Rank</th>
                             <th>Username</th>
+                            <th>Site</th>
                             <th>Accuracy</th>
                             <th>Pass</th>
                             <th>Fail</th>
@@ -98,6 +99,7 @@
                         <tr>
                             <td><?php echo $rank; ?></td>
                             <td><?php echo $account['username']; ?></td>
+                            <td><?php echo $account['site']; ?></td>
                             <td class="text-primary"><strong><?php echo $account['accuracy']; ?>%</strong></td>
                             <td class="text-success"><?php echo $account['pass']; ?></td>
                             <td class="text-danger"><?php echo $account['fail']; ?></td>

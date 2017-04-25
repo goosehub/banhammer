@@ -30,7 +30,7 @@ class Main extends CI_Controller {
         $this->data['suggest_account_at'] = 30;
         $this->data['leaderboard_minimum'] = 30;
         if (is_dev()) {
-            $this->data['leaderboard_minimum'] = 10;
+            $this->data['leaderboard_minimum'] = 3;
         }
     }
 
@@ -38,7 +38,18 @@ class Main extends CI_Controller {
     {
         $data = $this->data;
         $data['page_title'] = site_name();
-        $data['leaderboard'] = $this->main_model->get_overall_leaderboard($data['leaderboard_minimum']);
+        $sites = $this->main_model->get_all_sites();
+
+        // Main leaderboard
+        $data['leaderboards_raw'] = array();
+        $data['leaderboard'] = array();
+        foreach ($sites as $site) {
+            $data['this_leaderboard'] = $this->main_model->get_leaderboard_for_site($site['id'], $data['leaderboard_minimum']);
+            foreach ($data['this_leaderboard'] as &$leader) {
+                $leader['site'] = $site['name'];
+            }
+            $data['leaderboard'] = array_merge($data['leaderboard'], $data['this_leaderboard']);
+        }        
         $data['leaderboard'] = $this->sort_leaderboard_main($data['leaderboard']);
         $data['validation_errors'] = $this->session->flashdata('validation_errors');
 
