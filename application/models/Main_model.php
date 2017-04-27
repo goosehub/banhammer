@@ -83,13 +83,6 @@ Class main_model extends CI_Model
         SELECT `post`.id, `post`.username, `post`.content, `post`.created
         FROM `post`
         WHERE `post`.`site_key` = " . $site_key . "
-        AND NOT EXISTS (
-            SELECT *
-            FROM `review`
-            WHERE `post_key` = `post`.`id`
-            AND `ip` = '" . $ip . "'
-            AND `review`.`created` > timestampadd(hour, -" . $hours_between_reviews . ", now())
-        )
         ORDER BY RAND()
         LIMIT 1;
         ";
