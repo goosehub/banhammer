@@ -160,7 +160,7 @@ class Main extends CI_Controller {
 
         // Check if this was recently reviewed (most likely to be frequent malicious target)
         $ip = $_SERVER['REMOTE_ADDR'];
-        $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $ip, $this->data['hours_between_reviews']);
+/*        $recently_reveiwed = $this->main_model->recent_reviews_for_post($user_input['post_key'], $ip, $this->data['hours_between_reviews']);
 
         if (!empty($recently_reveiwed)) {
             if (is_dev()) {
@@ -169,7 +169,7 @@ class Main extends CI_Controller {
             }
             redirect(base_url() . 'site/' . $slug . '/queue', 'refresh');
             return false;
-        }
+        }*/
 
         // Check that action was appropriate
         $action_percentage = $this->main_model->percent_of_reviews_with_action_by_post_key($user_input['post_key'], $user_input['action_key']);
