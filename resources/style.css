@@ -108,6 +108,11 @@ body {
     color: #666;
 }
 
+/* Content */
+body .embedica_element {
+    max-height: 66vh;
+}
+
 /* Orange Action Bootstrap-Styled Button */
 .btn-action {   
     background-color: hsl(44, 100%, 56%) !important; 

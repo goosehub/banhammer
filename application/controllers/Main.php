@@ -28,7 +28,7 @@ class Main extends CI_Controller {
         $this->data['login_reminder_point'] = 30;
         $this->data['hours_between_reviews'] = 24;
         $this->data['suggest_account_at'] = 30;
-        $this->data['leaderboard_minimum'] = 30;
+        $this->data['leaderboard_minimum'] = 40;
         if (is_dev()) {
             $this->data['leaderboard_minimum'] = 3;
         }

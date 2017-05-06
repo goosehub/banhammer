@@ -5,6 +5,7 @@
 INSERT INTO `enforcement` (`id`, `site_key`, `offence_key`, `created`) VALUES (NULL, '2', '1', CURRENT_TIMESTAMP);
 
 High Priority
+    www route
     sites
     location for myface
 
